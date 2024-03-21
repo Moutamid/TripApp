@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".activities.Explore.ExploreActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="#4472C4">
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="24dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:onClick="BackPress"
+            android:src="@drawable/back_arrow"
+            app:tint="@color/white" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="22dp"
+            android:layout_toRightOf="@+id/icon"
+            android:fontFamily="@font/poppins_bold"
+            android:paddingTop="4dp"
+            android:text="Beaches in the East"
+            android:textColor="@color/white"
+            android:textSize="18dp" />
+
+        <ImageView
+            android:id="@+id/menu"
+            android:layout_width="24dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginEnd="20dp"
+            android:onClick="menu"
+            android:src="@drawable/menu"
+            app:tint="@color/white" />
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:layout_toRightOf="@+id/icon"
+            android:fontFamily="@font/playfair_display_regular"
+            android:text="East"
+            android:textColor="#75706b"
+            android:textSize="29dp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_marginLeft="22dp"
+            android:layout_marginRight="22dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/belle_mare_1" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="22dp"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Which coastal area is ideal for a beach vacation?"
+            android:textColor="#75706b"
+            android:textSize="12dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginRight="22dp"
+
+            android:fontFamily="@font/poppins_regular"
+            android:justificationMode="inter_word"
+            android:text="Mauritius is surrounded by the warm, turquoise waters of the Indian Ocean, and is home to a variety of beaches that cater to different tastes.
+\nBelow is a guide to the beaches in Mauritius on each coastline to help you choose where to stay.
+"
+            android:textAlignment="inherit"
+            android:textColor="#75706b"
+            android:textIsSelectable="true"
+            android:textSize="12dp" />
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

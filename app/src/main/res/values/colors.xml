@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="bluefb">#3C5C9C</color>
+    <color name="bluefb2">#5c79ff</color>
+    <color name="bluebg">#8b9dc3</color>
+    <color name="background">#F9F9F9</color>
+    <color name="editBoxBG">#F5F5F5</color>
+    <color name="editBoxFG">#999</color>
+    <color name="grey">#C8C6C6</color>
+    <color name="transparent">#00FFFFFF</color>
+</resources>

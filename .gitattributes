@@ -1,0 +1,1 @@
+app/release/MyTrips-1.0-release.apk filter=lfs diff=lfs merge=lfs -text

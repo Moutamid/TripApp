@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bluefb"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="230dp"
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:fontFamily="@font/poppins_regular"
+        android:textColor="#0AEBEBEB"
+        android:textSize="140sp"
+        android:text="Menu" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="65dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp"
+        android:background="@color/transparent"
+        android:fontFamily="@font/poppins_light"
+        android:text="Explore"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="35sp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/btn1"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp"
+        android:background="@color/transparent"
+        android:fontFamily="@font/poppins_light"
+        android:text="My Trip"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="35sp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn3"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/btn2"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp"
+        android:background="@color/transparent"
+        android:fontFamily="@font/poppins_light"
+        android:text="Itineraries"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="35sp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn4"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/btn3"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp"
+        android:background="@color/transparent"
+        android:fontFamily="@font/poppins_light"
+        android:text="Trip Tips"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="35sp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn5"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/btn4"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp"
+        android:background="@color/transparent"
+        android:fontFamily="@font/poppins_light"
+        android:text="Eat"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="35sp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn6"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/btn5"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp"
+        android:background="@color/transparent"
+        android:fontFamily="@font/poppins_light"
+        android:text="Stay"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="35sp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn7"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/btn6"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp"
+        android:background="@color/transparent"
+        android:fontFamily="@font/poppins_light"
+        android:text="Activities"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="35sp" />
+
+    <View
+    android:id="@+id/view"
+    android:layout_width="320dp"
+    android:layout_height="1dp"
+    android:layout_below="@+id/btn7"
+    android:layout_centerHorizontal="true"
+    android:layout_marginBottom="20dp"
+    android:background="#8b9dc3" />
+
+    <TextView
+        android:id="@+id/contactUs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view"
+        android:text="Contact Us"
+        android:textColor="#AA977E"
+        android:textSize="24sp"
+        android:layout_marginBottom="20dp"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/contactUs"
+        android:layout_marginBottom="20dp"
+        android:text="Tutorial"
+        android:textColor="#AA977E"
+        android:textSize="24sp"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/appInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView15"
+        android:text="App Info"
+        android:textColor="#AA977E"
+        android:textSize="24sp"
+        android:layout_centerHorizontal="true" />
+
+
+</RelativeLayout>

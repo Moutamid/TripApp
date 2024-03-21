@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.DetailsActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/black">
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:onClick="BackPress"
+            android:src="@drawable/baseline_arrow_back_ios_24"
+            app:tint="@color/white" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="6dp"
+            android:layout_toRightOf="@+id/icon"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Trips"
+            android:textColor="@color/white"
+            android:textSize="18dp" />
+        <ImageView
+            android:id="@+id/menu"
+            android:layout_width="24dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_alignParentRight="true"
+            android:onClick="menu"
+            android:src="@drawable/menu"
+            app:tint="@color/white" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/details1" />
+
+    <ImageView
+        android:id="@+id/add"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:scaleType="fitXY"
+        android:visibility="gone"
+        android:src="@drawable/add" />
+
+    <ImageView
+        android:id="@+id/delete"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:scaleType="fitXY"
+        android:visibility="gone"
+
+        android:src="@drawable/minus" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/text"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/poppins_light"
+            android:lineSpacingExtra="1dp"
+            android:text="Beavers Bend State Park is located in the mountainous region of southeast Oklahoma along the shores of Broken Bow Lake and the Mountain Fork River. Guests traveling down the winding roads through the forests of pine and hardwood trees will find adventure, beautiful scenery and plenty of activities inside this state park. The scenic beauty of Beavers Bend State Park makes it one of Oklahoma's most popular areas.
+\nTowering timbers, crystal clear waters and rugged terrain make this state park an outdoor lover's paradise. Visitors to Beavers Bend State Park will enjoy hiking, biking, boating, fishing, water skiing, nature center activities, river float trips, canoeing, horseback riding and much more. Trout streams are stocked year-round and the park features two catch-and-release trophy areas. Escape into the serenity of nature and follow the Mountain Fork River as it flows from the base of Broken Bow Lake through the park below. This area provides visitors with spectacular views, as well as excellent canoeing and fishing opportunities.
+
+\nNestled among the trees and alongside the Mountain Fork River are rustic and modern cabins, RV sites and tent campsites, as well as two group camps. Two yurts named  and Bear Tracks are also available for overnight lodging. These round, tent-like structures are located right near the Mountain Fork River. This 3,482-acre park offers 47 cabins with kitchenettes, plus 393 campsites and over 50 tent sites spread over eight camping areas. All RV and tent sites are available for online reservations. Waste dump stations are available. Leashed pets are welcome in the park and there are cabins with one and two bedrooms that allow pets for a small nightly fee.
+\nBeavers Bend State Park also offers the Beavers Bend Lodge, situated along the shores of Broken Bow Lake. Every room within the lodge features amazing views of the water. The lodge offers four suites, a great room with a stone fireplace and a conference room. Guests at the lodge are served free continental breakfast in the great room each morning. The lodge can be contacted at the phone number above, by calling toll-free at 800-435-5514, via fax at 580-494-6177 or through email at lview@travelok.com.
+\nPlay a round of golf at the 18-hole Cedar Creek Golf Course, explore nature from the 26-mile David Boren hiking trail or enjoy water recreation along 180 miles of pine-studded shoreline and 14,220 surface acres of lake. Broken Bow Lake offers plenty of coves and clear water perfect for fishing, boating and scuba diving. The golf course can be contacted at the number above.
+\nOther activities available include tennis, volleyball and mini-golf. Picnic areas are also scattered throughout the area. An amphitheater, gift shop, grocery, restaurant and the Forest Heritage Center can also be found within Beavers Bend State Park."
+            android:textColor="#75706b"
+
+            android:textSize="12dp" />
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</LinearLayout>
