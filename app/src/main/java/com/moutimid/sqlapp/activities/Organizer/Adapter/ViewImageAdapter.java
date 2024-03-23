@@ -14,7 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.fxn.stash.Stash;
 import com.moutimid.sqlapp.R;
 import com.moutimid.sqlapp.activities.Organizer.ImageViewrActivity;
 import com.moutimid.sqlapp.activities.Organizer.Model.ImageData;
@@ -57,10 +56,11 @@ public class ViewImageAdapter extends RecyclerView.Adapter<ViewImageAdapter.Imag
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                ImageData imageData = imageList.get(position);
-//                Intent intent = new Intent(context, ImageViewrActivity.class);
-//                Stash.put("image", imageData);
-//                context.startActivity(intent);
+
+                ImageData imageData = imageList.get(position);
+                Intent intent = new Intent(context, ImageViewrActivity.class);
+                intent.putExtra("imageUri", imageData.getImageUri().toString()); // Put the Uri as a string
+                context.startActivity(intent);
             }
         });
     }

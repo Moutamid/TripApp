@@ -5,9 +5,9 @@ pluginManagement {
         gradlePluginPortal()
         jcenter()
         maven { url = uri("https://jitpack.io") }
+
     }
 }
-
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -15,8 +15,10 @@ dependencyResolutionManagement {
         mavenCentral()
         jcenter()
         maven { url = uri("https://jitpack.io") }
+
     }
 }
 
+include (":app")
+include (":pdfViewer")
 rootProject.name = "My Trips"
-include(":app")

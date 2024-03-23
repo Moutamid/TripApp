@@ -22,6 +22,7 @@ import com.moutimid.sqlapp.R;
 import com.moutimid.sqlapp.activities.Organizer.Model.FileData;
 import com.moutimid.sqlapp.activities.Organizer.PdfViewerActivity;
 import com.moutimid.sqlapp.activities.Organizer.SendActivity;
+import com.moutimid.sqlapp.activities.Organizer.helper.Constants;
 
 import java.io.File;
 import java.net.URI;
@@ -47,35 +48,13 @@ Context context;
     @Override
     public void onBindViewHolder(@NonNull FileViewHolder holder, int position) {
         FileData fileData = fileList.get(position);
-//        holder.imageView.setImageResource(R.drawable.file);
-//        if(fileData.getFileName().contains("pdf"))
-//        {
-//            holder.imageView.setImageResource(R.drawable.pdf);
-//        }
-//        if(fileData.getFileName().contains("doc"))
-//        {
-//            holder.imageView.setImageResource(R.drawable.doc);
-//        }
-//        try {      String pathFromUri = getPathFromUri(fileData.getFileUri());
-//            File file = new File(pathFromUri);
-//            String realPath = file.getAbsolutePath();
-//            Log.d("path", fileData.getFileUri() + " after save"+ file.getAbsoluteFile());
-//
-//        } catch (Exception e) {
-//            Log.d("testtt", e.getMessage());
-//
-//        }
-        Log.d("filepath",fileData.getFileUri()+" file");
-
-
-//        Bitmap bitmap = generateImageFromPdf((fileData.getFileUri()));
         holder.imageView.setImageBitmap(fileData.getBitmap());
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 Intent intent=new Intent(context, PdfViewerActivity.class);
-                Stash.put("fileModel", fileData);
+                Stash.put(Constants.PATH, fileData.getFileUri());
                 context.startActivity(intent);
             }
         });

@@ -2,6 +2,9 @@
 
 plugins {
     id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -29,10 +32,20 @@ android {
             )
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+//    compileOptions {
+//        sourceCompatibility = JavaVersion.VERSION_1_8
+//        targetCompatibility = JavaVersion.VERSION_1_8
+//    }
+    buildFeatures {
+        viewBinding = true
+        compose = true
     }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+
     packaging {
         resources {
             excludes += listOf("META-INF/NOTICE.md", "META-INF/LICENSE.md")
@@ -52,6 +65,8 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("com.sun.mail:android-mail:1.6.6")
     implementation("com.sun.mail:android-activation:1.6.6")
-    implementation("com.github.barteksc:android-pdf-viewer:2.8.0")
+    implementation(project(":pdfViewer"))
+    implementation("com.github.barteksc:android-pdf-viewer:2.8.2")
+    implementation("io.github.chochanaresh:filepicker:0.1.9")
 
 }

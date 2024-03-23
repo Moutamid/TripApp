@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +22,14 @@ public class ImageViewrActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_viewr);
         image = findViewById(R.id.image);
-        ImageData image1 = (ImageData) Stash.getObject("image", ImageData.class);
+        Uri imageUri = Uri.parse(getIntent().getStringExtra("imageUri"));
+
+        // Load the image into the ImageView using Glide or any other library
+        Glide.with(this)
+                .load(imageUri)
+                .into(image);  }
+
+    public void back(View view) {
+        onBackPressed();
     }
-    }
+}
