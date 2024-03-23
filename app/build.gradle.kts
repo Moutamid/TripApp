@@ -65,8 +65,6 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("com.sun.mail:android-mail:1.6.6")
     implementation("com.sun.mail:android-activation:1.6.6")
-    implementation(project(":pdfViewer"))
     implementation("com.github.barteksc:android-pdf-viewer:2.8.2")
     implementation("io.github.chochanaresh:filepicker:0.1.9")
-
 }
