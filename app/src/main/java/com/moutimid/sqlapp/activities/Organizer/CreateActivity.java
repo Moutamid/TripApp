@@ -298,11 +298,34 @@ public class CreateActivity extends AppCompatActivity {
     }
 
     public void openGallery(View view) {
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        intent.setType("image/*");
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-        startActivityForResult(Intent.createChooser(intent, "Select Images"), PICK_IMAGES_REQUEST);
-    }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (above13Check()) {
+                shouldShowRequestPermissionRationale(android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                shouldShowRequestPermissionRationale(android.Manifest.permission.READ_EXTERNAL_STORAGE);
+                shouldShowRequestPermissionRationale(Manifest.permission.READ_MEDIA_IMAGES);
+                shouldShowRequestPermissionRationale(Manifest.permission.READ_MEDIA_VIDEO);
+                ActivityCompat.requestPermissions(CreateActivity.this, permissions13, 2);
+            } else {
+                gallery();
+            }
+        } else {
+            if (below13Check()) {
+                shouldShowRequestPermissionRationale(android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                shouldShowRequestPermissionRationale(android.Manifest.permission.READ_EXTERNAL_STORAGE);
+                ActivityCompat.requestPermissions(CreateActivity.this, permissions, 2);
+            } else {
+                gallery();
+            }
+        }
+       }
+
+       public void gallery()
+       {
+           Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+           intent.setType("image/*");
+           startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGES_REQUEST);
+
+       }
 
     public void openFileManager(View view) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -333,9 +356,17 @@ public class CreateActivity extends AppCompatActivity {
         if (requestCode == PICK_IMAGES_REQUEST && resultCode == RESULT_OK) {
             upload_layout.setVisibility(View.GONE);
             if (data != null) {
-                Uri selectedImageUri = data.getData();
                     Uri imageUri = data.getData();
-                    String imageName = getImageName(imageUri);
+                String imageName;
+                    if(getImageName(imageUri)!=null)
+                    {
+                        imageName = getImageName(imageUri);
+
+                    }
+                    else
+                    {
+                        imageName= "image.jpg";
+                    }
                     long imageSize = getImageSize(imageUri);
                     selectedImages.add(new ImageData(imageUri, imageName, imageSize));
                 }

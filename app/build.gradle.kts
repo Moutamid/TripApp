@@ -2,9 +2,10 @@
 
 plugins {
     id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
-    id("kotlin-parcelize")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
+
+
 }
 
 android {
@@ -12,7 +13,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.moutimid.sqlapp"
+        applicationId = "com.moutamid.sqlapp"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -32,25 +33,26 @@ android {
             )
         }
     }
-//    compileOptions {
-//        sourceCompatibility = JavaVersion.VERSION_1_8
-//        targetCompatibility = JavaVersion.VERSION_1_8
-//    }
-    buildFeatures {
-        viewBinding = true
-        compose = true
-    }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+//    buildFeatures {
+//        viewBinding = true
+//        compose = true
+////    }
+//    compileOptions {
+//        sourceCompatibility = JavaVersion.VERSION_18
+//        targetCompatibility = JavaVersion.VERSION_18
+//    }
+    packagingOptions {
+        exclude("META-INF/NOTICE.md")
+        exclude("META-INF/NOTICE")
+        exclude("META-INF/LICENSE.md")
+        exclude("META-INF/LICENSE")
     }
 
 
-    packaging {
-        resources {
-            excludes += listOf("META-INF/NOTICE.md", "META-INF/LICENSE.md")
-        }
-    }
 }
 
 dependencies {
@@ -67,4 +69,8 @@ dependencies {
     implementation("com.sun.mail:android-activation:1.6.6")
     implementation("com.github.barteksc:android-pdf-viewer:2.8.2")
     implementation("io.github.chochanaresh:filepicker:0.1.9")
+    implementation(platform("com.google.firebase:firebase-bom:32.2.3"))
+    implementation("com.google.firebase:firebase-crashlytics")
+    implementation("com.google.firebase:firebase-analytics")
+
 }

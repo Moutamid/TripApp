@@ -5,28 +5,31 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-
-    <uses-permission android:name="com.company.contentprovider.READ_DATABASE"/>
-    <uses-permission android:name="com.company.contentprovider.WRITE_DATABASE"/>
-
+    <uses-permission android:name="com.company.contentprovider.READ_DATABASE" />
+    <uses-permission android:name="com.company.contentprovider.WRITE_DATABASE" />
     <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <application
         android:name=".helper.MyApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:requestLegacyExternalStorage="true"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SQLApp"
-        >
+        android:theme="@style/Theme.SQLApp">
+        <activity
+            android:name=".activities.Calender.CalenderActivity"
+            android:exported="true" >
+
+        </activity>
         <activity
             android:name=".activities.Organizer.EditOrganizerDetailsActivity"
             android:exported="true" />
@@ -47,8 +50,8 @@
             android:exported="true" />
         <activity
             android:name=".activities.Organizer.MyDocsActivity"
-            android:theme="@style/BottomNavigation"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/BottomNavigation" />
         <activity
             android:name=".activities.Organizer.OrganizerActivity"
             android:exported="true" />
