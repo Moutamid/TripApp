@@ -4,6 +4,9 @@ plugins {
     id("com.android.application")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
+    id("kotlin-android")
+//    id("com.android.library")
+
 
 
 }
@@ -34,9 +37,14 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+
     }
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+
 //    buildFeatures {
 //        viewBinding = true
 //        compose = true
@@ -72,5 +80,6 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:32.2.3"))
     implementation("com.google.firebase:firebase-crashlytics")
     implementation("com.google.firebase:firebase-analytics")
+    implementation(project(":calender"))
 
 }

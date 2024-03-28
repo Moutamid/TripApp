@@ -5,7 +5,9 @@ pluginManagement {
         gradlePluginPortal()
         jcenter()
         maven { url = uri("https://jitpack.io") }
-
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
 }
 dependencyResolutionManagement {
@@ -15,9 +17,12 @@ dependencyResolutionManagement {
         mavenCentral()
         jcenter()
         maven { url = uri("https://jitpack.io") }
-
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
 }
 
 include (":app")
 rootProject.name = "My Trips"
+include (":calender")

@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:openDrawer="end">
+
+    <RelativeLayout
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+
+        >
+        <RelativeLayout
+            android:id="@+id/title_bar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="40dp"
+            android:background="#4472C4">
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:onClick="BackPress"
+                android:src="@drawable/back_arrow" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="22dp"
+                android:fontFamily="@font/productsans_bold"
+                android:gravity="center"
+                android:paddingTop="4dp"
+                android:text="Create"
+                android:textColor="#fff"
+                android:textSize="18dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/tab_layout"
+            android:layout_marginTop="90dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+                android:gravity="center">
+
+    <TextView
+        android:id="@+id/day"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="Day"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/week"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="Week"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/month"
+
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="Month"
+        android:textColor="#000" />
+</LinearLayout>
+ <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+                android:gravity="center">
+
+    <TextView
+        android:id="@+id/day_pressed"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="Day"
+        android:background="@drawable/icbg"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/week_pressed"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="Week"
+        android:visibility="invisible"
+        android:background="@drawable/icbg"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/month_pressed"
+        android:background="@drawable/icbg"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="Month"
+        android:visibility="invisible"
+        android:textColor="#000" />
+</LinearLayout>
+
+        </RelativeLayout>
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/navigation_view"
+            android:layout_width="260dp"
+            android:layout_height="56dp"
+            android:layout_below="@+id/title_bar"
+         android:visibility="gone"   android:layout_centerHorizontal="true"
+            app:itemBackground="@drawable/icon_selector"
+            app:itemTextAppearanceActive="@style/BottomNavigationTextStyle"
+            app:itemTextAppearanceInactive="@style/BottomNavigationTextStyle"
+            app:menu="@menu/nav_item" />
+
+        <TextView
+            android:id="@+id/calender_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tab_layout"
+            android:layout_marginLeft="28sp"
+            android:layout_marginTop="20dp"
+            android:text="Wednesday, 24"
+            android:textSize="14dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@id/calender_date"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:id="@+id/start_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8sp"
+                android:layout_marginTop="12dp"
+                android:text="GMT-06"
+
+                android:textColor="#616161"
+                android:textSize="12dp" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="17dp"
+                android:layout_toRightOf="@id/start_text"
+                android:background="#EFEFEF" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_below="@id/start_text"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="3dp"
+                android:layout_toRightOf="@id/start_text"
+                android:background="#EFEFEF" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/view1" />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout"
+        android:layout_width="match_parent"
+        android:background="@android:color/white"
+        android:layout_marginTop="6dp"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/topbar"
+        tools:context=".MainActivity">
+
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:expanded="false"
+            app:elevation="0dp"
+            android:background="@android:color/white"
+            tools:targetApi="lollipop">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsingToolbarLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap|enterAlways"
+                app:statusBarScrim="?attr/colorPrimaryDark">
+                <com.moutamid.calenderapp.GooglecalenderView
+                    android:id="@+id/calander"
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp"
+                    android:orientation="vertical"
+                    android:layout_marginTop="?attr/actionBarSize"
+                    >
+
+                </com.moutamid.calenderapp.GooglecalenderView>
+
+                <!--top toolbar-->
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:visibility="gone"
+                    android:layout_height="wrap_content"
+                    app:title="fkdl"
+                    app:contentInsetLeft="0dp"
+                    app:contentInsetStart="0dp"
+                    app:titleTextColor="@color/colorPrimaryDark"
+                    android:background="#fff"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/AppTheme.PopupOverlay">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:clickable="true"
+                        android:visibility="gone"
+                        android:focusable="true">
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="10dp"
+                            android:id="@+id/backsupport"
+                            android:background="?attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:layout_marginBottom="10dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:gravity="center"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/monthname"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/googlesans_regular"
+                                android:text="June"
+                                android:textColor="#464646"
+                                android:textSize="20sp" />
+                            <ImageView
+                                android:id="@+id/arrowImageView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_arrow_drop_up_black_24dp"
+                                tools:ignore="ContentDescription,RtlHardcoded" />
+
+                        </LinearLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.appcompat.widget.Toolbar>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <com.moutamid.calenderapp.MyRecyclerView
+            android:id="@+id/nestedView"
+            android:layout_width="match_parent"
+            android:overScrollMode="never"
+
+            android:visibility="gone"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+        <androidx.viewpager.widget.ViewPager
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:id="@+id/monthviewpager"
+            />
+        <androidx.viewpager.widget.ViewPager
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:id="@+id/yearviewpager"
+            />
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:id="@+id/weekViewcontainer"
+            android:fillViewport="true"
+            android:visibility="visible"
+            android:nestedScrollingEnabled="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.moutamid.calenderapp.weekview.WeekView
+                    android:id="@+id/weekView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:eventTextColor="@android:color/white"
+                    app:textSize="12sp"
+                    app:eventTextSize="12sp"
+                    android:layout_marginTop="-50dp"
+                    app:allDayEventHeight="20dp"
+                    app:hourHeight="30dp"
+                    android:layout_marginBottom="50dp"
+                    app:showNowLine="true"
+                    app:nowLineColor="#000"
+                    app:eventCornerRadius="3dp"
+                    android:background="@android:color/white"
+                    app:headerColumnPadding="16dp"
+                    app:headerColumnTextColor="#606368"
+                    app:headerRowPadding="9dp"
+                    app:columnGap="0dp"
+                    app:firstDayOfWeek="sunday"
+                    app:noOfVisibleDays="1"
+                    app:headerRowBackgroundColor="@android:color/white"
+                    app:hourSeparatorHeight="1.3dp"
+                    app:hourSeparatorColor="#EDEDED"
+                    app:dayBackgroundColor="@android:color/white"
+                    app:headerColumnBackground="#000"
+                    app:overlappingEventGap="2dp"
+                    app:todayHeaderTextColor="#ff1a73e8" />
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/redlay"
+            android:clickable="true"
+            android:focusable="true"
+            android:translationZ="@dimen/tendp"
+            android:background="@android:color/white"
+            >
+
+            <ImageButton
+                android:id="@+id/closebtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:visibility="gone"
+                android:layout_marginTop="45dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_close_black_24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/roundrect"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:background="@drawable/rround"
+                app:layout_constraintBottom_toBottomOf="@+id/textView12"
+                app:layout_constraintTop_toTopOf="@+id/textView12"
+                app:layout_constraintEnd_toEndOf="@+id/closebtn"
+                app:layout_constraintStart_toStartOf="@+id/closebtn"
+                />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:paddingLeft="64dp"
+                android:fontFamily="@font/googlesans_regular"
+                android:text="Bhai Duj"
+                android:textColor="#000"
+                android:paddingRight="24dp"
+                android:textSize="23sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/closebtn"  />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/googlesans_regular"
+                android:paddingRight="8dp"
+                android:text=""
+                android:textColor="#000"
+                android:textSize="16sp"
+                android:paddingLeft="64dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:src="@drawable/calendar_badged_icon"
+                app:layout_constraintEnd_toEndOf="@+id/closebtn"
+                app:layout_constraintStart_toStartOf="@+id/closebtn"
+                app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+            <TextView
+                android:id="@+id/textView014"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/googlesans_regular"
+                android:paddingLeft="64dp"
+                android:text="Events"
+                android:textColor="#000"
+                android:textSize="15.5sp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView13"
+                />
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/googlesans_regular"
+                android:paddingLeft="64dp"
+                android:text="Holidays in India"
+                android:textColor="#787878"
+                android:textSize="13.6sp"
+                android:layout_marginTop="4dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView014" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp">
+
+        <ImageView
+            android:id="@+id/backword_arrow"
+
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/current_date"
+            android:rotation="180"
+            android:src="@drawable/arrow" />
+
+        <TextView
+            android:id="@+id/current_date"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/latoregular"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="Thursday 25"
+            android:textColor="#000"
+            android:textSize="16dp" />
+
+        <ImageView
+            android:id="@+id/forward_arrow"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/current_date"
+            android:src="@drawable/arrow" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
