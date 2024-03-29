@@ -132,7 +132,6 @@ public class MainActivity extends AppCompatActivity
     private HashMap<LocalDate, Integer> indextrack;
     private ImageButton closebtn;
     private HashMap<LocalDate, Integer> dupindextrack;
-    private String[] var = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday",};
 
     public static TextView calender_date;
     private static List<EventInfo> eventList;
@@ -346,8 +345,6 @@ public class MainActivity extends AppCompatActivity
                 // Make "day_pressed" visible and "day" invisible
                 dayPressedTextView.setVisibility(View.VISIBLE);
                 dayTextView.setVisibility(View.INVISIBLE);
-
-                // Make other pressed views invisible and corresponding normal views visible
                 weekPressedTextView.setVisibility(View.INVISIBLE);
                 weekTextView.setVisibility(View.VISIBLE);
                 monthPressedTextView.setVisibility(View.INVISIBLE);
@@ -366,80 +363,6 @@ public class MainActivity extends AppCompatActivity
                 mWeekView.goToDate(todaydate);
                 mArrowImageView.setVisibility(View.VISIBLE);
             }
-        });
-
-        navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Log.e("itemselect", "itemselect" + MainActivity.lastdate);
-                if (item.getItemId() == R.id.Day) {
-                    weekviewcontainer.setVisibility(View.VISIBLE);
-                    monthviewpager.setVisibility(View.GONE);
-                    mNestedView.setVisibility(View.GONE);
-                    mWeekView.setNumberOfVisibleDays(1);
-                    mWeekView.setTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics()));
-                    mWeekView.setEventTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics()));
-                    mWeekView.setAllDayEventHeight((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 26, getResources().getDisplayMetrics()));
-                    Calendar todaydate = Calendar.getInstance();
-                    todaydate.set(Calendar.DAY_OF_MONTH, MainActivity.lastdate.getDayOfMonth());
-                    todaydate.set(Calendar.MONTH, MainActivity.lastdate.getMonthOfYear() - 1);
-                    todaydate.set(Calendar.YEAR, MainActivity.lastdate.getYear());
-                    mWeekView.goToDate(todaydate);
-                    CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) mAppBar.getLayoutParams();
-                    ((MyAppBarBehavior) layoutParams.getBehavior()).setScrollBehavior(true);
-                    mAppBar.setElevation(0);
-                    mArrowImageView.setVisibility(View.VISIBLE);
-                } else if (item.getItemId() == R.id.Week) {
-                    weekviewcontainer.setVisibility(View.VISIBLE);
-                    monthviewpager.setVisibility(View.GONE);
-                    mNestedView.setVisibility(View.GONE);
-                    mWeekView.setNumberOfVisibleDays(7);
-                    mWeekView.setTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics()));
-                    mWeekView.setEventTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics()));
-                    mWeekView.setAllDayEventHeight((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, getResources().getDisplayMetrics()));
-                    Calendar todaydate = Calendar.getInstance();
-                    todaydate.set(Calendar.DAY_OF_MONTH, MainActivity.lastdate.getDayOfMonth());
-                    todaydate.set(Calendar.MONTH, MainActivity.lastdate.getMonthOfYear() - 1);
-                    todaydate.set(Calendar.YEAR, MainActivity.lastdate.getYear());
-
-                    mWeekView.goToDate(todaydate);
-                    CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) mAppBar.getLayoutParams();
-                    ((MyAppBarBehavior) layoutParams.getBehavior()).setScrollBehavior(true);
-                    mAppBar.setElevation(0);
-                    mArrowImageView.setVisibility(View.VISIBLE);
-                }
-                 else if (item.getItemId() == R.id.monthviewitem) {
-                    mAppBar.setExpanded(false, false);
-                    mNestedView.setVisibility(View.GONE);
-                    weekviewcontainer.setVisibility(View.GONE);
-                    monthviewpager.setVisibility(View.VISIBLE);
-                    CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) mAppBar.getLayoutParams();
-                    ((MyAppBarBehavior) layoutParams.getBehavior()).setScrollBehavior(false);
-                    mAppBar.setElevation(0);
-                    mArrowImageView.setVisibility(View.INVISIBLE);
-                    monthname.setText(MainActivity.lastdate.toString("MMM"));
-                    monthviewpager.setCurrentItem(calendarView.calculateCurrentMonth(MainActivity.lastdate), true);
-
-                } else {
-                    LocalDate localDate = new LocalDate();
-                    String yearstr = MainActivity.lastdate.getYear() == localDate.getYear() ? "" : MainActivity.lastdate.getYear() + "";
-                    monthname.setText(MainActivity.lastdate.toString("MMMM") + " " + yearstr);
-                    calendarView.setCurrentmonth(MainActivity.lastdate);
-                    calendarView.adjustheight();
-                    mIsExpanded = false;
-                    mAppBar.setExpanded(false, false);
-                    EventBus.getDefault().post(new MessageEvent(MainActivity.lastdate));
-                    monthviewpager.setVisibility(View.GONE);
-                    weekviewcontainer.setVisibility(View.GONE);
-                    mNestedView.setVisibility(View.VISIBLE);
-                    CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) mAppBar.getLayoutParams();
-                    ((MyAppBarBehavior) layoutParams.getBehavior()).setScrollBehavior(true);
-                    mAppBar.setElevation(20);
-                    mArrowImageView.setVisibility(View.VISIBLE);
-                    }
-   return true;
-            }
-
         });
 
         eventalllist = new ArrayList<>();
@@ -463,8 +386,6 @@ public class MainActivity extends AppCompatActivity
         holidaytextview = findViewById(R.id.textView14);
         eventfixstextview = findViewById(R.id.textView014);
         calendarView = findViewById(R.id.calander);
-
-
         calendarView.setPadding(0, getStatusBarHeight(), 0, 0);
         mNestedView = findViewById(R.id.nestedView);
         monthviewpager = findViewById(R.id.monthviewpager);
@@ -957,121 +878,6 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    /**
-     * call when Googlecalendarview is open and tap on any date or scroll viewpager available inside GoogleCalendar
-     */
-    @Subscribe
-    public void onEvent(MessageEvent event) {
-
-        int previous = lastchangeindex;
-        if (previous != -1) {
-            int totalremove = 0;
-            for (int k = 1; k <= 3; k++) {
-
-                if (eventalllist.get(previous).getEventname().equals("dupli") || eventalllist.get(previous).getEventname().equals("click")) {
-                    totalremove++;
-                    EventModel eventModel = eventalllist.remove(previous);
-                }
-            }
-            indextrack.clear();
-            indextrack.putAll(dupindextrack);
-            mNestedView.getAdapter().notifyDataSetChanged();
-
-        }
-
-        LinearLayoutManager linearLayoutManager = (LinearLayoutManager) mNestedView.getLayoutManager();
-        if (indextrack.containsKey(event.getMessage())) {
-            int index = indextrack.get(event.getMessage());
-            int type = eventalllist.get(index).getType();
-            if (type == 0 || type == 2) {
-
-                lastdate = event.getMessage();
-                expandedfirst = index;
-                topspace = 20;
-                linearLayoutManager.scrollToPositionWithOffset(expandedfirst, 20);
-                lastchangeindex = -1;
-
-            } else {
-
-
-                lastdate = event.getMessage();
-
-
-                Integer ind = indextrack.get(event.getMessage());
-                ind++;
-                for (int i = ind; i < eventalllist.size(); i++) {
-
-
-                    if (event.getMessage().isBefore(eventalllist.get(i).getLocalDate())) {
-                        ind = i;
-                        break;
-                    }
-                }
-                lastchangeindex = ind;
-                int typeselect = eventalllist.get(ind + 1).getType() == 200 ? 200 : 100;
-                if (!eventalllist.get(ind - 1).getEventname().startsWith("dup")) {
-
-                    eventalllist.add(ind, new EventModel("dupli", event.getMessage(), typeselect));
-                    ind++;
-                }
-                expandedfirst = ind;
-                eventalllist.add(ind, new EventModel("click", event.getMessage(), 1000));
-                ind++;
-                if (!eventalllist.get(ind).getEventname().startsWith("dup")) {
-
-                    eventalllist.add(ind, new EventModel("dupli", event.getMessage(), typeselect));
-                }
-                mNestedView.getAdapter().notifyDataSetChanged();
-
-                topspace = 20;
-                linearLayoutManager.scrollToPositionWithOffset(expandedfirst, 20);
-
-                for (int i = lastchangeindex; i < eventalllist.size(); i++) {
-                    if (!eventalllist.get(i).getEventname().startsWith("dup"))
-                        indextrack.put(eventalllist.get(i).getLocalDate(), i);
-                }
-
-
-            }
-
-        } else {
-            Integer ind = indextrack.get(event.getMessage().dayOfWeek().withMinimumValue().minusDays(1));
-            ind++;
-            for (int i = ind; i < eventalllist.size(); i++) {
-
-                if (event.getMessage().isBefore(eventalllist.get(i).getLocalDate())) {
-                    ind = i;
-                    break;
-                }
-            }
-            lastchangeindex = ind;
-            int typeselect = eventalllist.get(ind + 1).getType() == 200 ? 200 : 100;
-            if (!eventalllist.get(ind - 1).getEventname().startsWith("dup")) {
-
-                eventalllist.add(ind, new EventModel("dupli", event.getMessage(), typeselect));
-                ind++;
-            }
-            expandedfirst = ind;
-
-            eventalllist.add(ind, new EventModel("click", event.getMessage(), 1000));
-            ind++;
-            if (!eventalllist.get(ind).getEventname().startsWith("dup")) {
-
-                eventalllist.add(ind, new EventModel("dupli", event.getMessage(), typeselect));
-            }
-
-            mNestedView.getAdapter().notifyDataSetChanged();
-            topspace = 20;
-            linearLayoutManager.scrollToPositionWithOffset(expandedfirst, 20);
-
-            for (int i = lastchangeindex; i < eventalllist.size(); i++) {
-                if (!eventalllist.get(i).getEventname().startsWith("dup"))
-                    indextrack.put(eventalllist.get(i).getLocalDate(), i);
-            }
-
-        }
-
-    }
 
     private int getDeviceHeight() {
 
@@ -1946,7 +1752,7 @@ public class MainActivity extends AppCompatActivity
                                 redlay.setTranslationY(val);
                             }
                         });
-                        animy.setDuration(300);
+//                        animy.setDuration(300);
 
                         animheight.addListener(new AnimatorListenerAdapter() {
                             @Override
@@ -2062,7 +1868,6 @@ public class MainActivity extends AppCompatActivity
         LocalDate maxtime = new LocalDate().plusYears(5);
         alleventlist = Utility.readCalendarEvent(context, mintime, maxtime);
         eventList = new ArrayList<>();
-        // Populate event list from alleventlist
         HashMap<LocalDate, EventInfo> alleventlist = Utility.readCalendarEvent(context, mintime, maxtime);
         for (Map.Entry<LocalDate, EventInfo> entry : alleventlist.entrySet()) {
             EventInfo eventInfo = entry.getValue();
@@ -2154,19 +1959,4 @@ public class MainActivity extends AppCompatActivity
         return sdf.format(calendar.getTime());
     }
 
-    public static void getevents() {
-        String date_ = "2024-03-28"; // Example date
-        List<Event> events = dbHelper.getEventsByDate(date_);
-
-        // Example: Display retrieved events
-        for (Event event : events) {
-            // You can use event data as needed, for example:
-            long id = event.getId();
-            String title = event.getTitle();
-            String time = event.getTime();
-            String description = event.getDescription();
-            boolean checked = event.isChecked();
-            String eventData = "Title: " + title + ", Time: " + time + ", Description: " + description;
-        }
-    }
 }

@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.moutamid.calenderapp.MainActivity;
+//import com.moutamid.calenderapp.MainActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.moutimid.sqlapp.R;
@@ -42,7 +42,7 @@ public class MyDocsActivity extends AppCompatActivity {
                     replaceFragment(new DocumentFragment());
                     return true;
                 } else if (menuItemId == R.id.calender) {
-                    startActivity(new Intent(MyDocsActivity.this, MainActivity.class));
+//                    startActivity(new Intent(MyDocsActivity.this, MainActivity.class));
                     return true;
                 }
 

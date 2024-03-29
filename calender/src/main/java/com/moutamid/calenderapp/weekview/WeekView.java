@@ -37,7 +37,6 @@ import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.widget.OverScroller;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
@@ -50,6 +49,7 @@ import com.moutamid.calenderapp.R;
 import com.moutamid.calenderapp.database.Event;
 import com.moutamid.calenderapp.database.EventDbHelper;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -57,6 +57,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -791,7 +792,7 @@ public class WeekView extends View {
         mFirstVisibleDay = (Calendar) today.clone();
         mFirstVisibleDay.add(Calendar.DATE, -(Math.round(mCurrentOrigin.x / (mWidthPerDay + mColumnGap))));
         if (!mFirstVisibleDay.equals(oldFirstVisibleDay) && mScrollListener != null) {
-            Toast.makeText(mContext, "done", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(mContext, "done", Toast.LENGTH_SHORT).show();
             mScrollListener.onFirstVisibleDayChanged(mFirstVisibleDay, oldFirstVisibleDay);
         }
         for (int dayNumber = leftDaysWithGaps + 1;
@@ -911,12 +912,42 @@ public class WeekView extends View {
 
             }
             float marginLeft = 130; // Adjust the left margin as needed
+            String inputDate = String.valueOf(MainActivity.lastdate);
+
+            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat outputFormat = new SimpleDateFormat("EEEE, dd");
+
+            SimpleDateFormat inputFormat_title = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat outputFormat_title = new SimpleDateFormat("MMMM dd, yyyy");
+            try {
+                Date date = inputFormat.parse(inputDate);
+                Date date_title = inputFormat_title.parse(inputDate);
+                String formattedDate = outputFormat.format(date);
+                String formattedDate_title = outputFormat_title.format(date_title);
+                MainActivity.title.setText(formattedDate_title);
+                MainActivity.current_date.setText(formattedDate);
+                MainActivity.calender_date.setText(formattedDate);
+                Calendar currentDate = Calendar.getInstance();
+
+                // Get the day of the week and day of the month from the current date
+                SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, dd", Locale.ENGLISH);
+                String currentDateString = dateFormat.format(currentDate.getTime());
+
+                // Check if the given date string matches the current date string
+                if (formattedDate.equals(currentDateString)) {
+                    // The given date is the current date
+                    MainActivity.calender_date.setTextColor(Color.parseColor("#5C79FF"));
+                } else {
+                    // The given date is not the current date
+                    MainActivity.calender_date.setTextColor(Color.parseColor("#000000"));
+                }
+
+
+            } catch (Exception e) {
+
+            }
             String formattedDate = new SimpleDateFormat("EEEE, d", Locale.getDefault()).format(day.getTime());
             String nowDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(day.getTime());
-            String title_date = new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault()).format(day.getTime());
-            MainActivity.current_date.setText(formattedDate);
-            MainActivity.calender_date.setText(formattedDate);
-            MainActivity.title.setText(title_date);
             MainActivity.fun(mContext, nowDate);
             if (mNumberOfVisibleDays == 1) {
                 if (sameDay) {
@@ -926,13 +957,13 @@ public class WeekView extends View {
 
                     jtodayHeaderTextPaint.setColor(Color.parseColor("#5C79FF"));
                     jtodayHeaderTextPaint.setTextSize(32);
-                    MainActivity.calender_date.setTextColor(Color.parseColor("#5C79FF"));
+//                    MainActivity.calender_date.setTextColor(Color.parseColor("#5C79FF"));
                 } else {
                     // Set the color to black if it's not the same day
 //                    mTodayHeaderTextPaint.setColor(Color.BLACK);
                     jtodayHeaderTextPaint.setColor(Color.BLACK);
                     jtodayHeaderTextPaint.setTextSize(32);
-                    MainActivity.calender_date.setTextColor(Color.parseColor("#000000"));
+//                    MainActivity.calender_date.setTextColor(Color.parseColor("#000000"));
 
                 }
 
@@ -940,18 +971,16 @@ public class WeekView extends View {
                 // Draw the formatted date with left margin
 //                canvas.drawText(formattedDate, startPixel - mHeaderColumnWidth / 2.0f + marginLeft, mHeaderTextHeight + mHeaderRowPadding / 3.0f, sameDay ? mTodayHeaderTextPaint : mHeaderTextPaint);
                 canvas.drawText(formattedDate, startPixel - mHeaderColumnWidth / 2.0f + marginLeft, mHeaderTextHeight + mHeaderRowPadding * 1.76f + jHeaderTextHeight, sameDay ? jtodayHeaderTextPaint : jHeaderTextPaint);
-                String date_ = "2024-03-28"; // Example date
+                Log.d("dtt", MainActivity.lastdate + "");
+                String date_ = MainActivity.lastdate + ""; // Example date
                 EventDbHelper eventDbHelper = new EventDbHelper(mContext);
                 List<Event> events = eventDbHelper.getEventsByDate(date_);
                 for (Event event : events) {
-                    // You can use event data as needed, for example:
                     long id = event.getId();
                     String title = event.getTitle();
                     String time = event.getTime();
                     String description = event.getDescription();
                     boolean checked = event.isChecked();
-                    Log.d("tesdffdfdft", time+"   ");
-
                     String[] times = time.split("-");
                     if (times.length == 2) {
                         String startTime = times[0]; // "04"
@@ -968,14 +997,13 @@ public class WeekView extends View {
 //                    mTodayHeaderTextPaint.setColor(Color.parseColor("#5C79FF"));
                     jtodayHeaderTextPaint.setColor(Color.parseColor("#5C79FF"));
                     jtodayHeaderTextPaint.setTextSize(32);
-                    MainActivity.calender_date.setTextColor(Color.parseColor("#5C79FF"));
 
                 } else {
                     // Set the color to black if it's not the same day
 //                    mTodayHeaderTextPaint.setColor(Color.BLACK);
                     jtodayHeaderTextPaint.setColor(Color.BLACK);
                     jtodayHeaderTextPaint.setTextSize(32);
-                    MainActivity.calender_date.setTextColor(Color.parseColor("#000000"));
+//                    MainActivity.calender_date.setTextColor(Color.parseColor("#000000"));
                 }
 
                 // Format the date as "Wednesday, 27"
@@ -2168,11 +2196,7 @@ public class WeekView extends View {
         invalidate();
     }
 
-    /**
-     * Get the first hour that is visible on the screen.
-     *
-     * @return The first hour that is visible.
-     */
+
     public double getFirstVisibleHour() {
         return -mCurrentOrigin.y / mHourHeight;
     }
@@ -2263,7 +2287,31 @@ public class WeekView extends View {
         textPaint.setTextAlign(Paint.Align.LEFT);
         float textX = rectLeft + 20; // Set textX to rectLeft plus some padding (e.g., 10dp)
         float textY = startY + beforeNow + mTimeTextHeight / 4; // Adjust the vertical position of the text
-
         canvas.drawText(title, textX, textY, textPaint);
+
     }
+
+    private Calendar parseDateString(String dateString) {
+        SimpleDateFormat format = new SimpleDateFormat("EEEE, dd", Locale.ENGLISH);
+        Date date = null;
+        try {
+            date = format.parse(dateString);
+            Log.d("datesesfd", date + "   2");
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Calendar calendar = Calendar.getInstance();
+        if (date != null) {
+            calendar.setTime(date);
+        }
+        return calendar;
+    }
+
+    private boolean isSameDate(Calendar date1, Calendar date2) {
+        return date1.get(Calendar.YEAR) == date2.get(Calendar.YEAR) &&
+                date1.get(Calendar.MONTH) == date2.get(Calendar.MONTH) &&
+                date1.get(Calendar.DAY_OF_MONTH) == date2.get(Calendar.DAY_OF_MONTH);
+    }
+
 }

@@ -2,6 +2,7 @@ package com.moutamid.calenderapp.weekview;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
@@ -13,11 +14,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.moutamid.calenderapp.MainActivity;
 import com.moutamid.calenderapp.R;
 import com.moutamid.calenderapp.database.EventDbHelper;
 
-public class AdEventDailogue extends Dialog {
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
+public class AdEventDailogue extends Dialog {
+    String formattedDate;
     public Activity c;
     private EditText addEventEditText;
     private EditText date;
@@ -82,16 +87,26 @@ public class AdEventDailogue extends Dialog {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String inputDate = date_str;
+                SimpleDateFormat inputFormat = new SimpleDateFormat("MMMM, dd, yyyy, hh:mm a");
+                SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    Date date = inputFormat.parse(inputDate);
+                    formattedDate = outputFormat.format(date);
+                } catch (Exception e) {
+
+                }
                 String title = addEventEditText.getText().toString();
-                String date ="2024-03-28" ; // Get the date value from your EditText
+                String date = formattedDate; // Get the date value from your EditText
                 String time = eventTime; // Get the time value from your EditText
                 String description = descriptionText.getText().toString();
                 boolean checked = allDayCheckbox.isChecked();
                 EventDbHelper dataSource = new EventDbHelper(getContext());
                 dataSource.insertEvent(title, date, time, description, checked);
+                c.startActivity(new Intent(c, MainActivity.class));
                 dismiss();
+                c.finishAffinity();
             }
         });
-
     }
 }

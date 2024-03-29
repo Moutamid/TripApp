@@ -91,6 +91,7 @@ public class GooglecalenderView extends LinearLayout {
         currentmonth = calculateCurrentMonth(currentmonthda);
         if (viewPager.getCurrentItem() != currentmonth) {
             viewPager.setCurrentItem(currentmonth, false);
+
             //  viewPager.getAdapter().notifyDataSetChanged();
         }
         updategrid();

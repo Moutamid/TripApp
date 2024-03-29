@@ -73,13 +73,13 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation("com.fxn769:stash:1.3.2")
     implementation("com.github.bumptech.glide:glide:4.16.0")
-    implementation("com.sun.mail:android-mail:1.6.6")
-    implementation("com.sun.mail:android-activation:1.6.6")
+    implementation("com.sun.mail:android-mail:1.6.7")
+    implementation("com.sun.mail:android-activation:1.6.7")
     implementation("com.github.barteksc:android-pdf-viewer:2.8.2")
     implementation("io.github.chochanaresh:filepicker:0.1.9")
     implementation(platform("com.google.firebase:firebase-bom:32.2.3"))
     implementation("com.google.firebase:firebase-crashlytics")
     implementation("com.google.firebase:firebase-analytics")
-    implementation(project(":calender"))
+//    implementation(project(":calender"))
 
 }
