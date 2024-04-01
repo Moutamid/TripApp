@@ -95,6 +95,7 @@ public class AdEventDailogue extends Dialog {
                     formattedDate = outputFormat.format(date);
                 } catch (Exception e) {
 
+
                 }
                 String title = addEventEditText.getText().toString();
                 String date = formattedDate; // Get the date value from your EditText
