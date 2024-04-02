@@ -5,6 +5,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     tools:openDrawer="end">
 
     <RelativeLayout
@@ -18,7 +19,6 @@
             android:id="@+id/title_bar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="40dp"
             android:background="#4472C4">
 
             <ImageView
@@ -48,7 +48,7 @@
 
         <RelativeLayout
             android:id="@+id/tab_layout"
-            android:layout_marginTop="90dp"
+            android:layout_marginTop="60dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
@@ -119,16 +119,7 @@
 
         </RelativeLayout>
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/navigation_view"
-            android:layout_width="260dp"
-            android:layout_height="56dp"
-            android:layout_below="@+id/title_bar"
-         android:visibility="gone"   android:layout_centerHorizontal="true"
-            app:itemBackground="@drawable/icon_selector"
-            app:itemTextAppearanceActive="@style/BottomNavigationTextStyle"
-            app:itemTextAppearanceInactive="@style/BottomNavigationTextStyle"
-            app:menu="@menu/nav_item" />
+
 
         <TextView
             android:id="@+id/calender_date"
@@ -137,6 +128,7 @@
             android:layout_below="@+id/tab_layout"
             android:layout_marginLeft="28sp"
             android:layout_marginTop="20dp"
+            android:fontFamily="@font/productsans_bold"
             android:text="Wednesday, 24"
             android:textSize="14dp" />
 
@@ -180,6 +172,227 @@
                 android:layout_toRightOf="@+id/view1" />
         </RelativeLayout>
 
+        <RelativeLayout
+            android:id="@+id/week_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tab_layout"
+            android:background="@drawable/bg_white"
+            android:visibility="gone"
+            tools:context=".MainActivity">
+
+            <TextView
+                android:id="@+id/range"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="20sp"
+                android:fontFamily="@font/productsans_bold"
+                android:text="@string/app_name"
+                android:textColor="#000"
+                android:textSize="14dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView_week"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/range"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:padding="10dp" />
+
+            <LinearLayout
+                android:id="@+id/buttonsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginBottom="30dp"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/previousButton"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:rotation="180"
+                    android:src="@drawable/arrow"
+
+                    android:text="Previous"
+                    android:tint="#000" />
+
+                <TextView
+                    android:id="@+id/dateRangeTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:textColor="#5C79FF"
+                    android:textSize="16dp" />
+
+                <ImageView
+                    android:id="@+id/nextButton"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/arrow"
+                    android:text="Previous"
+                    android:tint="#000" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/month_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tab_layout"
+android:visibility="gone"
+            android:background="@drawable/bg_white"
+            tools:context=".MainActivity">
+
+            <TextView
+                android:id="@+id/range_month"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="20sp"
+                android:fontFamily="@font/productsans_bold"
+                android:text="@string/app_name"
+                android:textColor="#000"
+                android:textSize="14dp" />
+
+            <LinearLayout
+                android:id="@+id/days"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/range_month"
+
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Sun"
+                    android:textColor="#000"
+                    android:textSize="11dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Mon"
+
+                    android:textColor="#000"
+                    android:textSize="11dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Tue"
+                    android:textColor="#000"
+                    android:textSize="11dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+
+                    android:gravity="center"
+                    android:text="Wed"
+                    android:textColor="#000"
+                    android:textSize="11dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Thu"
+                    android:textColor="#000"
+                    android:textSize="11dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Fri"
+                    android:textColor="#000"
+                    android:textSize="11dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Sat"
+                    android:textColor="#000"
+                    android:textSize="11dp" />
+
+            </LinearLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView_month"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/days"
+
+                android:layout_marginTop="15sp" />
+
+            <LinearLayout
+                android:id="@+id/buttonsLayout_month"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginBottom="30dp"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/previousButton_month"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:rotation="180"
+                    android:src="@drawable/arrow"
+
+                    android:text="Previous"
+                    android:tint="#000" />
+
+                <TextView
+                    android:id="@+id/dateRangeTextView_month"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:textColor="#5C79FF"
+                    android:textSize="16dp" />
+
+                <ImageView
+                    android:id="@+id/nextButton_month"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/arrow"
+                    android:text="Previous"
+                    android:tint="#000" />
+            </LinearLayout>
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
@@ -358,112 +571,13 @@
 
         </ScrollView>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:id="@+id/redlay"
-            android:clickable="true"
-            android:focusable="true"
-            android:translationZ="@dimen/tendp"
-            android:background="@android:color/white"
-            >
-
-            <ImageButton
-                android:id="@+id/closebtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:visibility="gone"
-                android:layout_marginTop="45dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/ic_close_black_24dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <View
-                android:id="@+id/roundrect"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:background="@drawable/rround"
-                app:layout_constraintBottom_toBottomOf="@+id/textView12"
-                app:layout_constraintTop_toTopOf="@+id/textView12"
-                app:layout_constraintEnd_toEndOf="@+id/closebtn"
-                app:layout_constraintStart_toStartOf="@+id/closebtn"
-                />
-
-            <TextView
-                android:id="@+id/textView12"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:paddingLeft="64dp"
-                android:fontFamily="@font/googlesans_regular"
-                android:text="Bhai Duj"
-                android:textColor="#000"
-                android:paddingRight="24dp"
-                android:textSize="23sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/closebtn"  />
-
-            <TextView
-                android:id="@+id/textView13"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/googlesans_regular"
-                android:paddingRight="8dp"
-                android:text=""
-                android:textColor="#000"
-                android:textSize="16sp"
-                android:paddingLeft="64dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView12" />
-
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:src="@drawable/calendar_badged_icon"
-                app:layout_constraintEnd_toEndOf="@+id/closebtn"
-                app:layout_constraintStart_toStartOf="@+id/closebtn"
-                app:layout_constraintTop_toBottomOf="@+id/textView13" />
-
-            <TextView
-                android:id="@+id/textView014"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/googlesans_regular"
-                android:paddingLeft="64dp"
-                android:text="Events"
-                android:textColor="#000"
-                android:textSize="15.5sp"
-                android:layout_marginTop="24dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView13"
-                />
-
-            <TextView
-                android:id="@+id/textView14"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/googlesans_regular"
-                android:paddingLeft="64dp"
-                android:text="Holidays in India"
-                android:textColor="#787878"
-                android:textSize="13.6sp"
-                android:layout_marginTop="4dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView014" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
     <RelativeLayout
+        android:id="@+id/button_days"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -500,5 +614,6 @@
             android:src="@drawable/arrow" />
 
     </RelativeLayout>
+
 
 </RelativeLayout>

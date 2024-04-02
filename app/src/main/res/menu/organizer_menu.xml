@@ -5,6 +5,6 @@
         android:icon="@drawable/home_inactive" />
     <item android:id="@+id/doc"
         android:icon="@drawable/documents_active" />
-    <item android:id="@+id/calender"
+    <item android:id="@+id/calender_menu"
         android:icon="@drawable/calendar_day_inactive" />
 </menu>

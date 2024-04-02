@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.company.contentprovider.READ_DATABASE" />
@@ -25,7 +27,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SQLApp">
+        <activity
+            android:name=".activities.Calender.calenderapp.month.MonthActivity"
+            android:exported="true">
 
+        </activity>
+        <activity
+            android:name=".activities.Calender.calenderapp.week.WeekActivity"
+            android:exported="true">
+
+        </activity>
+        <activity
+            android:name=".activities.Calender.calenderapp.MainActivity"
+            android:exported="true">
+
+        </activity>
 
         <activity
             android:name=".activities.Calender.CalenderActivity"
@@ -87,7 +103,10 @@
         <activity
             android:name=".activities.DashboardActivity"
             android:exported="true">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".activities.SavedDataActivity"

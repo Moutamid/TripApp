@@ -7,12 +7,10 @@ plugins {
     id("kotlin-android")
 //    id("com.android.library")
 
-
-
 }
 
 android {
-    namespace = "com.moutimid.sqlapp"
+    namespace = "com.moutamid.sqlapp"
     compileSdk = 34
 
     defaultConfig {
@@ -81,5 +79,9 @@ dependencies {
     implementation("com.google.firebase:firebase-crashlytics")
     implementation("com.google.firebase:firebase-analytics")
 //    implementation(project(":calender"))
+    implementation("joda-time:joda-time:2.10.10")
+    implementation("org.greenrobot:eventbus:3.1.1")
+    implementation("com.gjiazhe:scrollparallaximageview:1.0")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.20")
 
 }
