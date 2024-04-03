@@ -38,6 +38,7 @@ import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.widget.OverScroller;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
@@ -63,6 +64,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class WeekView extends View {
+    private float rectLeft, rectTop, rectRight, rectBottom;
 
     @Deprecated
     public static final int LENGTH_SHORT = 1;
@@ -1919,7 +1921,19 @@ public class WeekView extends View {
 
         mScaleDetector.onTouchEvent(event);
         boolean val = mGestureDetector.onTouchEvent(event);
-
+        float clickX = event.getX();
+        float clickY = event.getY();
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                // Check if the click event falls within the rectangle and show a toast
+                boolean isClicked = isWithinRectangle(clickX, clickY);
+                if (isClicked) {
+                    Toast.makeText(getContext(), "Clicked on: " + "title", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            default:
+                break;
+        }
         // Check after call of mGestureDetector, so mCurrentFlingDirection and mCurrentScrollDirection are set.
         if (event.getAction() == MotionEvent.ACTION_UP && !mIsZooming && mCurrentFlingDirection == Direction.NONE) {
 
@@ -2271,17 +2285,16 @@ public class WeekView extends View {
         rectanglePaint.setColor(Color.parseColor("#3C5C9C")); // Set the background color
         rectanglePaint.setStyle(Paint.Style.FILL);
 
-        float rectLeft = startat - per - 5; // Adjust width and position more to the left
-        float rectTop = startY + beforeNow - per - 25; // Adjust height and position more to the top (subtract 20dp)
-        float rectRight = canvasWidth; // Set the right edge of the rectangle to the width of the canvas
-        float rectBottom = startY + beforeNow + 25; // Adjust rectangle height to approximately 40dp (add 20dp)
+         rectLeft = startat - per - 5; // Adjust width and position more to the left
+         rectTop = startY + beforeNow - per - 25; // Adjust height and position more to the top (subtract 20dp)
+         rectRight = canvasWidth; // Set the right edge of the rectangle to the width of the canvas
+         rectBottom = startY + beforeNow + 25; // Adjust rectangle height to approximately 40dp (add 20dp)
         float cornerRadius = 1; // Set corner radius
 
         canvas.drawRoundRect(rectLeft, rectTop, rectRight, rectBottom, cornerRadius, cornerRadius, rectanglePaint);
 
         // Clear the area behind the rectangle
         rectanglePaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
-
         Paint textPaint = new Paint();
         textPaint.setColor(Color.WHITE); // Set the text color to white
         textPaint.setTextSize(22);
@@ -2291,7 +2304,11 @@ public class WeekView extends View {
         canvas.drawText(title, textX, textY, textPaint);
 
     }
-
+    private boolean isWithinRectangle(float x, float y) {
+        // Your logic to determine if the click is within the rectangle boundaries
+        // For example:
+        return (x >= rectLeft && x <= rectRight && y >= rectTop && y <= rectBottom);
+    }
     private Calendar parseDateString(String dateString) {
         SimpleDateFormat format = new SimpleDateFormat("EEEE, dd", Locale.ENGLISH);
         Date date = null;
