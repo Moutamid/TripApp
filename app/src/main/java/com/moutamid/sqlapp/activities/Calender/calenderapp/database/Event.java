@@ -8,6 +8,12 @@ public class Event {
     private String description;
     private boolean checked;
 
+
+    public float left;
+    public float width;
+    public float top;
+    public float bottom;
+
     public Event() {
         // Default constructor
     }

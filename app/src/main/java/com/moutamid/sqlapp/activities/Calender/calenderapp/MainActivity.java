@@ -1,6 +1,7 @@
 package com.moutamid.sqlapp.activities.Calender.calenderapp;
 
 import android.Manifest;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -21,6 +22,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -131,7 +133,7 @@ public class MainActivity extends AppCompatActivity
     public static TextView title;
     private TextView dayTextView, weekTextView, monthTextView;
     private TextView dayPressedTextView, weekPressedTextView, monthPressedTextView;
-    ImageView backword_arrow, forword_arrow;
+    ImageView backword_arrow, forward_arrow;
 
     RelativeLayout day_buttons, week_layout, month_view;
     private RecyclerView recyclerView_week;
@@ -206,10 +208,11 @@ public class MainActivity extends AppCompatActivity
 
         mWeekView = (WeekView) findViewById(com.moutamid.sqlapp.R.id.weekView);
 
+        
         dbHelper = new EventDbHelper(this);
 
         backword_arrow = findViewById(com.moutamid.sqlapp.R.id.backword_arrow);
-        forword_arrow = findViewById(com.moutamid.sqlapp.R.id.forward_arrow);
+        forward_arrow = findViewById(com.moutamid.sqlapp.R.id.forward_arrow);
         title = findViewById(com.moutamid.sqlapp.R.id.title);
         dayTextView = findViewById(com.moutamid.sqlapp.R.id.day);
         weekTextView = findViewById(com.moutamid.sqlapp.R.id.week);
@@ -226,6 +229,25 @@ public class MainActivity extends AppCompatActivity
         MonthAdapter adapter_month = new MonthAdapter(this, dates_month, getDate_month(currentDate_month), search_dates_month);
         recyclerView_month.setAdapter(adapter_month);
         recyclerView_month.setLayoutManager(new GridLayoutManager(this, 7));
+        forward_arrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                float target = 0;
+                float v = mWeekView.weekx - 720;
+                target =  (v- (mWeekView.mWidthPerDay * mWeekView.getNumberOfVisibleDays()));
+                Log.d("move", "left" + v+"   "+ mWeekView.mWidthPerDay + "   "+ mWeekView.getNumberOfVisibleDays()+ "  "+ target);
+                ValueAnimator va = ValueAnimator.ofFloat(mWeekView.mCurrentOrigin.x, target);
+                va.setDuration(70);
+                va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    public void onAnimationUpdate(ValueAnimator animation) {
+                        mWeekView.mCurrentOrigin.x = (float) animation.getAnimatedValue();
+                        mWeekView.invalidate();
+                    }
+
+                });
+                va.start();
+            }
+        });
         previousButton_month.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -354,8 +376,6 @@ public class MainActivity extends AppCompatActivity
         });
 
         mNestedView.setAppBarTracking(this);
-
-
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mNestedView.setLayoutManager(linearLayoutManager);
@@ -1018,7 +1038,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onEventLongPress(WeekViewEvent event, RectF eventRect) {
-//        Toast.makeText(this, "Long pressed event: " + event.getName(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Long pressed event: " + event.getName(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

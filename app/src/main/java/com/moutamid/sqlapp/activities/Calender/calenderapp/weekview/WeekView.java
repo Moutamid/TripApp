@@ -47,6 +47,7 @@ import androidx.core.view.ViewCompat;
 import androidx.interpolator.view.animation.FastOutLinearInInterpolator;
 
 import com.moutamid.sqlapp.R;
+import com.moutamid.sqlapp.activities.Calender.calenderapp.EventInfo;
 import com.moutamid.sqlapp.activities.Calender.calenderapp.MainActivity;
 import com.moutamid.sqlapp.activities.Calender.calenderapp.database.Event;
 import com.moutamid.sqlapp.activities.Calender.calenderapp.database.EventDbHelper;
@@ -85,12 +86,12 @@ public class WeekView extends View {
     private Paint jtodayHeaderTextPaint;
     private float jHeaderTextHeight;
     private float mHeaderHeight;
-    private GestureDetectorCompat mGestureDetector;
+    public GestureDetectorCompat mGestureDetector;
     private OverScroller mScroller;
-    private PointF mCurrentOrigin = new PointF(0f, 0f);
-    private Direction mCurrentScrollDirection = Direction.NONE;
+    public PointF mCurrentOrigin = new PointF(0f, 0f);
+    public Direction mCurrentScrollDirection = Direction.NONE;
     private Paint mHeaderBackgroundPaint;
-    private float mWidthPerDay;
+    public float mWidthPerDay;
     private Paint mDayBackgroundPaint;
     private Paint mHourSeparatorPaint;
     private float mHeaderMarginBottom;
@@ -169,14 +170,17 @@ public class WeekView extends View {
     private boolean mVerticalFlingEnabled = true;
     private int mAllDayEventHeight = 100;
     private int mScrollDuration = 150;
-    private float weekx;
+    public float weekx;
     // Listeners.
     private EventClickListener mEventClickListener;
     private EventLongPressListener mEventLongPressListener;
     private com.moutamid.sqlapp.activities.Calender.calenderapp.weekview.WeekViewLoader mWeekViewLoader;
     private EmptyViewClickListener mEmptyViewClickListener;
     private EmptyViewLongPressListener mEmptyViewLongPressListener;
-    private final GestureDetector.SimpleOnGestureListener mGestureListener = new GestureDetector.SimpleOnGestureListener() {
+    private static List<Event> events= new ArrayList<>();
+
+    public  Canvas canvas_var ;
+    public final GestureDetector.SimpleOnGestureListener mGestureListener = new GestureDetector.SimpleOnGestureListener() {
 
         @Override
         public boolean onDown(MotionEvent e) {
@@ -189,6 +193,7 @@ public class WeekView extends View {
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
             DayOfWeek dayOfWeek = DayOfWeek.of(MainActivity.lastdate.getDayOfWeek());
             int dayOfMonth = MainActivity.lastdate.getDayOfMonth();
+            Log.d("state", e1+"  -  "+ e2+"  -  "+ distanceX+"  -  "+ distanceX);
 
             // Check if view is zoomed.
             if (mIsZooming)
@@ -200,11 +205,9 @@ public class WeekView extends View {
                     if (Math.abs(distanceX) > Math.abs(distanceY)) {
                         if (distanceX > 0) {
                             Log.d("state", "1");
-
                             mCurrentScrollDirection = Direction.LEFT;
                         } else {
                             Log.d("state", "2");
-
                             mCurrentScrollDirection = Direction.RIGHT;
                         }
                     } else {
@@ -214,7 +217,6 @@ public class WeekView extends View {
                 }
                 case LEFT: {
                     Log.d("state", "3");
-
                     // Change direction if there was enough change.
                     if (Math.abs(distanceX) > Math.abs(distanceY) && (distanceX < -mScaledTouchSlop)) {
                         mCurrentScrollDirection = Direction.RIGHT;
@@ -223,8 +225,6 @@ public class WeekView extends View {
                 }
                 case RIGHT: {
                     Log.d("state", "4");
-
-
                     // Change direction if there was enough change.
                     if (Math.abs(distanceX) > Math.abs(distanceY) && (distanceX > mScaledTouchSlop)) {
                         mCurrentScrollDirection = Direction.LEFT;
@@ -263,11 +263,10 @@ public class WeekView extends View {
             float target = 0;
             switch (mCurrentFlingDirection) {
                 case LEFT:
-
                     target = weekx - (mWidthPerDay * getNumberOfVisibleDays());
+                    Log.d("move", "left" + weekx+"   "+ mWidthPerDay+ "   "+ getNumberOfVisibleDays()+ "  "+ target);
+
                     ValueAnimator va = ValueAnimator.ofFloat(mCurrentOrigin.x, target);
-
-
                     va.setDuration(70);
                     va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                         public void onAnimationUpdate(ValueAnimator animation) {
@@ -281,6 +280,7 @@ public class WeekView extends View {
                     break;
                 case RIGHT:
                     target = weekx + (mWidthPerDay * getNumberOfVisibleDays());
+                    Log.d("move", "right" + weekx+"   "+ mWidthPerDay+ "   "+ getNumberOfVisibleDays()+ "  "+ target);
                     ValueAnimator va1 = ValueAnimator.ofFloat(mCurrentOrigin.x, target);
                     va1.setDuration(70);
                     va1.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -315,20 +315,29 @@ public class WeekView extends View {
 
         @Override
         public boolean onSingleTapConfirmed(MotionEvent e) {
-            // If the tap was on an event then trigger the callback.
 
-
-            if (mEventRects != null && mEventClickListener != null) {
-                List<EventRect> reversedEventRects = mEventRects;
-                // Collections.reverse(reversedEventRects);
-                for (EventRect event : reversedEventRects) {
-                    if (event.rectF != null && e.getX() > event.rectF.left && e.getX() < event.rectF.right && e.getY() > event.rectF.top && e.getY() < event.rectF.bottom) {
-                        mEventClickListener.onEventClick(event.event, event.rectF);
-                        playSoundEffect(SoundEffectConstants.CLICK);
-                        return super.onSingleTapConfirmed(e);
-                    }
+//            String date_ = MainActivity.lastdate + ""; // Example date
+//            EventDbHelper eventDbHelper = new EventDbHelper(mContext);
+//            List<Event> events = eventDbHelper.getEventsByDate(date_);
+            for (Event event : events) {
+                if (e.getX() > event.left && e.getX() < event.width && e.getY() > event.top && e.getY() < event.bottom) {
+                    playSoundEffect(SoundEffectConstants.CLICK);
+                    Toast.makeText(mContext, "event", Toast.LENGTH_SHORT).show();
+                    return super.onSingleTapConfirmed(e);
                 }
             }
+//            if (mEventRects != null && mEventClickListener != null) {
+//                List<EventRect> reversedEventRects = mEventRects;
+//                // Collections.reverse(reversedEventRects);
+//                for (EventRect event : reversedEventRects) {
+//                    if (event.rectF != null && e.getX() > event.rectF.left && e.getX() < event.rectF.right && e.getY() > event.rectF.top && e.getY() < event.rectF.bottom) {
+//                        mEventClickListener.onEventClick(event.event, event.rectF);
+//                        playSoundEffect(SoundEffectConstants.CLICK);
+//                        Toast.makeText(mContext, "event", Toast.LENGTH_SHORT).show();
+//                        return super.onSingleTapConfirmed(e);
+//                    }
+//                }
+//            }
 
             // If the tap was on in an empty space, then trigger the callback.
             if (mEmptyViewClickListener != null && e.getX() > mHeaderColumnWidth && e.getY() > (mHeaderHeight + mHeaderRowPadding * 3 + mHeaderMarginBottom)) {
@@ -592,11 +601,10 @@ public class WeekView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
         // Draw the header row.
-        drawHeaderRowAndEvents(canvas);
+        canvas_var= canvas;
 
-        // Draw the time column and all the axes/separators.
+        drawHeaderRowAndEvents(canvas);
         if (mNumberOfVisibleDays != 1) drawTimeColumnAndAxes(canvas);
 
     }
@@ -931,7 +939,6 @@ public class WeekView extends View {
                 MainActivity.current_date.setText(formattedDate);
                 MainActivity.calender_date.setText(formattedDate);
                 Calendar currentDate = Calendar.getInstance();
-
                 // Get the day of the week and day of the month from the current date
                 SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, dd", Locale.ENGLISH);
                 String currentDateString = dateFormat.format(currentDate.getTime());
@@ -2262,7 +2269,6 @@ public class WeekView extends View {
         public float bottom;
         public int noofevent;
 
-
         public EventRect(WeekViewEvent event, WeekViewEvent originalEvent, RectF rectF) {
             this.event = event;
             this.rectF = rectF;
@@ -2285,15 +2291,18 @@ public class WeekView extends View {
         rectanglePaint.setColor(Color.parseColor("#3C5C9C")); // Set the background color
         rectanglePaint.setStyle(Paint.Style.FILL);
 
-         rectLeft = startat - per - 5; // Adjust width and position more to the left
+        rectLeft = startat - per - 5; // Adjust width and position more to the left
          rectTop = startY + beforeNow - per - 25; // Adjust height and position more to the top (subtract 20dp)
          rectRight = canvasWidth; // Set the right edge of the rectangle to the width of the canvas
          rectBottom = startY + beforeNow + 25; // Adjust rectangle height to approximately 40dp (add 20dp)
+        Event event_model= new Event();
+        event_model.top= rectTop;
+        event_model.bottom= rectBottom;
+        event_model.width= rectRight;
+        event_model.left= rectLeft;
+        events.add(event_model);
         float cornerRadius = 1; // Set corner radius
-
         canvas.drawRoundRect(rectLeft, rectTop, rectRight, rectBottom, cornerRadius, cornerRadius, rectanglePaint);
-
-        // Clear the area behind the rectangle
         rectanglePaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
         Paint textPaint = new Paint();
         textPaint.setColor(Color.WHITE); // Set the text color to white

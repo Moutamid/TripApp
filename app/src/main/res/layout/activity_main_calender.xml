@@ -394,9 +394,7 @@
                     android:text="Previous"
                     android:tint="#000" />
             </LinearLayout>
-
         </RelativeLayout>
-
     </RelativeLayout>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -551,7 +549,6 @@
                     android:background="@android:color/white"
                     app:allDayEventHeight="20dp"
                     app:columnGap="0dp"
-
                     app:dayBackgroundColor="@android:color/white"
                     app:eventCornerRadius="3dp"
                     app:eventTextColor="@android:color/white"
