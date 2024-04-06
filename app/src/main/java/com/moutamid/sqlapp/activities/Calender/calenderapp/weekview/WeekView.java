@@ -47,7 +47,6 @@ import androidx.core.view.ViewCompat;
 import androidx.interpolator.view.animation.FastOutLinearInInterpolator;
 
 import com.moutamid.sqlapp.R;
-import com.moutamid.sqlapp.activities.Calender.calenderapp.EventInfo;
 import com.moutamid.sqlapp.activities.Calender.calenderapp.MainActivity;
 import com.moutamid.sqlapp.activities.Calender.calenderapp.database.Event;
 import com.moutamid.sqlapp.activities.Calender.calenderapp.database.EventDbHelper;
@@ -321,8 +320,14 @@ public class WeekView extends View {
 //            List<Event> events = eventDbHelper.getEventsByDate(date_);
             for (Event event : events) {
                 if (e.getX() > event.left && e.getX() < event.width && e.getY() > event.top && e.getY() < event.bottom) {
-                    playSoundEffect(SoundEffectConstants.CLICK);
-                    Toast.makeText(mContext, "event", Toast.LENGTH_SHORT).show();
+                    Log.d("Parameters", "ID: " + event.id);
+                    Log.d("Parameters", "Title: " + event.title);
+                    Log.d("Parameters", "Time: " + event.time);
+                    Log.d("Parameters", "Description: " + event.description);
+                    Log.d("Parameters", "Checked: " + event.checked);
+                    Log.d("Parameters", "Date: " + event.date);
+                    EditEventDailogue adEventDailogue = new EditEventDailogue(mContext, event.id,event.title, event.time, event.description, event.checked, event.date);
+                    adEventDailogue.show();
                     return super.onSingleTapConfirmed(e);
                 }
             }
@@ -984,19 +989,21 @@ public class WeekView extends View {
                 Log.d("dtt", MainActivity.lastdate + "");
                 String date_ = MainActivity.lastdate + ""; // Example date
                 EventDbHelper eventDbHelper = new EventDbHelper(mContext);
-                List<Event> events = eventDbHelper.getEventsByDate(date_);
+                List<Event> events = eventDbHelper.getCheckedEventsByDate(date_);
                 for (Event event : events) {
                     long id = event.getId();
                     String title = event.getTitle();
                     String time = event.getTime();
                     String description = event.getDescription();
                     boolean checked = event.isChecked();
+                    String date = event.getDate();
                     String[] times = time.split("-");
                     if (times.length == 2) {
                         String startTime = times[0]; // "04"
                         String endTime = times[1];   // "19"
-                        Log.d("tesdffdfdft", startTime+"  -- "+ endTime);
-                        draw_event(startPixel, canvas, Integer.valueOf(startTime), Integer.valueOf(endTime), title);
+//                        Toast.makeText(mContext, "log"+ id+"  -- "+ title+"  -- "+ time+"  -- "+ description+"  -- "+ checked+"  -- "+ date, Toast.LENGTH_SHORT).show();
+                        Log.d("tesdffdfdft", id+"  -- "+ title+"  -- "+ time+"  -- "+ description+"  -- "+ checked+"  -- "+ date);
+                        draw_event(id,title, time, description, checked, date, startPixel, canvas, Integer.valueOf(startTime), Integer.valueOf(endTime), title);
                     }
                 }
                 drawAllDayEvents(day, startPixel, canvas, dayNumber, false);
@@ -2281,7 +2288,7 @@ public class WeekView extends View {
         return sdf.format(calendar.getTime());
     }
 
-    public void draw_event(float startPixel, Canvas canvas, int hour, int minute, String title) {
+    public void draw_event(long id, String s, String time, String description, boolean checked, String date, float startPixel, Canvas canvas, int hour, int minute, String title) {
         float startY = mHeaderHeight + mHeaderRowPadding * 3 + mTimeTextHeight / 2 + mHeaderMarginBottom + mCurrentOrigin.y;
         float beforeNow = (hour + minute / 60.0f) * mHourHeight;
         float startat = startPixel < mHeaderColumnWidth ? mHeaderColumnWidth : startPixel;
@@ -2300,6 +2307,12 @@ public class WeekView extends View {
         event_model.bottom= rectBottom;
         event_model.width= rectRight;
         event_model.left= rectLeft;
+        event_model.title= s;
+        event_model.date= date;
+        event_model.time= time;
+        event_model.description= description;
+        event_model.checked= checked;
+        event_model.id= id;
         events.add(event_model);
         float cornerRadius = 1; // Set corner radius
         canvas.drawRoundRect(rectLeft, rectTop, rectRight, rectBottom, cornerRadius, cornerRadius, rectanglePaint);

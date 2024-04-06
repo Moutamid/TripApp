@@ -1,12 +1,12 @@
 package com.moutamid.sqlapp.activities.Calender.calenderapp.database;
 
 public class Event {
-    private long id;
-    private String title;
-    private String date;
-    private String time;
-    private String description;
-    private boolean checked;
+    public long id;
+    public String title;
+    public String date;
+    public String time;
+    public String description;
+    public boolean checked;
 
 
     public float left;

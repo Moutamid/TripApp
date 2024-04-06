@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.CheckBox;
@@ -103,10 +104,15 @@ public class AdEventDailogue extends Dialog {
                 String description = descriptionText.getText().toString();
                 boolean checked = allDayCheckbox.isChecked();
                 EventDbHelper dataSource = new EventDbHelper(getContext());
+                Log.d("Parameters", "Title: " + title);
+                Log.d("Parameters", "Date: " + date);
+                Log.d("Parameters", "Time: " + time);
+                Log.d("Parameters", "Description: " + description);
+                Log.d("Parameters", "Checked: " + checked);
                 dataSource.insertEvent(title, date, time, description, checked);
                 c.startActivity(new Intent(c, MainActivity.class));
                 dismiss();
-                c.finishAffinity();
+                c.finish();
             }
         });
     }

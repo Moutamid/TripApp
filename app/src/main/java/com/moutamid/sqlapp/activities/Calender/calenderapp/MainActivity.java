@@ -22,7 +22,6 @@ import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -31,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -47,11 +47,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.fxn.stash.Stash;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.moutamid.calenderapp.MyRecyclerView;
 import com.moutamid.sqlapp.R;
+import com.moutamid.sqlapp.activities.Calender.calenderapp.database.Event;
 import com.moutamid.sqlapp.activities.Calender.calenderapp.database.EventDbHelper;
 import com.moutamid.sqlapp.activities.Calender.calenderapp.month.MonthAdapter;
 import com.moutamid.sqlapp.activities.Calender.calenderapp.week.DateAdapter;
@@ -100,6 +102,7 @@ public class MainActivity extends AppCompatActivity
     MyRecyclerView mNestedView;
     View weekviewcontainer;
     WeekView mWeekView;
+   public static Activity activity;
     private String daysList[] = {"", "Monday", "Tuesday", "Wednesday",
             "Thursday", "Friday", "Saturday", "Sunday"};
     private ViewPager monthviewpager;
@@ -150,6 +153,7 @@ public class MainActivity extends AppCompatActivity
     private Calendar currentDate_month = Calendar.getInstance();
     private TextView dateRangeTextView_month, range_month;
     String search_date_month;
+    float v = 0;
     BottomNavigationView bottomNavigationView;
 
     public int getStatusBarHeight() {
@@ -169,6 +173,7 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -183,6 +188,8 @@ public class MainActivity extends AppCompatActivity
         recyclerView = findViewById(com.moutamid.sqlapp.R.id.recyclerView);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         replaceFragment(new DocumentFragment());
+        Stash.put("first_time_right", "yes");
+        Stash.put("first_time_left", "yes");
         bottomNavigationView.setSelectedItemId(R.id.calender_menu);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -207,10 +214,7 @@ public class MainActivity extends AppCompatActivity
         });
 
         mWeekView = (WeekView) findViewById(com.moutamid.sqlapp.R.id.weekView);
-
-        
         dbHelper = new EventDbHelper(this);
-
         backword_arrow = findViewById(com.moutamid.sqlapp.R.id.backword_arrow);
         forward_arrow = findViewById(com.moutamid.sqlapp.R.id.forward_arrow);
         title = findViewById(com.moutamid.sqlapp.R.id.title);
@@ -229,23 +233,103 @@ public class MainActivity extends AppCompatActivity
         MonthAdapter adapter_month = new MonthAdapter(this, dates_month, getDate_month(currentDate_month), search_dates_month);
         recyclerView_month.setAdapter(adapter_month);
         recyclerView_month.setLayoutManager(new GridLayoutManager(this, 7));
+        EventDbHelper eventDbHelper = new EventDbHelper(MainActivity.this);
+        List<Event> events = eventDbHelper.getEventsByDate(MainActivity.lastdate+"");
+        List<String> checkedTitles = new ArrayList<>();
+        RecyclerView recyclerView_local_event = findViewById(R.id.recyclerView_local_event);
+
+        for (Event event : events) {
+
+            if (event.isChecked()) {
+recyclerView_local_event.setVisibility(View.VISIBLE);
+                checkedTitles.add(event.getTitle());
+            }
+        }
+
+        LocalEventAdapter  local_adapter = new LocalEventAdapter (checkedTitles);
+        recyclerView_local_event.setAdapter(local_adapter);
+        recyclerView_local_event.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+
+        backword_arrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Stash.put("first_time_right", "yes");
+                float target = 0;
+                if (Stash.getString("first_time_left").equals("yes")) {
+                    Stash.put("first_time_left", "no");
+//                    mWeekView.weekx = 0;
+                    mWeekView.mWidthPerDay = 0;
+                    v = mWeekView.weekx + 720;
+                    target = (v + (mWeekView.mWidthPerDay * mWeekView.getNumberOfVisibleDays()));
+                    Log.d("moving_poits", "one time right" + mWeekView.weekx + "    " + v + "   " + mWeekView.mWidthPerDay + "   " + mWeekView.getNumberOfVisibleDays() + "  " + target);
+                    ValueAnimator va = ValueAnimator.ofFloat(mWeekView.mCurrentOrigin.x, target);
+                    va.setDuration(70);
+                    va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                        public void onAnimationUpdate(ValueAnimator animation) {
+                            mWeekView.mCurrentOrigin.x = (float) animation.getAnimatedValue();
+                            mWeekView.invalidate();
+                        }
+                    });
+                    va.start();
+                } else {
+                    v = mWeekView.weekx + 720;
+                    target = (v + (720 * mWeekView.getNumberOfVisibleDays()));
+                    Log.d("moving_poits", "left" + mWeekView.weekx + "    " + v + "   " + mWeekView.mWidthPerDay + "   " + mWeekView.getNumberOfVisibleDays() + "  " + target);
+                    ValueAnimator va = ValueAnimator.ofFloat(mWeekView.mCurrentOrigin.x, target);
+                    va.setDuration(70);
+                    va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                        public void onAnimationUpdate(ValueAnimator animation) {
+                            mWeekView.mCurrentOrigin.x = (float) animation.getAnimatedValue();
+                            mWeekView.invalidate();
+                        }
+
+                    });
+                    va.start();
+                    mWeekView.weekx = v;
+
+                }
+            }
+        });
         forward_arrow.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
             @Override
             public void onClick(View view) {
                 float target = 0;
-                float v = mWeekView.weekx - 720;
-                target =  (v- (mWeekView.mWidthPerDay * mWeekView.getNumberOfVisibleDays()));
-                Log.d("move", "left" + v+"   "+ mWeekView.mWidthPerDay + "   "+ mWeekView.getNumberOfVisibleDays()+ "  "+ target);
-                ValueAnimator va = ValueAnimator.ofFloat(mWeekView.mCurrentOrigin.x, target);
-                va.setDuration(70);
-                va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                    public void onAnimationUpdate(ValueAnimator animation) {
-                        mWeekView.mCurrentOrigin.x = (float) animation.getAnimatedValue();
-                        mWeekView.invalidate();
-                    }
+                Stash.put("first_time_left", "yes");
+                if (Stash.getString("first_time_right").equals("yes")) {
+                    Stash.put("first_time_right", "no");
+//                    mWeekView.weekx = 0;
+                    mWeekView.mWidthPerDay = 0;
+                    v = mWeekView.weekx - 720;
+                    target = (v - (mWeekView.mWidthPerDay * mWeekView.getNumberOfVisibleDays()));
+                    Log.d("moving_poits", "one time left" + mWeekView.weekx + "    " + v + "   " + mWeekView.mWidthPerDay + "   " + mWeekView.getNumberOfVisibleDays() + "  " + target);
+                    ValueAnimator va = ValueAnimator.ofFloat(mWeekView.mCurrentOrigin.x, target);
+                    va.setDuration(70);
+                    va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                        public void onAnimationUpdate(ValueAnimator animation) {
+                            mWeekView.mCurrentOrigin.x = (float) animation.getAnimatedValue();
+                            mWeekView.invalidate();
+                        }
+                    });
+                    va.start();
+                } else {
+                    v = mWeekView.weekx - 720;
+                    target = (v - (720 * mWeekView.getNumberOfVisibleDays()));
+                    Log.d("moving_poits", "left" + mWeekView.weekx + "    " + v + "   " + mWeekView.mWidthPerDay + "   " + mWeekView.getNumberOfVisibleDays() + "  " + target);
+                    ValueAnimator va = ValueAnimator.ofFloat(mWeekView.mCurrentOrigin.x, target);
+                    va.setDuration(70);
+                    va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                        public void onAnimationUpdate(ValueAnimator animation) {
+                            mWeekView.mCurrentOrigin.x = (float) animation.getAnimatedValue();
+                            mWeekView.invalidate();
+                        }
 
-                });
-                va.start();
+                    });
+                    va.start();
+                    mWeekView.weekx = v;
+
+                }
+
             }
         });
         previousButton_month.setOnClickListener(new View.OnClickListener() {
@@ -271,14 +355,11 @@ public class MainActivity extends AppCompatActivity
         DateAdapter adapter = new DateAdapter(this, dates, getDate(currentDate), search_dates);
         recyclerView_week.setAdapter(adapter);
         recyclerView_week.setLayoutManager(new LinearLayoutManager(this));
-        previousButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                currentDate.add(Calendar.DATE, -7);
-                updateDates(currentDate);
-                adapter.setCurrentDate(getDate(currentDate));
-                adapter.notifyDataSetChanged();
-            }
+        previousButton.setOnClickListener(v -> {
+            currentDate.add(Calendar.DATE, -7);
+            updateDates(currentDate);
+            adapter.setCurrentDate(getDate(currentDate));
+            adapter.notifyDataSetChanged();
         });
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -538,6 +619,7 @@ public class MainActivity extends AppCompatActivity
 
 
         mAppBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 Log.d("dssddssddat", "   date3");
@@ -1285,7 +1367,7 @@ public class MainActivity extends AppCompatActivity
             EventInfo eventInfo = entry.getValue();
             Instant instant = Instant.ofEpochMilli(eventInfo.starttime);
             java.time.LocalDate date = instant.atZone(ZoneId.systemDefault()).toLocalDate();
-            Log.d("week_dataaaa", date.toString() + "  " + cur_date);
+            Log.d("week_data", date.toString() + "  " + cur_date);
 
             if (date.toString().equals(cur_date)) {
                 eventList.add(eventInfo);
