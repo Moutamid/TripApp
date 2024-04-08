@@ -1,13 +1,16 @@
 package com.moutamid.sqlapp.activities.Calender.calenderapp.week;
 
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.moutamid.sqlapp.R;
 
@@ -19,29 +22,53 @@ import java.util.Locale;
 
 public class WeekActivity extends AppCompatActivity {
 
+    private ViewPager viewPager;
+    private WeekPagerAdapter pagerAdapter;
+
+
+
     private RecyclerView recyclerView_week;
     private ImageView previousButton, nextButton;
     private List<String> dates = new ArrayList<>();
     private List<String> search_dates = new ArrayList<>();
     private Calendar currentDate = Calendar.getInstance();
     private TextView dateRangeTextView, range;
-    String search_date;
+    private DateAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_week2);
-
         range = findViewById(R.id.range);
         dateRangeTextView = findViewById(R.id.dateRangeTextView);
         recyclerView_week = findViewById(R.id.recyclerView);
         previousButton = findViewById(R.id.previousButton);
         nextButton = findViewById(R.id.nextButton);
         updateDates(currentDate);
-        DateAdapter adapter = new DateAdapter(this, dates, getDate(currentDate), search_dates);
+        adapter = new DateAdapter(this, dates, getDate(currentDate), search_dates);
         recyclerView_week.setAdapter(adapter);
         recyclerView_week.setLayoutManager(new LinearLayoutManager(this));
-
+        Toast.makeText(WeekActivity.this, "test", Toast.LENGTH_SHORT).show();
+        recyclerView_week.setOnTouchListener(new View.OnTouchListener() {
+            private float startX;
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        startX = event.getX();
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        float endX = event.getX();
+                        if (startX - endX > 100) {
+                            previousButton.performClick();
+                        } else if (endX - startX > 100) {
+                            nextButton.performClick();
+                        }
+                        return true;
+                }
+                return false;
+            }
+        });
         previousButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,7 +78,6 @@ public class WeekActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
             }
         });
-
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,6 +93,7 @@ public class WeekActivity extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("EEE dd", Locale.getDefault());
         return sdf.format(calendar.getTime());
     }
+
     private String getSearch_date(Calendar calendar) {
         SimpleDateFormat search_date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         return search_date.format(calendar.getTime());
@@ -79,13 +106,10 @@ public class WeekActivity extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("EEE dd", Locale.getDefault());
         SimpleDateFormat sdf1 = new SimpleDateFormat("dd", Locale.getDefault());
         Calendar startDate = (Calendar) currentDate.clone();
-
-        // Set startDate to the current date
         startDate.set(Calendar.HOUR_OF_DAY, 0);
         startDate.set(Calendar.MINUTE, 0);
         startDate.set(Calendar.SECOND, 0);
         startDate.set(Calendar.MILLISECOND, 0);
-
         for (int i = 0; i < 7; i++) {
             dates.add(sdf.format(startDate.getTime()));
             search_dates.add(search_date.format(startDate.getTime()));

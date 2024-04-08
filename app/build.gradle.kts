@@ -20,7 +20,6 @@ android {
         versionCode = 1
         versionName = "1.0"
         setProperty("archivesBaseName", "MyTrips-$versionName")
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -37,20 +36,12 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
-
     }
+
     kotlinOptions {
         jvmTarget = "17"
     }
 
-//    buildFeatures {
-//        viewBinding = true
-//        compose = true
-////    }
-//    compileOptions {
-//        sourceCompatibility = JavaVersion.VERSION_18
-//        targetCompatibility = JavaVersion.VERSION_18
-//    }
     packagingOptions {
         exclude("META-INF/NOTICE.md")
         exclude("META-INF/NOTICE")
@@ -78,10 +69,8 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:32.2.3"))
     implementation("com.google.firebase:firebase-crashlytics")
     implementation("com.google.firebase:firebase-analytics")
-//    implementation(project(":calender"))
     implementation("joda-time:joda-time:2.10.10")
     implementation("org.greenrobot:eventbus:3.1.1")
     implementation("com.gjiazhe:scrollparallaximageview:1.0")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.20")
-
 }

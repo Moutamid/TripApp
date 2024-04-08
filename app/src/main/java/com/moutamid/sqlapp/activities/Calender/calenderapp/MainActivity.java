@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -343,9 +344,30 @@ recyclerView_local_event.setVisibility(View.VISIBLE);
             @Override
             public void onClick(View v) {
                 goToNextMonth();
-                adapter_month.notifyDataSetChanged(); // Notify adapter after updating dates
+                adapter_month.notifyDataSetChanged();
+                }
+        });
+        recyclerView_month.setOnTouchListener(new View.OnTouchListener() {
+            private float startX;
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        startX = event.getX();
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        float endX = event.getX();
+                        if (startX - endX > 100) {
+                            nextButton_month.performClick();
+                        } else if (endX - startX > 100) {
+                            previousButton_month.performClick();
+                        }
+                        return true;
+                }
+                return false;
             }
         });
+
         range = findViewById(com.moutamid.sqlapp.R.id.range);
         dateRangeTextView = findViewById(com.moutamid.sqlapp.R.id.dateRangeTextView);
         recyclerView_week = findViewById(com.moutamid.sqlapp.R.id.recyclerView_week);
@@ -355,6 +377,27 @@ recyclerView_local_event.setVisibility(View.VISIBLE);
         DateAdapter adapter = new DateAdapter(this, dates, getDate(currentDate), search_dates);
         recyclerView_week.setAdapter(adapter);
         recyclerView_week.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView_week.setOnTouchListener(new View.OnTouchListener() {
+            private float startX;
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        startX = event.getX();
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        float endX = event.getX();
+                        if (startX - endX > 100) {
+                            nextButton.performClick();
+                        } else if (endX - startX > 100) {
+                            previousButton.performClick();
+                        }
+                        return true;
+                }
+                return false;
+            }
+        });
+
         previousButton.setOnClickListener(v -> {
             currentDate.add(Calendar.DATE, -7);
             updateDates(currentDate);

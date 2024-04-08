@@ -98,8 +98,7 @@ public class EventDbHelper extends SQLiteOpenHelper {
 
         String selection = EventContract.EventEntry.COLUMN_DATE + "=? AND " +
                 EventContract.EventEntry.COLUMN_CHECKED + "=?";
-        String[] selectionArgs = { date, "0" }; // "1" represents checked events
-
+        String[] selectionArgs = { date, "0" };
         Cursor cursor = db.query(
                 EventContract.EventEntry.TABLE_NAME,
                 projection,
@@ -109,7 +108,6 @@ public class EventDbHelper extends SQLiteOpenHelper {
                 null,
                 null
         );
-
         if (cursor.moveToFirst()) {
             do {
                 Event event = new Event();
@@ -122,7 +120,6 @@ public class EventDbHelper extends SQLiteOpenHelper {
                 eventList.add(event);
             } while (cursor.moveToNext());
         }
-
         cursor.close();
         db.close();
         return eventList;

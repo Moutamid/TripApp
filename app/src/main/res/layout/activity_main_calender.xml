@@ -154,15 +154,9 @@
                 android:layout_marginTop="12dp"
                 android:text="GMT-06"
                 android:textColor="#616161"
-                android:textSize="10dp" />
+                android:textSize="12dp" />
 
-            <View
-                android:id="@+id/view1"
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="17dp"
-                android:layout_toRightOf="@id/start_text"
-                android:background="#EFEFEF" />
+
 
             <View
                 android:layout_width="match_parent"
@@ -176,7 +170,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/view1"
+                android:layout_marginStart="10dp"
+
+                android:layout_toRightOf="@+id/start_text"
                 android:orientation="vertical">
 
                 <androidx.recyclerview.widget.RecyclerView

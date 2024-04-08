@@ -25,4 +25,3 @@ dependencyResolutionManagement {
 
 include (":app")
 rootProject.name = "My Trips"
-include (":calender")

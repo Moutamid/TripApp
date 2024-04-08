@@ -44,7 +44,6 @@ public class EditEventDailogue extends Dialog {
     public boolean checked_value;
     public EditEventDailogue(Context a, long id, String title, String time, String description, boolean checked, String date) {
         super(a);
-        // Initialize fields with provided parameters
         this.id = id;
         this.title_value = title;
         this.time_value = time;
@@ -68,13 +67,10 @@ public class EditEventDailogue extends Dialog {
         allDayCheckbox = findViewById(R.id.all_day_checkbox);
         descriptionText = findViewById(R.id.description_text);
         saveButton = findViewById(R.id.save_button);
-
         addEventEditText.setText(title_value);
         descriptionText.setText(description_value);
         String dateStr = date_value;
         String timeStr = time_value;
-
-        // Format date
         SimpleDateFormat inputDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         SimpleDateFormat outputDateFormat = new SimpleDateFormat("MMMM, dd, yyyy", Locale.getDefault());
         String formattedDate = "";
@@ -85,7 +81,6 @@ public class EditEventDailogue extends Dialog {
             e.printStackTrace();
         }
 
-        // Format time
         SimpleDateFormat inputTimeFormat = new SimpleDateFormat("HH-mm", Locale.getDefault());
         SimpleDateFormat outputTimeFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());
         String formattedTime = "";
@@ -140,6 +135,7 @@ public class EditEventDailogue extends Dialog {
                 String title = addEventEditText.getText().toString();
                 String date =date_value ; // Get the date value from your EditText
                 String time = timeStr; // Get the time value from your EditText
+
                 String description = descriptionText.getText().toString();
                 boolean checked = allDayCheckbox.isChecked();
                 EventDbHelper dataSource = new EventDbHelper(getContext());
