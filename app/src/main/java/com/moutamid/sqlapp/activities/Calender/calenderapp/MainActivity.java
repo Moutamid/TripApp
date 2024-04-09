@@ -1393,7 +1393,7 @@ recyclerView_local_event.setVisibility(View.VISIBLE);
         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
         // Define the date format pattern
-        SimpleDateFormat sdf = new SimpleDateFormat("MMMM, dd, yyyy, hh:mm a", Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd yyyy   hh:mm a", Locale.getDefault());
 
         // Format the date according to the pattern
         return sdf.format(calendar.getTime());
