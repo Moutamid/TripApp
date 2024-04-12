@@ -2,6 +2,7 @@ package com.moutamid.sqlapp.activities.Calender.calenderapp.weekview;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -14,13 +15,17 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.moutamid.sqlapp.R;
 import com.moutamid.sqlapp.activities.Calender.calenderapp.MainActivity;
 import com.moutamid.sqlapp.activities.Calender.calenderapp.database.EventDbHelper;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class AdEventDailogue extends Dialog {
     String formattedDate;
@@ -33,6 +38,9 @@ public class AdEventDailogue extends Dialog {
     private TextView saveButton;
     String date_str;
     String eventTime;
+    private Calendar calendar;
+    String date_string;
+    String timeRange;
 
     public AdEventDailogue(Activity a, String date, String eventTime) {
         super(a);
@@ -58,6 +66,16 @@ public class AdEventDailogue extends Dialog {
         descriptionText = findViewById(R.id.description_text);
         saveButton = findViewById(R.id.save_button);
         date.setText(date_str);
+        calendar = Calendar.getInstance();
+        String[] parts = date_str.split("\\s+");
+        timeRange = parts[3] + " " + parts[4]; // Join the time parts with a space
+
+        date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTimePickerDialog();
+            }
+        });
         addEventEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -99,21 +117,78 @@ public class AdEventDailogue extends Dialog {
 
                 }
                 String title = addEventEditText.getText().toString();
-                String date = formattedDate; // Get the date value from your EditText
+                String date_ = formattedDate; // Get the date value from your EditText
                 String time = eventTime; // Get the time value from your EditText
                 String description = descriptionText.getText().toString();
                 boolean checked = allDayCheckbox.isChecked();
                 EventDbHelper dataSource = new EventDbHelper(getContext());
                 Log.d("Parameters", "Title: " + title);
-                Log.d("Parameters", "Date: " + date);
+                Log.d("Parameters", "Date: " + date_);
                 Log.d("Parameters", "Time: " + time);
+                Log.d("Parameters", "Time: " + timeRange);
                 Log.d("Parameters", "Description: " + description);
                 Log.d("Parameters", "Checked: " + checked);
-                dataSource.insertEvent(title, date, time, description, checked);
+                dataSource.insertEvent(title, date_, time, timeRange, description, checked, 0);
                 c.startActivity(new Intent(c, MainActivity.class));
                 dismiss();
                 c.finish();
             }
         });
+    }
+
+    private void showTimePickerDialog() {
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(c,
+                new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        int startHour = hourOfDay;
+                        int startMinute = minute;
+
+                        // Update the calendar to the selected start time
+                        calendar.set(Calendar.HOUR_OF_DAY, startHour);
+                        calendar.set(Calendar.MINUTE, startMinute);
+
+                        // Show end time picker
+                        showEndTimePickerDialog();
+                    }
+                }, hour, minute, false);
+
+        timePickerDialog.setTitle("Start Time");
+        timePickerDialog.show();
+    }
+
+    private void showEndTimePickerDialog() {
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(c,
+                new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        int endHour = hourOfDay;
+                        int endMinute = minute;
+
+                        DateFormat timeFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+                        String startTime = timeFormat.format(calendar.getTime());
+                        calendar.set(Calendar.HOUR_OF_DAY, endHour);
+                        calendar.set(Calendar.MINUTE, endMinute);
+                        String endTime = timeFormat.format(calendar.getTime());
+                        timeRange = startTime + " - " + endTime;
+
+                        String dateTime = date_str;
+                        String[] parts = dateTime.split("\\s+");
+                        date_string = parts[0] + " " + parts[1] + " " + parts[2];
+
+                        Log.d("datat", parts + "      " + date_string);
+
+                        date.setText(date_string + " " + timeRange);
+                    }
+                }, hour, minute, false);
+
+        timePickerDialog.setTitle("End Time");
+        timePickerDialog.show();
     }
 }

@@ -6,7 +6,10 @@ public class Event {
     public String date;
     public String time;
     public String description;
+    public String exact_time;
     public boolean checked;
+
+    public  int complete;
 
 
     public float left;
@@ -72,7 +75,23 @@ public class Event {
         return checked;
     }
 
+    public String getExact_time() {
+        return exact_time;
+    }
+
+    public void setExact_time(String exact_time) {
+        this.exact_time = exact_time;
+    }
+
     public void setChecked(boolean checked) {
         this.checked = checked;
+    }
+
+    public int getComplete() {
+        return complete;
+    }
+
+    public void setComplete(int complete) {
+        this.complete = complete;
     }
 }

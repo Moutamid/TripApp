@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:background="#fff"
     android:orientation="vertical">
-    w
+
     <RelativeLayout
         android:id="@+id/header_title"
         android:layout_width="match_parent"
@@ -19,6 +19,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="55dp"
+            android:visibility="gone"
             android:src="@drawable/delete" />  <ImageView
             android:id="@+id/close_icon"
             android:layout_width="14dp"
@@ -65,11 +66,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="30dp"
+            android:layout_marginEnd="5dp"
             android:background="@drawable/ic_bg"
             android:gravity="center"
-            android:paddingLeft="20dp"
+            android:paddingLeft="5dp"
             android:paddingTop="8dp"
+            android:maxLines="1"
+            android:focusable="false"
             android:paddingRight="20dp"
             android:paddingBottom="8dp"
             android:text="Feb, 14, 2024, 06:00 am"

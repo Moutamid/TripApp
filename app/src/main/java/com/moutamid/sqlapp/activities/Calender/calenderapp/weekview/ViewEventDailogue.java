@@ -1,7 +1,9 @@
 package com.moutamid.sqlapp.activities.Calender.calenderapp.weekview;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
@@ -14,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.moutamid.sqlapp.R;
+import com.moutamid.sqlapp.activities.Calender.calenderapp.MainActivity;
 import com.moutamid.sqlapp.activities.Calender.calenderapp.database.EventDbHelper;
 
 import java.text.ParseException;
@@ -24,11 +27,9 @@ import java.util.Locale;
 public class ViewEventDailogue extends Dialog {
 
     public Context c;
-    private EditText addEventEditText;
-    private EditText date_edit;
-    private ImageView closeIcon, delete_icon,  timerIcon, menuIcon;
-    private CheckBox allDayCheckbox;
-    private EditText descriptionText;
+    private TextView addEventEditText;
+    private TextView date_edit;
+    private ImageView closeIcon, delete_icon,  edit_icon;
     private TextView saveButton;
     String date_str;
     String eventTime;
@@ -38,15 +39,18 @@ public class ViewEventDailogue extends Dialog {
     public String date_value;
     public String time_value;
     public String description_value;
+    public String exact_time_value;
     public boolean checked_value;
-    public ViewEventDailogue(Context a, long id, String title, String time, String description, boolean checked, String date) {
+    public ViewEventDailogue(Context a, long id, String title, String time, String description, boolean checked, String date, String exact_time_value) {
         super(a);
         this.id = id;
+        this.c = a;
         this.title_value = title;
         this.time_value = time;
         this.description_value = description;
         this.checked_value = checked;
         this.date_value = date;
+        this.exact_time_value = exact_time_value;
     }
 
     @Override
@@ -59,13 +63,10 @@ public class ViewEventDailogue extends Dialog {
         addEventEditText = findViewById(R.id.add_event);
         closeIcon = findViewById(R.id.close_icon);
         delete_icon = findViewById(R.id.delete_icon);
-        timerIcon = findViewById(R.id.timer_icon);
+        edit_icon = findViewById(R.id.edit_icon);
         date_edit = findViewById(R.id.date);
-        allDayCheckbox = findViewById(R.id.all_day_checkbox);
-        descriptionText = findViewById(R.id.description_text);
         saveButton = findViewById(R.id.save_button);
         addEventEditText.setText(title_value);
-        descriptionText.setText(description_value);
         String dateStr = date_value;
         String timeStr = time_value;
         SimpleDateFormat inputDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
@@ -92,35 +93,22 @@ public class ViewEventDailogue extends Dialog {
             public void onClick(View view) {
                 EventDbHelper dataSource = new EventDbHelper(getContext());
                 dataSource.deleteEvent(id);
-//                MainActivity.activity.startActivity(new Intent(MainActivity.activity, MainActivity.class));
+                c.startActivity(new Intent(c, MainActivity.class));
                 dismiss();
 
             }
         });
-        date_edit.setText(formattedDate+" "+formattedTime);
-        allDayCheckbox.setChecked(checked_value);
-        addEventEditText.addTextChangedListener(new TextWatcher() {
+        edit_icon.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+            public void onClick(View view) {
+                dismiss();
+                EditEventDailogue adEventDailogue = new EditEventDailogue(c, id,title_value, exact_time_value, time_value, description_value, checked_value, date_value);
+                adEventDailogue.show();
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                String input = s.toString().trim();
-                if (input.length() > 15) {
-                    addEventEditText.setError("Character limit is 15");
-                    saveButton.setEnabled(false);
-                } else {
-                    addEventEditText.setError(null); // Remove the error
-                    saveButton.setEnabled(true);
-                }
             }
         });
-        closeIcon.setOnClickListener(new View.OnClickListener() {
+        date_edit.setText(formattedDate+" "+exact_time_value);
+       closeIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dismiss(); // Dismiss the dialog
@@ -132,12 +120,9 @@ public class ViewEventDailogue extends Dialog {
                 String title = addEventEditText.getText().toString();
                 String date =date_value ; // Get the date value from your EditText
                 String time = timeStr; // Get the time value from your EditText
-
-                String description = descriptionText.getText().toString();
-                boolean checked = allDayCheckbox.isChecked();
                 EventDbHelper dataSource = new EventDbHelper(getContext());
-                dataSource.updateEvent(id, title, date, time, description, checked);
-//                MainActivity.activity.startActivity(new Intent(MainActivity.activity, MainActivity.class));
+                dataSource.completeEvent(id, title, date, exact_time_value, time, description_value, checked_value);
+                c.startActivity(new Intent(c, MainActivity.class));
                 dismiss();
             }
         });

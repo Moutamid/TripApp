@@ -1,5 +1,6 @@
 package com.moutamid.sqlapp.activities.Calender.calenderapp;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,14 +10,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.moutamid.sqlapp.R;
+import com.moutamid.sqlapp.activities.Calender.calenderapp.database.Event;
+import com.moutamid.sqlapp.activities.Calender.calenderapp.weekview.ViewEventDailogue;
 
 import java.util.List;
 
 public class LocalEventAdapter extends RecyclerView.Adapter<LocalEventAdapter.EventViewHolder> {
-    private List<String> titles;
+    private List<Event> events;
+Context context;
 
-    public LocalEventAdapter(List<String> titles) {
-        this.titles = titles;
+    public LocalEventAdapter(List<Event> events, Context context) {
+        this.events = events;
+        this.context = context;
     }
 
     @NonNull
@@ -28,13 +33,21 @@ public class LocalEventAdapter extends RecyclerView.Adapter<LocalEventAdapter.Ev
 
     @Override
     public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
-        String title = titles.get(position);
-        holder.textViewTitle.setText(title);
+        Event event = events.get(position);
+        holder.textViewTitle.setText(event.title);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ViewEventDailogue adEventDailogue = new ViewEventDailogue(context, event.id, event.title, event.time, event.description, event.checked, event.date, event.exact_time);
+                adEventDailogue.show();
+
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return titles.size();
+        return events.size();
     }
 
     public static class EventViewHolder extends RecyclerView.ViewHolder {

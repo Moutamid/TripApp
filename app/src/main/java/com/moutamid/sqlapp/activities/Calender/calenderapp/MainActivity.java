@@ -26,6 +26,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -64,6 +65,7 @@ import com.moutamid.sqlapp.activities.Calender.calenderapp.weekview.MonthLoader;
 import com.moutamid.sqlapp.activities.Calender.calenderapp.weekview.WeekView;
 import com.moutamid.sqlapp.activities.Calender.calenderapp.weekview.WeekViewEvent;
 import com.moutamid.sqlapp.activities.DashboardActivity;
+import com.moutamid.sqlapp.activities.Organizer.CreateActivity;
 import com.moutamid.sqlapp.activities.Organizer.Fragment.DocumentFragment;
 import com.moutamid.sqlapp.activities.Organizer.OrganizerActivity;
 
@@ -238,16 +240,16 @@ public class MainActivity extends AppCompatActivity
         List<Event> events = eventDbHelper.getEventsByDate(MainActivity.lastdate+"");
         List<String> checkedTitles = new ArrayList<>();
         RecyclerView recyclerView_local_event = findViewById(R.id.recyclerView_local_event);
-
+        List<Event> checkedEvents = new ArrayList<>();
         for (Event event : events) {
-
             if (event.isChecked()) {
 recyclerView_local_event.setVisibility(View.VISIBLE);
                 checkedTitles.add(event.getTitle());
+                checkedEvents.add(event);
             }
         }
 
-        LocalEventAdapter  local_adapter = new LocalEventAdapter (checkedTitles);
+        LocalEventAdapter  local_adapter = new LocalEventAdapter (checkedEvents, MainActivity.this);
         recyclerView_local_event.setAdapter(local_adapter);
         recyclerView_local_event.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
 
@@ -1077,7 +1079,11 @@ recyclerView_local_event.setVisibility(View.VISIBLE);
 
             @Override
             public String interpretTime(int hour) {
-                return hour > 11 ? (hour - 12) + " PM" : (hour == 0 ? "12 AM" : hour + " AM");
+                if (hour == 0 || hour == 12) {
+                    return "12 " + (hour < 12 ? "AM" : "PM");
+                } else {
+                    return (hour % 12) + " " + (hour < 12 ? "AM" : "PM");
+                }
             }
         });
     }
@@ -1385,17 +1391,12 @@ recyclerView_local_event.setVisibility(View.VISIBLE);
     }
 
     private String formatTime(int hour, int minute, int month, int dayOfMonth) {
-        // Create a Calendar instance and set the components
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, hour);
         calendar.set(Calendar.MINUTE, minute);
         calendar.set(Calendar.MONTH, month);
         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-
-        // Define the date format pattern
         SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd yyyy   hh:mm a", Locale.getDefault());
-
-        // Format the date according to the pattern
         return sdf.format(calendar.getTime());
     }
 
@@ -1540,4 +1541,22 @@ recyclerView_local_event.setVisibility(View.VISIBLE);
 
 
     }
+    public void menu(View view) {
+        PopupMenu popupMenu = new PopupMenu(this, view);
+        popupMenu.getMenuInflater().inflate(R.menu.menu, popupMenu.getMenu());
+
+        // Optional: Set a listener to respond to menu item clicks
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if ((item.getItemId() == R.id.menu_item_1)) {
+                    startActivity(new Intent(MainActivity.this, DashboardActivity.class));
+                    finishAffinity();
+                }
+                return true;
+            }
+        });
+        popupMenu.show();
+    }
+
 }

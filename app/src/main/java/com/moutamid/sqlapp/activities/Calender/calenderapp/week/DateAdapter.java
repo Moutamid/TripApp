@@ -1,6 +1,6 @@
 package com.moutamid.sqlapp.activities.Calender.calenderapp.week;
 
-import android.content.Context;
+import android.app.Activity;
 import android.graphics.Color;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,18 +17,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.moutamid.sqlapp.R;
 import com.moutamid.sqlapp.activities.Calender.calenderapp.MainActivity;
+import com.moutamid.sqlapp.activities.Calender.calenderapp.weekview.AdEventDailogue;
+import com.moutamid.sqlapp.activities.Calender.calenderapp.weekview.MonthAdEventDailogue;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class DateAdapter extends RecyclerView.Adapter<DateAdapter.DateViewHolder> {
 
-    private Context context;
+    private Activity context;
     private List<String> dates;
     private List<String> search_dates;
     public String currentDate;
     EventAdapter eventAdapter;
 
-    public DateAdapter(Context context, List<String> dates, String currentDate, List<String> search_dates) {
+    public DateAdapter(Activity context, List<String> dates, String currentDate, List<String> search_dates) {
         this.context = context;
         this.dates = dates;
         this.currentDate = currentDate;
@@ -46,9 +52,21 @@ public class DateAdapter extends RecyclerView.Adapter<DateAdapter.DateViewHolder
         holder.bind(dates.get(position));
 
 
-       holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
+        holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
         eventAdapter = new EventAdapter(context, MainActivity.func_week(context, search_dates.get(position)));
         holder.recyclerView.setAdapter(eventAdapter);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd yyyy   hh:mm a", Locale.getDefault());
+                SimpleDateFormat stime = new SimpleDateFormat("hh-mm", Locale.getDefault());
+                Date currentDate = new Date();
+                String formattedDate = sdf.format(currentDate);
+                String time = stime.format(currentDate);
+                MonthAdEventDailogue adEventDailogue = new MonthAdEventDailogue(context, formattedDate + "", time);
+                adEventDailogue.show();
+            }
+        });
     }
 
     @Override

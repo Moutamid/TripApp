@@ -20,12 +20,15 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Handler;
 import android.text.Layout;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
+import android.text.style.AbsoluteSizeSpan;
 import android.text.style.StyleSpan;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -38,6 +41,7 @@ import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.widget.OverScroller;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -326,7 +330,7 @@ public class WeekView extends View {
                     Log.d("Parameters", "Description: " + event.description);
                     Log.d("Parameters", "Checked: " + event.checked);
                     Log.d("Parameters", "Date: " + event.date);
-                    EditEventDailogue adEventDailogue = new EditEventDailogue(mContext, event.id,event.title, event.time, event.description, event.checked, event.date);
+                    ViewEventDailogue adEventDailogue = new ViewEventDailogue(mContext, event.id, event.title, event.time, event.description, event.checked, event.date, event.exact_time);
                     adEventDailogue.show();
                     return super.onSingleTapConfirmed(e);
                 }
@@ -941,7 +945,6 @@ public class WeekView extends View {
                 String formattedDate = outputFormat.format(date);
                 String formattedDate_title = outputFormat_title.format(date_title);
                 MainActivity.title.setText(formattedDate_title);
-                MainActivity.current_date.setText(formattedDate);
                 MainActivity.calender_date.setText(formattedDate);
                 Calendar currentDate = Calendar.getInstance();
                 // Get the day of the week and day of the month from the current date
@@ -952,9 +955,33 @@ public class WeekView extends View {
                 if (formattedDate.equals(currentDateString)) {
                     // The given date is the current date
                     MainActivity.calender_date.setTextColor(Color.parseColor("#5C79FF"));
+                    MainActivity.current_date.setTextColor(Color.parseColor("#5C79FF"));
+                    TextView currentDateTextView = MainActivity.current_date;
+                    int dateTextSizeDP = 15; // Size for the date
+                    int todayTextSizeDP = 11; // Size for "Today"
+                    float scale = getResources().getDisplayMetrics().density;
+                    int dateTextSizePX = (int) (dateTextSizeDP * scale + 0.5f);
+                    int todayTextSizePX = (int) (todayTextSizeDP * scale + 0.5f);
+                    SpannableStringBuilder builder = new SpannableStringBuilder();
+                    builder.append(formattedDate);
+                    String todayString = "\nToday";
+                    SpannableString todaySpan = new SpannableString(todayString);
+                    todaySpan.setSpan(new AbsoluteSizeSpan(todayTextSizePX), 0, todayString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    builder.append(todaySpan);
+                    currentDateTextView.setText(builder, TextView.BufferType.SPANNABLE);
+                    currentDateTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, dateTextSizePX);
                 } else {
                     // The given date is not the current date
                     MainActivity.calender_date.setTextColor(Color.parseColor("#000000"));
+                    MainActivity.current_date.setTextColor(Color.parseColor("#000000"));
+                    TextView currentDateTextView = MainActivity.current_date;
+                    int dateTextSizeDP = 15; // Size for the date
+                    float scale = getResources().getDisplayMetrics().density;
+                    int dateTextSizePX = (int) (dateTextSizeDP * scale + 0.5f);
+                    SpannableStringBuilder builder = new SpannableStringBuilder();
+                    builder.append(formattedDate);
+                    currentDateTextView.setText(builder, TextView.BufferType.SPANNABLE);
+                    currentDateTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, dateTextSizePX);
                 }
 
 
@@ -1002,8 +1029,15 @@ public class WeekView extends View {
                         String startTime = times[0]; // "04"
                         String endTime = times[1];   // "19"
 //                        Toast.makeText(mContext, "log"+ id+"  -- "+ title+"  -- "+ time+"  -- "+ description+"  -- "+ checked+"  -- "+ date, Toast.LENGTH_SHORT).show();
-                        Log.d("tesdffdfdft", id+"  -- "+ title+"  -- "+ time+"  -- "+ description+"  -- "+ checked+"  -- "+ date);
-                        draw_event(id,title, time, description, checked, date, startPixel, canvas, Integer.valueOf(startTime), Integer.valueOf(endTime), title);
+                        Log.d("tesdffdfdft", event.getComplete() + "-----" + id + "  -- " + title + "  -- " + time + "  -- " + description + "  -- " + checked + "  -- " + date);
+                        if (event.getComplete() == 0) {
+                            draw_event(id, title, time, event.getExact_time(), description, checked, date, startPixel, canvas, Integer.valueOf(startTime), Integer.valueOf(endTime), title);
+                        }
+                        else
+                        {
+                            draw_event_complete(id, title, time, event.getExact_time(), description, checked, date, startPixel, canvas, Integer.valueOf(startTime), Integer.valueOf(endTime), title);
+
+                        }
                     }
                 }
                 drawAllDayEvents(day, startPixel, canvas, dayNumber, false);
@@ -1045,20 +1079,19 @@ public class WeekView extends View {
 
                     float startat = startPixel < mHeaderColumnWidth ? mHeaderColumnWidth : startPixel;
                     float wid = mWidthPerDay;
-                    float per = 20 * (1.0f - (startat - startPixel) / wid);
+                    float per = 10 * (1.0f - (startat - startPixel) / wid);
 
                     // Draw rectangle background
                     Paint rectanglePaint = new Paint();
                     rectanglePaint.setColor(Color.parseColor("#3C5C9C")); // Set the background color
                     rectanglePaint.setStyle(Paint.Style.FILL);
-                    float rectLeft = startat - per - 75; // Adjust width and position more to the left
+                    float rectLeft = startat - per - 125; // Adjust width and position more to the left
                     float rectTop = startY + beforeNow - per - mTimeTextHeight / 2 + 3; // Adjust height and position more to the top
-                    float rectRight = startat + per;
+                    float rectRight = startat - per;
                     float rectBottom = startY + beforeNow + mTimeTextHeight / 2 + 6; // Adjust rectangle height based on text height
                     float cornerRadius = 30; // Set corner radius
                     canvas.drawRoundRect(rectLeft, rectTop, rectRight, rectBottom, cornerRadius, cornerRadius, rectanglePaint);
 
-                    // Set the PorterDuff mode to clear so that the time behind the rectangle is not visible
                     rectanglePaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
 
                     // Draw the current time text
@@ -2288,7 +2321,7 @@ public class WeekView extends View {
         return sdf.format(calendar.getTime());
     }
 
-    public void draw_event(long id, String s, String time, String description, boolean checked, String date, float startPixel, Canvas canvas, int hour, int minute, String title) {
+    public void draw_event(long id, String s, String time, String event_excat_time, String description, boolean checked, String date, float startPixel, Canvas canvas, int hour, int minute, String title) {
         float startY = mHeaderHeight + mHeaderRowPadding * 3 + mTimeTextHeight / 2 + mHeaderMarginBottom + mCurrentOrigin.y;
         float beforeNow = (hour + minute / 60.0f) * mHourHeight;
         float startat = startPixel < mHeaderColumnWidth ? mHeaderColumnWidth : startPixel;
@@ -2297,9 +2330,8 @@ public class WeekView extends View {
         Paint rectanglePaint = new Paint();
         rectanglePaint.setColor(Color.parseColor("#3C5C9C")); // Set the background color
         rectanglePaint.setStyle(Paint.Style.FILL);
-
-        rectLeft = startat - per - 5; // Adjust width and position more to the left
-         rectTop = startY + beforeNow - per - 25; // Adjust height and position more to the top (subtract 20dp)
+        rectLeft = startat - per - 5;
+        rectTop = startY + beforeNow - per - 25; // Adjust height and position more to the top (subtract 20dp)
          rectRight = canvasWidth; // Set the right edge of the rectangle to the width of the canvas
          rectBottom = startY + beforeNow + 25; // Adjust rectangle height to approximately 40dp (add 20dp)
         Event event_model= new Event();
@@ -2312,9 +2344,10 @@ public class WeekView extends View {
         event_model.time= time;
         event_model.description= description;
         event_model.checked= checked;
-        event_model.id= id;
+        event_model.id = id;
+        event_model.exact_time = event_excat_time;
         events.add(event_model);
-        float cornerRadius = 1; // Set corner radius
+        float cornerRadius = 1;
         canvas.drawRoundRect(rectLeft, rectTop, rectRight, rectBottom, cornerRadius, cornerRadius, rectanglePaint);
         rectanglePaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
         Paint textPaint = new Paint();
@@ -2323,14 +2356,48 @@ public class WeekView extends View {
         textPaint.setTextAlign(Paint.Align.LEFT);
         float textX = rectLeft + 20; // Set textX to rectLeft plus some padding (e.g., 10dp)
         float textY = startY + beforeNow + mTimeTextHeight / 4; // Adjust the vertical position of the text
-        canvas.drawText(title, textX, textY, textPaint);
+
+
+        canvas.drawText(title + ", " + event_excat_time, textX, textY, textPaint);
 
     }
+
+    public void draw_event_complete(long id, String s, String time, String event_excat_time, String description, boolean checked, String date, float startPixel, Canvas canvas, int hour, int minute, String title) {
+        float startY = mHeaderHeight + mHeaderRowPadding * 3 + mTimeTextHeight / 2 + mHeaderMarginBottom + mCurrentOrigin.y;
+        float beforeNow = (hour + minute / 60.0f) * mHourHeight;
+        float startat = startPixel < mHeaderColumnWidth ? mHeaderColumnWidth : startPixel;
+        float canvasWidth = canvas.getWidth(); // Get the width of the canvas
+        float per = 1 * (1.0f - (startat - startPixel) / canvasWidth); // Adjust the width based on the canvas width
+
+        // Set background color
+        Paint rectanglePaint = new Paint();
+        rectanglePaint.setColor(Color.parseColor("#EDF0F5")); // Set the background color to "#bc8f8f"
+        rectanglePaint.setStyle(Paint.Style.FILL);
+        float rectLeft = startat - per - 5;
+        float rectTop = startY + beforeNow - per - 25; // Adjust height and position more to the top (subtract 20dp)
+        float rectRight = canvasWidth; // Set the right edge of the rectangle to the width of the canvas
+        float rectBottom = startY + beforeNow + 25; // Adjust rectangle height to approximately 40dp (add 20dp)
+        canvas.drawRoundRect(rectLeft, rectTop, rectRight, rectBottom, 1, 1, rectanglePaint);
+
+        // Set text properties
+        Paint textPaint = new Paint();
+        textPaint.setColor(Color.parseColor("#75706B")); // Set the text color to black (#000000)
+        textPaint.setTextSize(22);
+        textPaint.setTextAlign(Paint.Align.LEFT);
+        textPaint.setStrikeThruText(true); // Enable strike through
+
+        // Draw text
+        float textX = rectLeft + 20; // Set textX to rectLeft plus some padding (e.g., 10dp)
+        float textY = startY + beforeNow + mTimeTextHeight / 4; // Adjust the vertical position of the text
+        canvas.drawText(title + ", " + event_excat_time, textX, textY, textPaint);
+    }
+
     private boolean isWithinRectangle(float x, float y) {
         // Your logic to determine if the click is within the rectangle boundaries
         // For example:
         return (x >= rectLeft && x <= rectRight && y >= rectTop && y <= rectBottom);
     }
+
     private Calendar parseDateString(String dateString) {
         SimpleDateFormat format = new SimpleDateFormat("EEEE, dd", Locale.ENGLISH);
         Date date = null;

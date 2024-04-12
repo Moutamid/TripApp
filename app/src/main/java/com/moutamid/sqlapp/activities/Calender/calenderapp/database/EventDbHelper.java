@@ -19,7 +19,9 @@ public class EventDbHelper extends SQLiteOpenHelper {
                     EventContract.EventEntry.COLUMN_TITLE + " TEXT," +
                     EventContract.EventEntry.COLUMN_DATE + " TEXT," +
                     EventContract.EventEntry.COLUMN_TIME + " TEXT," +
+                    EventContract.EventEntry.COLUMN_EXACT_TIME + " TEXT," +
                     EventContract.EventEntry.COLUMN_DESCRIPTION + " TEXT," +
+                    EventContract.EventEntry.COLUMN_COMPLETE + " INTEGER," +
                     EventContract.EventEntry.COLUMN_CHECKED + " INTEGER)";
 
     private static final String SQL_DELETE_ENTRIES =
@@ -40,28 +42,54 @@ public class EventDbHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public long insertEvent(String title, String date, String time, String description, boolean checked) {
+    public long insertEvent(String title, String date, String time, String exact_time, String description, boolean checked, int complete) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(EventContract.EventEntry.COLUMN_TITLE, title);
         values.put(EventContract.EventEntry.COLUMN_DATE, date);
         values.put(EventContract.EventEntry.COLUMN_TIME, time);
+        values.put(EventContract.EventEntry.COLUMN_EXACT_TIME, exact_time);
         values.put(EventContract.EventEntry.COLUMN_DESCRIPTION, description);
         values.put(EventContract.EventEntry.COLUMN_CHECKED, checked ? 1 : 0);
+        values.put(EventContract.EventEntry.COLUMN_COMPLETE, complete);
         long newRowId = db.insert(EventContract.EventEntry.TABLE_NAME, null, values);
         db.close();
         return newRowId;
     }
 
-    public int updateEvent(long eventId, String title, String date, String time, String description, boolean checked) {
+    public int updateEvent(long eventId, String title, String date, String exact_time, String time, String description, boolean checked) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(EventContract.EventEntry.COLUMN_TITLE, title);
         values.put(EventContract.EventEntry.COLUMN_DATE, date);
         values.put(EventContract.EventEntry.COLUMN_TIME, time);
+        values.put(EventContract.EventEntry.COLUMN_EXACT_TIME, exact_time);
+
         values.put(EventContract.EventEntry.COLUMN_DESCRIPTION, description);
         values.put(EventContract.EventEntry.COLUMN_CHECKED, checked ? 1 : 0);
+        values.put(EventContract.EventEntry.COLUMN_COMPLETE, 0);
+        String selection = EventContract.EventEntry._ID + "=?";
+        String[] selectionArgs = { String.valueOf(eventId) };
 
+        int count = db.update(
+                EventContract.EventEntry.TABLE_NAME,
+                values,
+                selection,
+                selectionArgs);
+        db.close();
+        return count;
+    }
+    public int completeEvent(long eventId, String title, String date, String exact_time, String time, String description, boolean checked) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(EventContract.EventEntry.COLUMN_TITLE, title);
+        values.put(EventContract.EventEntry.COLUMN_DATE, date);
+        values.put(EventContract.EventEntry.COLUMN_TIME, time);
+        values.put(EventContract.EventEntry.COLUMN_EXACT_TIME, exact_time);
+
+        values.put(EventContract.EventEntry.COLUMN_DESCRIPTION, description);
+        values.put(EventContract.EventEntry.COLUMN_CHECKED, 0);
+        values.put(EventContract.EventEntry.COLUMN_COMPLETE, 1);
         String selection = EventContract.EventEntry._ID + "=?";
         String[] selectionArgs = { String.valueOf(eventId) };
 
@@ -92,8 +120,10 @@ public class EventDbHelper extends SQLiteOpenHelper {
                 EventContract.EventEntry.COLUMN_TITLE,
                 EventContract.EventEntry.COLUMN_DATE,
                 EventContract.EventEntry.COLUMN_TIME,
+                EventContract.EventEntry.COLUMN_EXACT_TIME,
                 EventContract.EventEntry.COLUMN_DESCRIPTION,
-                EventContract.EventEntry.COLUMN_CHECKED
+                EventContract.EventEntry.COLUMN_CHECKED,
+                EventContract.EventEntry.COLUMN_COMPLETE
         };
 
         String selection = EventContract.EventEntry.COLUMN_DATE + "=? AND " +
@@ -117,6 +147,8 @@ public class EventDbHelper extends SQLiteOpenHelper {
                 event.setTime(cursor.getString(cursor.getColumnIndex(EventContract.EventEntry.COLUMN_TIME)));
                 event.setDescription(cursor.getString(cursor.getColumnIndex(EventContract.EventEntry.COLUMN_DESCRIPTION)));
                 event.setChecked(cursor.getInt(cursor.getColumnIndex(EventContract.EventEntry.COLUMN_CHECKED)) == 0);
+                event.setComplete(cursor.getInt(cursor.getColumnIndex(EventContract.EventEntry.COLUMN_COMPLETE)));
+                event.setExact_time(cursor.getString(cursor.getColumnIndex(EventContract.EventEntry.COLUMN_EXACT_TIME)));
                 eventList.add(event);
             } while (cursor.moveToNext());
         }
@@ -133,8 +165,11 @@ public class EventDbHelper extends SQLiteOpenHelper {
                 EventContract.EventEntry.COLUMN_TITLE,
                 EventContract.EventEntry.COLUMN_DATE,
                 EventContract.EventEntry.COLUMN_TIME,
+                EventContract.EventEntry.COLUMN_EXACT_TIME,
+
                 EventContract.EventEntry.COLUMN_DESCRIPTION,
-                EventContract.EventEntry.COLUMN_CHECKED
+                EventContract.EventEntry.COLUMN_CHECKED,
+                EventContract.EventEntry.COLUMN_COMPLETE
         };
 
         String selection = EventContract.EventEntry.COLUMN_DATE + "=? AND " +
@@ -158,8 +193,10 @@ public class EventDbHelper extends SQLiteOpenHelper {
                 event.setTitle(cursor.getString(cursor.getColumnIndex(EventContract.EventEntry.COLUMN_TITLE)));
                 event.setDate(cursor.getString(cursor.getColumnIndex(EventContract.EventEntry.COLUMN_DATE)));
                 event.setTime(cursor.getString(cursor.getColumnIndex(EventContract.EventEntry.COLUMN_TIME)));
+                event.setExact_time(cursor.getString(cursor.getColumnIndex(EventContract.EventEntry.COLUMN_EXACT_TIME)));
                 event.setDescription(cursor.getString(cursor.getColumnIndex(EventContract.EventEntry.COLUMN_DESCRIPTION)));
                 event.setChecked(cursor.getInt(cursor.getColumnIndex(EventContract.EventEntry.COLUMN_CHECKED)) == 1);
+                event.setComplete(cursor.getInt(cursor.getColumnIndex(EventContract.EventEntry.COLUMN_COMPLETE)));
                 eventList.add(event);
             } while (cursor.moveToNext());
         }

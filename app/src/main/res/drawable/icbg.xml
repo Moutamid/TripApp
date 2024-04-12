@@ -5,5 +5,5 @@
         />
     <item
         android:top="38dp"
-        android:drawable="@android:color/holo_blue_dark" />
+        android:drawable="@drawable/bg_blue" />
 </layer-list>
