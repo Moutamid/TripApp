@@ -32,6 +32,7 @@ public class MonthActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_month);
 
+
         range_month = findViewById(R.id.range_month);
         dateRangeTextView_month = findViewById(R.id.dateRangeTextView_month);
         recyclerView_month = findViewById(R.id.recyclerView_month);
@@ -60,6 +61,7 @@ public class MonthActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private String getDate_month(Calendar calendar) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd", Locale.getDefault());

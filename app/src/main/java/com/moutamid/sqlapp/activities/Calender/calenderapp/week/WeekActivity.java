@@ -98,7 +98,6 @@ public class WeekActivity extends AppCompatActivity {
         SimpleDateFormat search_date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         return search_date.format(calendar.getTime());
     }
-
     private void updateDates(Calendar currentDate) {
         dates.clear();
         search_dates.clear();

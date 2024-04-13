@@ -19,7 +19,6 @@ import com.moutamid.sqlapp.activities.Calender.calenderapp.MainActivity;
 import java.util.List;
 
 public class MonthAdapter extends RecyclerView.Adapter<MonthAdapter.DateViewHolder> {
-
     private Context context;
     private List<String> dates;
     private List<String> search_dates;

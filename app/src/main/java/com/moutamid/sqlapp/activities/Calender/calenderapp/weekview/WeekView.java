@@ -1022,6 +1022,7 @@ public class WeekView extends View {
                     String title = event.getTitle();
                     String time = event.getTime();
                     String description = event.getDescription();
+
                     boolean checked = event.isChecked();
                     String date = event.getDate();
                     String[] times = time.split("-");

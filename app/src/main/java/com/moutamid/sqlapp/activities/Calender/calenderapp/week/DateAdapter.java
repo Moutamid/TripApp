@@ -51,8 +51,7 @@ public class DateAdapter extends RecyclerView.Adapter<DateAdapter.DateViewHolder
     public void onBindViewHolder(@NonNull DateViewHolder holder, int position) {
         holder.bind(dates.get(position));
 
-
-        holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
+       holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
         eventAdapter = new EventAdapter(context, MainActivity.func_week(context, search_dates.get(position)));
         holder.recyclerView.setAdapter(eventAdapter);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
