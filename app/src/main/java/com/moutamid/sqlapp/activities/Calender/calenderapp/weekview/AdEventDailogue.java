@@ -149,7 +149,7 @@ public class AdEventDailogue extends Dialog {
                         // Update the calendar to the selected start time
                         calendar.set(Calendar.HOUR_OF_DAY, startHour);
                         calendar.set(Calendar.MINUTE, startMinute);
-
+                        eventTime = startHour + "-" + startMinute;
                         // Show end time picker
                         showEndTimePickerDialog();
                     }

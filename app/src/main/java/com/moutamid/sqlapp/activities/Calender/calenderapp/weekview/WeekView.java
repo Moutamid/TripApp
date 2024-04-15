@@ -1013,7 +1013,6 @@ public class WeekView extends View {
                 // Draw the formatted date with left margin
 //                canvas.drawText(formattedDate, startPixel - mHeaderColumnWidth / 2.0f + marginLeft, mHeaderTextHeight + mHeaderRowPadding / 3.0f, sameDay ? mTodayHeaderTextPaint : mHeaderTextPaint);
                 canvas.drawText(formattedDate, startPixel - mHeaderColumnWidth / 2.0f + marginLeft, mHeaderTextHeight + mHeaderRowPadding * 1.76f + jHeaderTextHeight, sameDay ? jtodayHeaderTextPaint : jHeaderTextPaint);
-                Log.d("dtt", MainActivity.lastdate + "");
                 String date_ = MainActivity.lastdate + ""; // Example date
                 EventDbHelper eventDbHelper = new EventDbHelper(mContext);
                 List<Event> events = eventDbHelper.getCheckedEventsByDate(date_);
@@ -1022,7 +1021,7 @@ public class WeekView extends View {
                     String title = event.getTitle();
                     String time = event.getTime();
                     String description = event.getDescription();
-
+//                    Toast.makeText(mContext, ""+event.isChecked(), Toast.LENGTH_SHORT).show();
                     boolean checked = event.isChecked();
                     String date = event.getDate();
                     String[] times = time.split("-");
@@ -1032,12 +1031,11 @@ public class WeekView extends View {
 //                        Toast.makeText(mContext, "log"+ id+"  -- "+ title+"  -- "+ time+"  -- "+ description+"  -- "+ checked+"  -- "+ date, Toast.LENGTH_SHORT).show();
                         Log.d("tesdffdfdft", event.getComplete() + "-----" + id + "  -- " + title + "  -- " + time + "  -- " + description + "  -- " + checked + "  -- " + date);
                         if (event.getComplete() == 0) {
-                            draw_event(id, title, time, event.getExact_time(), description, checked, date, startPixel, canvas, Integer.valueOf(startTime), Integer.valueOf(endTime), title);
+                            draw_event(id, title, time, event.getExact_time(), description, false, date, startPixel, canvas, Integer.valueOf(startTime), Integer.valueOf(endTime), title);
                         }
                         else
                         {
-                            draw_event_complete(id, title, time, event.getExact_time(), description, checked, date, startPixel, canvas, Integer.valueOf(startTime), Integer.valueOf(endTime), title);
-
+                            draw_event_complete(id, title, time, event.getExact_time(), description, false, date, startPixel, canvas, Integer.valueOf(startTime), Integer.valueOf(endTime), title);
                         }
                     }
                 }

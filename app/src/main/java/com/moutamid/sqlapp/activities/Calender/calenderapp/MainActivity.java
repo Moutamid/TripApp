@@ -146,6 +146,7 @@ public class MainActivity extends AppCompatActivity
     private ImageView previousButton, nextButton;
     private List<String> dates = new ArrayList<>();
     private List<String> search_dates = new ArrayList<>();
+    private List<String> search_dates_local_event = new ArrayList<>();
     private Calendar currentDate = Calendar.getInstance();
     private TextView dateRangeTextView, range;
     String search_date;
@@ -158,7 +159,7 @@ public class MainActivity extends AppCompatActivity
     String search_date_month;
     float v = 0;
     BottomNavigationView bottomNavigationView;
-
+    public static  List<Event> events;
     public int getStatusBarHeight() {
         int result = 0;
         int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
@@ -237,13 +238,15 @@ public class MainActivity extends AppCompatActivity
         recyclerView_month.setAdapter(adapter_month);
         recyclerView_month.setLayoutManager(new GridLayoutManager(this, 7));
         EventDbHelper eventDbHelper = new EventDbHelper(MainActivity.this);
-        List<Event> events = eventDbHelper.getEventsByDate(MainActivity.lastdate+"");
+       events = eventDbHelper.getEventsByDate(MainActivity.lastdate+"");
+
         List<String> checkedTitles = new ArrayList<>();
         RecyclerView recyclerView_local_event = findViewById(R.id.recyclerView_local_event);
         List<Event> checkedEvents = new ArrayList<>();
         for (Event event : events) {
             if (event.isChecked()) {
-recyclerView_local_event.setVisibility(View.VISIBLE);
+
+                recyclerView_local_event.setVisibility(View.VISIBLE);
                 checkedTitles.add(event.getTitle());
                 checkedEvents.add(event);
             }
@@ -376,7 +379,7 @@ recyclerView_local_event.setVisibility(View.VISIBLE);
         previousButton = findViewById(com.moutamid.sqlapp.R.id.previousButton);
         nextButton = findViewById(com.moutamid.sqlapp.R.id.nextButton);
         updateDates(currentDate);
-        DateAdapter adapter = new DateAdapter(this, dates, getDate(currentDate), search_dates);
+        DateAdapter adapter = new DateAdapter(this, dates, getDate(currentDate), search_dates, search_dates_local_event);
         recyclerView_week.setAdapter(adapter);
         recyclerView_week.setLayoutManager(new LinearLayoutManager(this));
         recyclerView_week.setOnTouchListener(new View.OnTouchListener() {
@@ -1176,6 +1179,8 @@ recyclerView_local_event.setVisibility(View.VISIBLE);
     public void onEmptyViewLongPress(Calendar time) {
         String eventTitle = getEventTitle(time);
         String eventTime = getEventTime(time);
+        Log.d("gfgfgfghh", eventTitle);
+
         //        Toast.makeText(this, "Empty view long pressed: " + getEventTitle(time), Toast.LENGTH_SHORT).show();
         AdEventDailogue adEventDailogue = new AdEventDailogue(MainActivity.this, eventTitle, eventTime);
         adEventDailogue.show();
@@ -1434,7 +1439,9 @@ recyclerView_local_event.setVisibility(View.VISIBLE);
     private void updateDates(Calendar currentDate) {
         dates.clear();
         search_dates.clear();
+        search_dates_local_event.clear();
         SimpleDateFormat search_date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        SimpleDateFormat search_date_local_event = new SimpleDateFormat("MMMM dd yyyy", Locale.getDefault());
         SimpleDateFormat sdf = new SimpleDateFormat("EEE dd", Locale.getDefault());
         SimpleDateFormat sdf1 = new SimpleDateFormat("dd", Locale.getDefault());
         Calendar startDate = (Calendar) currentDate.clone();
@@ -1448,6 +1455,7 @@ recyclerView_local_event.setVisibility(View.VISIBLE);
         for (int i = 0; i < 7; i++) {
             dates.add(sdf.format(startDate.getTime()));
             search_dates.add(search_date.format(startDate.getTime()));
+            search_dates_local_event.add(search_date_local_event.format(startDate.getTime()));
             startDate.add(Calendar.DATE, 1);
         }
 

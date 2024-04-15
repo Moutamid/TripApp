@@ -26,7 +26,12 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_toRightOf="@+id/textView" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_local_event"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_toRightOf="@+id/recyclerView" />
 </RelativeLayout>

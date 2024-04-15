@@ -205,4 +205,52 @@ public class EventDbHelper extends SQLiteOpenHelper {
         db.close();
         return eventList;
     }
+    public List<Event> getEventsAll(String date) {
+        List<Event> eventList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String[] projection = {
+                EventContract.EventEntry._ID,
+                EventContract.EventEntry.COLUMN_TITLE,
+                EventContract.EventEntry.COLUMN_DATE,
+                EventContract.EventEntry.COLUMN_TIME,
+                EventContract.EventEntry.COLUMN_EXACT_TIME,
+
+                EventContract.EventEntry.COLUMN_DESCRIPTION,
+                EventContract.EventEntry.COLUMN_CHECKED,
+                EventContract.EventEntry.COLUMN_COMPLETE
+        };
+
+        String selection = EventContract.EventEntry.COLUMN_DATE + "=?";
+        String[] selectionArgs = { date }; // "1" represents checked events
+
+        Cursor cursor = db.query(
+                EventContract.EventEntry.TABLE_NAME,
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+
+        if (cursor.moveToFirst()) {
+            do {
+                Event event = new Event();
+                event.setId(cursor.getLong(cursor.getColumnIndex(EventContract.EventEntry._ID)));
+                event.setTitle(cursor.getString(cursor.getColumnIndex(EventContract.EventEntry.COLUMN_TITLE)));
+                event.setDate(cursor.getString(cursor.getColumnIndex(EventContract.EventEntry.COLUMN_DATE)));
+                event.setTime(cursor.getString(cursor.getColumnIndex(EventContract.EventEntry.COLUMN_TIME)));
+                event.setExact_time(cursor.getString(cursor.getColumnIndex(EventContract.EventEntry.COLUMN_EXACT_TIME)));
+                event.setDescription(cursor.getString(cursor.getColumnIndex(EventContract.EventEntry.COLUMN_DESCRIPTION)));
+                event.setChecked(cursor.getInt(cursor.getColumnIndex(EventContract.EventEntry.COLUMN_CHECKED)) == 0);
+                event.setComplete(cursor.getInt(cursor.getColumnIndex(EventContract.EventEntry.COLUMN_COMPLETE)));
+                eventList.add(event);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return eventList;
+    }
 }

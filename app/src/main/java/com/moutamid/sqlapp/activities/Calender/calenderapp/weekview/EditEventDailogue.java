@@ -49,9 +49,9 @@ public class EditEventDailogue extends Dialog {
     public String exact_time_value;
     public boolean checked_value;
     private Calendar calendar;
-    String date_string;
     String timeRange;
-    public EditEventDailogue(Context a, long id, String title,String exact_time_value, String time, String description, boolean checked, String date) {
+
+    public EditEventDailogue(Context a, long id, String formatted_date, String title,String exact_time_value, String time, String description, boolean checked, String date) {
         super(a);
         this.id = id;
         this.c = a;
@@ -61,6 +61,7 @@ public class EditEventDailogue extends Dialog {
         this.checked_value = checked;
         this.date_value = date;
         this.exact_time_value = exact_time_value;
+        this.date_str = formatted_date;
     }
 
     @Override
@@ -82,9 +83,7 @@ public class EditEventDailogue extends Dialog {
         descriptionText.setText(description_value);
         String dateStr = date_value;
         String timeStr = time_value;
-
         calendar = Calendar.getInstance();
-
         SimpleDateFormat inputDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         SimpleDateFormat outputDateFormat = new SimpleDateFormat("MMMM, dd, yyyy", Locale.getDefault());
         String formattedDate = "";
@@ -112,6 +111,12 @@ public class EditEventDailogue extends Dialog {
 //                MainActivity.activity.startActivity(new Intent(MainActivity.activity, MainActivity.class));
                 dismiss();
 
+            }
+        });
+        date_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTimePickerDialog();
             }
         });
         date_edit.setText(formattedDate+" "+exact_time_value);
@@ -173,8 +178,8 @@ public class EditEventDailogue extends Dialog {
                         // Update the calendar to the selected start time
                         calendar.set(Calendar.HOUR_OF_DAY, startHour);
                         calendar.set(Calendar.MINUTE, startMinute);
+                        eventTime = startHour + "-" + startMinute;
 
-                        // Show end time picker
                         showEndTimePickerDialog();
                     }
                 }, hour, minute, false);
@@ -201,13 +206,9 @@ public class EditEventDailogue extends Dialog {
                         String endTime = timeFormat.format(calendar.getTime());
                         timeRange = startTime + " - " + endTime;
 
-                        String dateTime = date_str;
-                        String[] parts = dateTime.split("\\s+");
-                        date_string = parts[0] + " " + parts[1] + " " + parts[2];
 
-                        Log.d("datat", parts+"      "+ date_string);
-
-                        date_edit.setText(date_string+" "+timeRange);
+//
+                        date_edit.setText(date_str+" "+timeRange);
                     }
                 }, hour, minute, false);
 

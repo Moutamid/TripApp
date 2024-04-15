@@ -88,6 +88,8 @@ public class ViewEventDailogue extends Dialog {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        date_edit.setText(formattedDate+" "+exact_time_value);
+
         delete_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,16 +100,16 @@ public class ViewEventDailogue extends Dialog {
 
             }
         });
+        String finalFormattedDate = formattedDate;
         edit_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dismiss();
-                EditEventDailogue adEventDailogue = new EditEventDailogue(c, id,title_value, exact_time_value, time_value, description_value, checked_value, date_value);
+                EditEventDailogue adEventDailogue = new EditEventDailogue(c, id, finalFormattedDate, title_value, exact_time_value, time_value, description_value, checked_value, date_value);
                 adEventDailogue.show();
 
             }
         });
-        date_edit.setText(formattedDate+" "+exact_time_value);
        closeIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

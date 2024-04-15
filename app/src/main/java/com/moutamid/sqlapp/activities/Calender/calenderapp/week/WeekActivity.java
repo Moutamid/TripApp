@@ -45,7 +45,7 @@ public class WeekActivity extends AppCompatActivity {
         previousButton = findViewById(R.id.previousButton);
         nextButton = findViewById(R.id.nextButton);
         updateDates(currentDate);
-        adapter = new DateAdapter(this, dates, getDate(currentDate), search_dates);
+        adapter = new DateAdapter(this, dates, getDate(currentDate), search_dates, search_dates);
         recyclerView_week.setAdapter(adapter);
         recyclerView_week.setLayoutManager(new LinearLayoutManager(this));
         Toast.makeText(WeekActivity.this, "test", Toast.LENGTH_SHORT).show();

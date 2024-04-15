@@ -68,7 +68,7 @@ public class MonthAdEventDailogue extends Dialog {
         date.setText(date_str);
         calendar = Calendar.getInstance();
         String[] parts = date_str.split("\\s+");
-        timeRange = parts[3] + " " + parts[4]; // Join the time parts with a space
+        timeRange = parts[3] + " " + parts[4];
 
         date.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,7 +128,7 @@ public class MonthAdEventDailogue extends Dialog {
                 Log.d("Parameters", "Time: " + timeRange);
                 Log.d("Parameters", "Description: " + description);
                 Log.d("Parameters", "Checked: " + checked);
-                dataSource.insertEvent(title, date_, time, timeRange, description, checked, 1);
+                dataSource.insertEvent(title, date_, time, timeRange, description, checked, 0);
                 c.startActivity(new Intent(c, MainActivity.class));
                 dismiss();
                 c.finish();

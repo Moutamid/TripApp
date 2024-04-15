@@ -1,7 +1,6 @@
-package com.moutamid.sqlapp.activities.Calender.calenderapp;
+package com.moutamid.sqlapp.activities.Calender.calenderapp.month;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +15,11 @@ import com.moutamid.sqlapp.activities.Calender.calenderapp.weekview.ViewEventDai
 
 import java.util.List;
 
-public class LocalEventAdapter extends RecyclerView.Adapter<LocalEventAdapter.EventViewHolder> {
+public class MonthLocalEventAdapter extends RecyclerView.Adapter<MonthLocalEventAdapter.EventViewHolder> {
     private List<Event> events;
 Context context;
 
-    public LocalEventAdapter(List<Event> events, Context context) {
+    public MonthLocalEventAdapter(List<Event> events, Context context) {
         this.events = events;
         this.context = context;
     }
@@ -28,7 +27,7 @@ Context context;
     @NonNull
     @Override
     public EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_local_event, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_month_local_event, parent, false);
         return new EventViewHolder(view);
     }
 
@@ -36,8 +35,7 @@ Context context;
     public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
         Event event = events.get(position);
         holder.textViewTitle.setText(event.title);
-        Log.d("jhkdfjhksfgjk", event.title);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ViewEventDailogue adEventDailogue = new ViewEventDailogue(context, event.id, event.title, event.time, event.description, event.checked, event.date, event.exact_time);
