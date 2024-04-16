@@ -41,15 +41,15 @@ public class MonthActivity extends AppCompatActivity {
 
         updateDates_month(currentDate_month);
 
-        MonthAdapter adapter_month = new MonthAdapter(this, dates_month, getDate_month(currentDate_month), search_dates_month);
-        recyclerView_month.setAdapter(adapter_month);
+//        MonthAdapter adapter_month = new MonthAdapter(this, dates_month, getDate_month(currentDate_month), search_dates_month);
+//        recyclerView_month.setAdapter(adapter_month);
         recyclerView_month.setLayoutManager(new GridLayoutManager(this, 7));
 
         previousButton_month.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goToPreviousMonth();
-                adapter_month.notifyDataSetChanged(); // Notify adapter after updating dates
+//                adapter_month.notifyDataSetChanged(); // Notify adapter after updating dates
             }
         });
 
@@ -57,7 +57,7 @@ public class MonthActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 goToNextMonth();
-                adapter_month.notifyDataSetChanged(); // Notify adapter after updating dates
+//                adapter_month.notifyDataSetChanged(); // Notify adapter after updating dates
             }
         });
     }

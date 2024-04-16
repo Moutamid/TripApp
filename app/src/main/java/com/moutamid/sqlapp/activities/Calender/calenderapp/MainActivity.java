@@ -234,7 +234,7 @@ public class MainActivity extends AppCompatActivity
         previousButton_month = findViewById(com.moutamid.sqlapp.R.id.previousButton_month);
         nextButton_month = findViewById(com.moutamid.sqlapp.R.id.nextButton_month);
         updateDates_month(currentDate_month);
-        MonthAdapter adapter_month = new MonthAdapter(this, dates_month, getDate_month(currentDate_month), search_dates_month);
+        MonthAdapter adapter_month = new MonthAdapter(MainActivity.this, dates_month, getDate_month(currentDate_month), search_dates_month, search_dates_local_event);
         recyclerView_month.setAdapter(adapter_month);
         recyclerView_month.setLayoutManager(new GridLayoutManager(this, 7));
         EventDbHelper eventDbHelper = new EventDbHelper(MainActivity.this);

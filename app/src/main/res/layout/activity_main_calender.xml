@@ -12,8 +12,7 @@
         android:id="@+id/topbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        >
+        android:layout_alignParentTop="true">
 
         <RelativeLayout
             android:id="@+id/title_bar"
@@ -71,28 +70,33 @@
 
                 <TextView
                     android:id="@+id/day"
-                    android:layout_width="70dp"
+                    android:layout_width="50dp"
                     android:layout_height="40dp"
                     android:gravity="center"
                     android:text="Day"
                     android:fontFamily="@font/lexend_semi_bold"
+                    android:layout_marginRight="18dp"
 
                     android:textColor="#000" />
 
                 <TextView
                     android:id="@+id/week"
-                    android:layout_width="70dp"
+                    android:layout_width="50dp"
                     android:layout_height="40dp"
                     android:gravity="center"
                     android:text="Week"
+                    android:layout_marginRight="18dp"
+
                     android:fontFamily="@font/lexend_semi_bold"
                     android:textColor="#000" />
 
                 <TextView
                     android:id="@+id/month"
-                    android:layout_width="70dp"
+                    android:layout_width="50dp"
                     android:fontFamily="@font/lexend_semi_bold"
                     android:layout_height="40dp"
+                    android:layout_marginRight="18dp"
+
                     android:gravity="center"
                     android:text="Month"
                     android:textColor="#000" />
@@ -105,32 +109,37 @@
 
                 <TextView
                     android:id="@+id/day_pressed"
-                    android:layout_width="70dp"
+                    android:layout_width="50dp"
                     android:layout_height="40dp"
                     android:fontFamily="@font/lexend_semi_bold"
                     android:background="@drawable/icbg"
                     android:gravity="center"
+                    android:layout_marginRight="18dp"
                     android:text="Day"
                     android:textColor="#5C79FF" />
 
                 <TextView
                     android:id="@+id/week_pressed"
-                    android:layout_width="70dp"
+                    android:layout_width="50dp"
                     android:layout_height="40dp"
                     android:fontFamily="@font/lexend_semi_bold"
                     android:background="@drawable/icbg"
                     android:gravity="center"
                     android:text="Week"
+                    android:layout_marginRight="18dp"
+
                     android:textColor="#5C79FF"
                     android:visibility="invisible" />
 
                 <TextView
                     android:id="@+id/month_pressed"
-                    android:layout_width="70dp"
+                    android:layout_width="50dp"
                     android:layout_height="40dp"
                     android:background="@drawable/icbg"
                     android:fontFamily="@font/lexend_semi_bold"
                     android:gravity="center"
+                    android:layout_marginRight="18dp"
+
                     android:text="Month"
                     android:textColor="#5C79FF"
                     android:visibility="invisible" />
