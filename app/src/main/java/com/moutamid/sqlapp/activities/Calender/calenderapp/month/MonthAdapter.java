@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -79,14 +80,19 @@ public class MonthAdapter extends RecyclerView.Adapter<MonthAdapter.DateViewHold
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a", Locale.getDefault());
-                SimpleDateFormat stime = new SimpleDateFormat("hh-mm", Locale.getDefault());
-                Date currentDate = new Date();
-                String formattedDate = sdf.format(currentDate);
-                String time = stime.format(currentDate);
-                Log.d("gfgfgfghh", search_dates_local_event.get(position)+" "+formattedDate);
-                MonthAdEventDailogue adEventDailogue = new MonthAdEventDailogue(context, search_dates_local_event.get(position)+"   "+formattedDate, time);
-                adEventDailogue.show();
+                if (position >= 0 && position < search_dates_local_event.size()) {
+                    SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+                    SimpleDateFormat stime = new SimpleDateFormat("hh-mm", Locale.getDefault());
+                    Date currentDate = new Date();
+                    String formattedDate = sdf.format(currentDate);
+                    String time = stime.format(currentDate);
+                    Log.d("gfgfgfghh", search_dates_local_event.get(position)+" "+formattedDate);
+                    MonthAdEventDailogue adEventDailogue = new MonthAdEventDailogue(context, search_dates_local_event.get(position)+"   "+formattedDate, time);
+                    adEventDailogue.show();
+                } else {
+                    // Handle the case when position is out of bounds
+                    Log.e("onClick", "Position out of bounds: " + position);
+                }
             }
         });
     }

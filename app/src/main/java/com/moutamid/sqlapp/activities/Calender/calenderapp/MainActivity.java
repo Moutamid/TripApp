@@ -147,6 +147,7 @@ public class MainActivity extends AppCompatActivity
     private List<String> dates = new ArrayList<>();
     private List<String> search_dates = new ArrayList<>();
     private List<String> search_dates_local_event = new ArrayList<>();
+    private List<String> search_dates_local_month = new ArrayList<>();
     private Calendar currentDate = Calendar.getInstance();
     private TextView dateRangeTextView, range;
     String search_date;
@@ -217,6 +218,13 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+
+        range = findViewById(com.moutamid.sqlapp.R.id.range);
+        dateRangeTextView = findViewById(com.moutamid.sqlapp.R.id.dateRangeTextView);
+        recyclerView_week = findViewById(com.moutamid.sqlapp.R.id.recyclerView_week);
+        previousButton = findViewById(com.moutamid.sqlapp.R.id.previousButton);
+        nextButton = findViewById(com.moutamid.sqlapp.R.id.nextButton);
+        updateDates(currentDate);
         mWeekView = (WeekView) findViewById(com.moutamid.sqlapp.R.id.weekView);
         dbHelper = new EventDbHelper(this);
         backword_arrow = findViewById(com.moutamid.sqlapp.R.id.backword_arrow);
@@ -234,11 +242,11 @@ public class MainActivity extends AppCompatActivity
         previousButton_month = findViewById(com.moutamid.sqlapp.R.id.previousButton_month);
         nextButton_month = findViewById(com.moutamid.sqlapp.R.id.nextButton_month);
         updateDates_month(currentDate_month);
-        MonthAdapter adapter_month = new MonthAdapter(MainActivity.this, dates_month, getDate_month(currentDate_month), search_dates_month, search_dates_local_event);
+        MonthAdapter adapter_month = new MonthAdapter(MainActivity.this, dates_month, getDate_month(currentDate_month), search_dates_month, search_dates_local_month);
         recyclerView_month.setAdapter(adapter_month);
         recyclerView_month.setLayoutManager(new GridLayoutManager(this, 7));
         EventDbHelper eventDbHelper = new EventDbHelper(MainActivity.this);
-       events = eventDbHelper.getEventsByDate(MainActivity.lastdate+"");
+        events = eventDbHelper.getEventsByDate(MainActivity.lastdate+"");
 
         List<String> checkedTitles = new ArrayList<>();
         RecyclerView recyclerView_local_event = findViewById(R.id.recyclerView_local_event);
@@ -350,7 +358,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 goToNextMonth();
                 adapter_month.notifyDataSetChanged();
-                }
+            }
         });
         recyclerView_month.setOnTouchListener(new View.OnTouchListener() {
             private float startX;
@@ -373,12 +381,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        range = findViewById(com.moutamid.sqlapp.R.id.range);
-        dateRangeTextView = findViewById(com.moutamid.sqlapp.R.id.dateRangeTextView);
-        recyclerView_week = findViewById(com.moutamid.sqlapp.R.id.recyclerView_week);
-        previousButton = findViewById(com.moutamid.sqlapp.R.id.previousButton);
-        nextButton = findViewById(com.moutamid.sqlapp.R.id.nextButton);
-        updateDates(currentDate);
         DateAdapter adapter = new DateAdapter(this, dates, getDate(currentDate), search_dates, search_dates_local_event);
         recyclerView_week.setAdapter(adapter);
         recyclerView_week.setLayoutManager(new LinearLayoutManager(this));
@@ -403,6 +405,27 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        recyclerView_month.setOnTouchListener(new View.OnTouchListener() {
+            private float startX;
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        startX = event.getX();
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        float endX = event.getX();
+                        if (startX - endX > 100) {
+                            nextButton_month.performClick();
+                        } else if (endX - startX > 100) {
+                            previousButton_month.performClick();
+                        }
+                        return true;
+                }
+                return false;
+            }
+        });
+
         previousButton.setOnClickListener(v -> {
             currentDate.add(Calendar.DATE, -7);
             updateDates(currentDate);
@@ -418,6 +441,7 @@ public class MainActivity extends AppCompatActivity
                 adapter.notifyDataSetChanged();
             }
         });
+
 
         weekviewcontainer = findViewById(com.moutamid.sqlapp.R.id.weekViewcontainer);
         dayTextView.setOnClickListener(new View.OnClickListener() {
@@ -1485,7 +1509,9 @@ public class MainActivity extends AppCompatActivity
     private void updateDates_month(Calendar currentDate) {
         dates_month.clear();
         search_dates_month.clear();
+        search_dates_local_month.clear();
         SimpleDateFormat search_date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        SimpleDateFormat search_date_local_event = new SimpleDateFormat("MMMM dd yyyy", Locale.getDefault());
         SimpleDateFormat sdf = new SimpleDateFormat("dd", Locale.getDefault());
         SimpleDateFormat sdf1 = new SimpleDateFormat("MMMM yyyy", Locale.getDefault());
         SimpleDateFormat sdf2 = new SimpleDateFormat("MMMM ", Locale.getDefault());
@@ -1507,33 +1533,38 @@ public class MainActivity extends AppCompatActivity
         for (int i = 1; i < firstDayOfWeek; i++) {
             dates_month.add("");
             search_dates_month.add("");
+            search_dates_local_month.add("");
         }
 
         for (int i = 1; i <= maxDayOfMonth; i++) {
             dates_month.add(sdf.format(startDate.getTime()));
             search_dates_month.add(search_date.format(startDate.getTime()));
+            search_dates_local_month.add(search_date_local_event.format(startDate.getTime()));
             startDate.add(Calendar.DATE, 1);
         }
 
-        String startDateString = sdf1.format(currentDate.getTime());
-        String year = sdf2.format(currentDate.getTime());
-        currentDate.set(Calendar.DAY_OF_MONTH, 1); // Reset to the first day of the month
-        currentDate.add(Calendar.MONTH, 1); // Move to the next month
-        currentDate.add(Calendar.DATE, -1); // Move to the last day of the current month
-        String endDateString = sdf1.format(currentDate.getTime());
-        currentDate.add(Calendar.DATE, 1); // Reset current date
+        // Use a copy of the current date for display purposes
+        Calendar displayDate = (Calendar) currentDate.clone();
+
+        String startDateString = sdf1.format(displayDate.getTime());
+        String year = sdf2.format(displayDate.getTime());
+        displayDate.set(Calendar.DAY_OF_MONTH, 1); // Reset to the first day of the month
+        displayDate.add(Calendar.MONTH, 1); // Move to the next month
+        displayDate.add(Calendar.DATE, -1); // Move to the last day of the current month
+        String endDateString = sdf1.format(displayDate.getTime());
+
         range_month.setText(startDateString);
         dateRangeTextView_month.setText(year);
     }
 
     private void goToNextMonth() {
-        currentDate_month.add(Calendar.MONTH, 1);
-        updateDates_month(currentDate_month);
+        currentDate_month.add(Calendar.MONTH, 1); // Move to the next month
+        updateDates_month(currentDate_month); // Update the dates
     }
 
     private void goToPreviousMonth() {
-        currentDate_month.add(Calendar.MONTH, -1);
-        updateDates_month(currentDate_month);
+        currentDate_month.add(Calendar.MONTH, -1); // Move to the previous month
+        updateDates_month(currentDate_month); // Update the dates
     }
 
     private String getMonthName_month(int month) {
@@ -1566,5 +1597,6 @@ public class MainActivity extends AppCompatActivity
         });
         popupMenu.show();
     }
+
 
 }

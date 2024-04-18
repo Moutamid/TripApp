@@ -36,8 +36,8 @@ public class OrganizerActivity extends AppCompatActivity {
     }
 
     public void BackPress(View view) {
-        onBackPressed();
-    }
+        startActivity(new Intent(OrganizerActivity.this, DashboardActivity.class));
+    finishAffinity();}
     public void menu(View view) {
         PopupMenu popupMenu = new PopupMenu(this, view);
         popupMenu.getMenuInflater().inflate(R.menu.menu, popupMenu.getMenu());

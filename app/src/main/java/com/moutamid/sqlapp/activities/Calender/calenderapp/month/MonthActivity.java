@@ -106,26 +106,30 @@ public class MonthActivity extends AppCompatActivity {
             startDate.add(Calendar.DATE, 1);
         }
 
-        String startDateString = sdf1.format(currentDate.getTime());
-        String year = sdf2.format(currentDate.getTime());
-        currentDate.set(Calendar.DAY_OF_MONTH, 1); // Reset to the first day of the month
-        currentDate.add(Calendar.MONTH, 1); // Move to the next month
-        currentDate.add(Calendar.DATE, -1); // Move to the last day of the current month
-        String endDateString = sdf1.format(currentDate.getTime());
-        currentDate.add(Calendar.DATE, 1); // Reset current date
+        // Use a copy of the current date for display purposes
+        Calendar displayDate = (Calendar) currentDate.clone();
+
+        String startDateString = sdf1.format(displayDate.getTime());
+        String year = sdf2.format(displayDate.getTime());
+        displayDate.set(Calendar.DAY_OF_MONTH, 1); // Reset to the first day of the month
+        displayDate.add(Calendar.MONTH, 1); // Move to the next month
+        displayDate.add(Calendar.DATE, -1); // Move to the last day of the current month
+        String endDateString = sdf1.format(displayDate.getTime());
+
         range_month.setText(startDateString);
         dateRangeTextView_month.setText(year);
     }
 
     private void goToNextMonth() {
-        currentDate_month.add(Calendar.MONTH, 1);
-        updateDates_month(currentDate_month);
+        currentDate_month.add(Calendar.MONTH, 1); // Move to the next month
+        updateDates_month(currentDate_month); // Update the dates
     }
 
     private void goToPreviousMonth() {
-        currentDate_month.add(Calendar.MONTH, -1);
-        updateDates_month(currentDate_month);
+        currentDate_month.add(Calendar.MONTH, -1); // Move to the previous month
+        updateDates_month(currentDate_month); // Update the dates
     }
+
 
     private String getMonthName_month(int month) {
         String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
