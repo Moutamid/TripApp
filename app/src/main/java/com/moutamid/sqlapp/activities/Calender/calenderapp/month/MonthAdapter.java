@@ -2,7 +2,6 @@ package com.moutamid.sqlapp.activities.Calender.calenderapp.month;
 
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,15 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.moutamid.sqlapp.R;
+import com.moutamid.sqlapp.activities.Calender.calenderapp.EventInfo;
 import com.moutamid.sqlapp.activities.Calender.calenderapp.MainActivity;
-import com.moutamid.sqlapp.activities.Calender.calenderapp.WeekLocalEventAdapter;
 import com.moutamid.sqlapp.activities.Calender.calenderapp.database.Event;
 import com.moutamid.sqlapp.activities.Calender.calenderapp.database.EventDbHelper;
 import com.moutamid.sqlapp.activities.Calender.calenderapp.weekview.MonthAdEventDailogue;
@@ -56,12 +54,16 @@ public class MonthAdapter extends RecyclerView.Adapter<MonthAdapter.DateViewHold
     public void onBindViewHolder(@NonNull MonthAdapter.DateViewHolder holder, int position) {
         holder.bind(dates.get(position));
 
+        List<EventInfo> eventInfos = MainActivity.func_week(context, search_dates.get(position));
+        if (eventInfos.size() > 0) {
+            holder.recyclerView.setVisibility(View.VISIBLE);
 
+        }
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
+
         eventAdapter = new MonthEventAdapter(context, MainActivity.func_week(context, search_dates.get(position)));
         holder.recyclerView.setAdapter(eventAdapter);
-        if(MainActivity.func_week(context, search_dates.get(position)).size()>0)
-        {
+        if (MainActivity.func_week(context, search_dates.get(position)).size() > 0) {
             holder.main_layout.setBackgroundResource(R.drawable.bg_stroke_current);
         }
         EventDbHelper eventDbHelper = new EventDbHelper(context);
@@ -73,6 +75,7 @@ public class MonthAdapter extends RecyclerView.Adapter<MonthAdapter.DateViewHold
             holder.recyclerView_local_event.setVisibility(View.VISIBLE);
             checkedTitles.add(event.getTitle());
             checkedEvents.add(event);
+
         }
         holder.recyclerView_local_event.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
         MonthLocalEventAdapter local_adapter = new MonthLocalEventAdapter(checkedEvents, context);
