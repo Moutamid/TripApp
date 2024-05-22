@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff">
-    <com.moutamid.sqlapp.JCalendarMonthView
+    <com.moutamid.sqlapp.activities.Calender.calenderapp.JCalendarMonthView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/jcalendarmonthview"

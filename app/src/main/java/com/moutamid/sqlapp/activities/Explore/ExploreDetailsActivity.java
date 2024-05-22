@@ -19,24 +19,30 @@ import com.moutamid.sqlapp.adapter.ExploreAdapter;
 public class ExploreDetailsActivity extends AppCompatActivity {
     private String[] itemName;
     private int[] itemImages;
+    private double[] itemLatitudes;
+    private double[] itemLongitudes;
     TextView title;
     ExploreAdapter exploreAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_explore2);
         title = findViewById(R.id.title);
+
         Intent intent = getIntent();
         String itemHeader = intent.getStringExtra("itemHeader");
         itemName = intent.getStringArrayExtra("itemName1");
         itemImages = intent.getIntArrayExtra("itemImages");
+        itemLatitudes = intent.getDoubleArrayExtra("itemLatitudes");
+        itemLongitudes = intent.getDoubleArrayExtra("itemLongitudes");
         Stash.put("type", itemHeader);
 
         title.setText(itemHeader);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.listView);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 1);
         recyclerView.setLayoutManager(gridLayoutManager);
-        exploreAdapter = new ExploreAdapter(this, itemName, itemImages, itemHeader);
+        exploreAdapter = new ExploreAdapter(this, itemName, itemImages, itemLatitudes, itemLongitudes, itemHeader);
         recyclerView.setAdapter(exploreAdapter);
     }
 
@@ -67,5 +73,4 @@ public class ExploreDetailsActivity extends AppCompatActivity {
     public void BackPress(View view) {
         onBackPressed();
     }
-
 }

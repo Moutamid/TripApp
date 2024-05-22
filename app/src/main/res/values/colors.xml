@@ -24,4 +24,7 @@
     <color name="event_color_03">#87d288</color>
     <color name="event_color_04">#fff</color>
     <color name="event_color_0">#9fc6e7</color>
+    <color name="app_color">#4472C4</color>
+    <color name="active_color">#4472C4</color>
+    <color name="inactive_color">#a6a6a6</color>
 </resources>

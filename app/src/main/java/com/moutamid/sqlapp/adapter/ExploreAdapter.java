@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,23 +21,26 @@ import com.moutamid.sqlapp.R;
 import com.moutamid.sqlapp.activities.Beaches.BeachDetails;
 import com.moutamid.sqlapp.model.BeacModel;
 import com.moutamid.sqlapp.model.DatabaseHelper;
+import com.moutamid.sqlapp.offlinemap.MapActivity;
 
 import java.util.List;
 
 public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHolder> {
-
     private Context context;
     private String[] itemName;
     private int[] itemImages;
+    private double[] itemLatitudes;
+    private double[] itemLongitudes;
     String name;
 
-    public ExploreAdapter(Context context, String[] itemName, int[] itemImages, String name) {
+    public ExploreAdapter(Context context, String[] itemName, int[] itemImages, double[] itemLatitudes, double[] itemLongitudes, String name) {
         this.context = context;
         this.itemImages = itemImages;
         this.itemName = itemName;
+        this.itemLatitudes = itemLatitudes;
+        this.itemLongitudes = itemLongitudes;
         this.name = name;
     }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -68,6 +72,19 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
             holder.add.setVisibility(View.VISIBLE);
             holder.remove.setVisibility(View.GONE);
         }
+        holder.map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Stash.put("map_lat", itemLatitudes[position]);
+                Stash.put("map_lng", itemLongitudes[position]);
+                Stash.put("map_name", itemName[position]);
+                Stash.put("map_img", itemImages[position]);
+                Intent intent= new  Intent(context, MapActivity.class);
+                intent.putExtra("map_lat", itemLatitudes[position]);
+                intent.putExtra("map_lng", itemLongitudes[position]);
+                context.startActivity(intent );
+            }
+        });
         holder.remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,7 +97,8 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                 notifyDataSetChanged();
             }
         });
-        holder.add.setOnClickListener(new View.OnClickListener() {
+        holder.add.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View view) {
                 Intent intent = null;
@@ -2238,7 +2256,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        ImageView imageView, add, remove;
+        ImageView imageView, add, remove, map;
         TextView textView;
 
         public ViewHolder(View itemView) {
@@ -2247,6 +2265,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
             textView = itemView.findViewById(R.id.title);
             add = itemView.findViewById(R.id.add);
             remove = itemView.findViewById(R.id.remove);
+            map = itemView.findViewById(R.id.map);
             imageView.setOnClickListener(this);
         }
 

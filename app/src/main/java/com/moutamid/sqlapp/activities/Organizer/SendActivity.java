@@ -36,10 +36,8 @@ import java.util.List;
 public class SendActivity extends AppCompatActivity {
     private static final int REQUEST_EXTERNAL_STORAGE_PERMISSION = 1;
     EditText name, email, message;
-
     DatabaseHelper databaseHelper;
     int position;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -205,7 +203,6 @@ public class SendActivity extends AppCompatActivity {
                     != PackageManager.PERMISSION_GRANTED ||
                     ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_IMAGES)
                             != PackageManager.PERMISSION_GRANTED) {
-
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.READ_MEDIA_IMAGES,
                                 Manifest.permission.READ_MEDIA_IMAGES},
@@ -213,7 +210,8 @@ public class SendActivity extends AppCompatActivity {
             } else {
                 NetworkTask networkTask = new NetworkTask(SendActivity.this);
                 networkTask.execute(imagePaths);
-            }        } else {
+            }
+        } else {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
                     != PackageManager.PERMISSION_GRANTED ||
                     ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
