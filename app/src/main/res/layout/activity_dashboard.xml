@@ -141,7 +141,10 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
+                        android:id="@+id/tips"
                         android:layout_width="match_parent"
+
+                        android:onClick="tips"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical">

@@ -308,7 +308,6 @@ public class ItinerariesActivity extends AppCompatActivity implements View.OnCli
                 subview4.setVisibility(View.GONE);
                 subbuttonDay5.setVisibility(View.GONE);
                 subview5.setVisibility(View.GONE);
-
                 subpressbuttonDay1.setVisibility(View.VISIBLE);
                 subpressview1.setVisibility(View.VISIBLE);
                 subpressbuttonDay2.setVisibility(View.INVISIBLE);

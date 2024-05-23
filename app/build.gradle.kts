@@ -5,7 +5,6 @@ plugins {
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
     id("kotlin-android")
-//    id")com.android.library")
 
 }
 
@@ -89,5 +88,8 @@ dependencies {
     implementation("org.mapsforge:sqlite-android:0.18.0:natives-arm64-v8a")
     implementation("org.mapsforge:sqlite-android:0.18.0:natives-x86")
     implementation("org.mapsforge:sqlite-android:0.18.0:natives-x86_64")
+//    implementation("com.google.android.gms:play-services-maps:20.2.0")
+    implementation("com.google.android.gms:play-services-maps:18.0.0")
+    implementation("com.google.maps.android:android-maps-utils:2.3.0")
 
 }

@@ -12,6 +12,19 @@ import com.moutamid.sqlapp.model.BeachItem;
 public class BeachesActivity extends AppCompatActivity {
     BeachItem[] beachItems;
 
+    // Latitude and Longitude Arrays for Beach Locations
+    double[] itemLatitudesEast = {-20.1928215, -20.2668829, -20.1272669, -20.1043210}; // Beaches East latitudes
+    double[] itemLongitudesEast = {57.7750124, 57.8057047, 57.7569250, 57.7257182}; // Beaches East longitudes
+
+    double[] itemLatitudesNorth = {-19.9853937, -20.0078407, -20.0164764, -19.9938413, -20.0348409}; // Beaches North latitudes
+    double[] itemLongitudesNorth = {57.6205649, 57.6697449, 57.5568158, 57.5910988, 57.5449564}; // Beaches North longitudes
+
+    double[] itemLatitudesSouth = {-20.5044881, -20.4441615, -20.5243435, -20.4549788, -20.502551, -20.5092946}; // Beaches South latitudes
+    double[] itemLongitudesSouth = {57.3993671, 57.7166979, 57.5323138, 57.6992368, 57.4534908, 57.4658383}; // Beaches South longitudes
+
+    double[] itemLatitudesWest = {-20.2993385, -20.3547236, -20.4529630, -20.3262782}; // Beaches West latitudes
+    double[] itemLongitudesWest = {57.3636901, 57.3614249, 57.3125745, 57.3778870}; // Beaches West longitudes
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +49,8 @@ public class BeachesActivity extends AppCompatActivity {
         intent.putExtra("itemName", itemName);
         intent.putExtra("itemName1", itemName1);
         intent.putExtra("itemImages", itemImages);
+        intent.putExtra("itemLatitudes", itemLatitudesEast); // Add latitudes
+        intent.putExtra("itemLongitudes", itemLongitudesEast); // Add longitudes
         startActivity(intent);
     }
 
@@ -53,6 +68,8 @@ public class BeachesActivity extends AppCompatActivity {
         intent.putExtra("itemName", itemName);
         intent.putExtra("itemName1", itemName1);
         intent.putExtra("itemImages", itemImages);
+        intent.putExtra("itemLatitudes", itemLatitudesWest); // Add latitudes
+        intent.putExtra("itemLongitudes", itemLongitudesWest); // Add longitudes
         startActivity(intent);
 
     }
@@ -60,9 +77,9 @@ public class BeachesActivity extends AppCompatActivity {
     public void beaches_in_south(View view) {
         String title_header = "Beaches in the South";
         String title = "South";
-        String[] itemName = {"Bel Ombre Beach", "Blue Bay Beach", "Gris Gris Beach", "La Cambuse Beach", "Riviere des Galets Beach", "St Felix Beach" };
+        String[] itemName = {"Bel Ombre Beach", "Blue Bay Beach", "Gris Gris Beach", "La Cambuse Beach", "Riviere des Galets Beach", "St Felix Beach"};
         String[] itemName1 = {"St Martin", "Blue Bay", "Souillac", "La Cambuse", "Riviere des Galets", "St Felix"};
-        String[] itemTexts = {"District of Savanne", "District of Grand Port","District of Savanne","District of Plaine Magnien","District of Savanne","District of Savanne"};
+        String[] itemTexts = {"District of Savanne", "District of Grand Port", "District of Savanne", "District of Plaine Magnien", "District of Savanne", "District of Savanne"};
         int[] itemImages = {R.drawable.bel_ombre_17, R.drawable.blue_bay, R.drawable.gris_gris_1, R.drawable.la_cambuse_2, R.drawable.riviere_des_galets_1, R.drawable.st_felix_1};
         Intent intent = new Intent(BeachesActivity.this, BeachesTypeActivity.class);
         intent.putExtra("itemHeader", title_header);
@@ -71,6 +88,8 @@ public class BeachesActivity extends AppCompatActivity {
         intent.putExtra("itemName", itemName);
         intent.putExtra("itemName1", itemName1);
         intent.putExtra("itemImages", itemImages);
+        intent.putExtra("itemLatitudes", itemLatitudesSouth); // Add latitudes
+        intent.putExtra("itemLongitudes", itemLongitudesSouth); // Add longitudes
         startActivity(intent);
 
     }
@@ -90,7 +109,10 @@ public class BeachesActivity extends AppCompatActivity {
         intent.putExtra("itemName", itemName);
         intent.putExtra("itemName1", itemName1);
         intent.putExtra("itemImages", itemImages);
+        intent.putExtra("itemLatitudes", itemLatitudesNorth); // Add latitudes
+        intent.putExtra("itemLongitudes", itemLongitudesNorth); // Add longitudes
         startActivity(intent);
+
 
     }
 }

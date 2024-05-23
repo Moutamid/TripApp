@@ -17,6 +17,7 @@ import com.moutamid.sqlapp.R;
 import com.moutamid.sqlapp.activities.Beaches.BeachDetails;
 import com.moutamid.sqlapp.model.BeacModel;
 import com.moutamid.sqlapp.model.DatabaseHelper;
+import com.moutamid.sqlapp.offlinemap.MapActivity;
 
 import java.util.List;
 
@@ -27,13 +28,17 @@ public class BeachesAdapter extends BaseAdapter {
     private String[] itemName;
     private String[] itemDetails;
     private int[] itemImages;
+    private double[] latitudes; // Added latitude array
+    private double[] longitudes; // Added longitude array
 
-    public BeachesAdapter(Context context, String[] itemName, String[] itemDetails, String[] itemTexts, int[] itemImages) {
+    public BeachesAdapter(Context context, String[] itemName, String[] itemDetails, String[] itemTexts, int[] itemImages, double[] latitudes, double[] longitudes) {
         this.context = context;
         this.itemTexts = itemTexts;
         this.itemImages = itemImages;
         this.itemDetails = itemDetails;
         this.itemName = itemName;
+        this.latitudes = latitudes; // Initialize latitude array
+        this.longitudes = longitudes; // Initialize longitude array
     }
 
     @Override
@@ -66,6 +71,19 @@ public class BeachesAdapter extends BaseAdapter {
         textView.setText(itemName[position]);
         textView1.setText(itemTexts[position]);
         textView2.setText(itemDetails[position]);
+        map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Stash.put("map_lat", latitudes[position]);
+                Stash.put("map_lng", longitudes[position]);
+                Stash.put("map_name", itemName[position]);
+                Stash.put("map_img", itemImages[position]);
+                Intent intent= new  Intent(context, MapActivity.class);
+                intent.putExtra("map_lat", latitudes[position]);
+                intent.putExtra("map_lng", longitudes[position]);
+                context.startActivity(intent );
+            }
+        });
         com.moutamid.sqlapp.model.DatabaseHelper databaseHelper;
         databaseHelper = new DatabaseHelper(context);
         List<BeacModel> beacModels = databaseHelper.getAllBeacModels();

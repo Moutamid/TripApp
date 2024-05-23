@@ -2,6 +2,7 @@ package com.moutamid.sqlapp.activities.Beaches;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -21,6 +22,8 @@ public class BeachesTypeActivity extends AppCompatActivity {
     private String[] itemName;
     private String[] itemName1;
     private int[] itemImages;
+    private double[] latitudes;
+    private double[] longitudes;
     TextView title, heading, text_main, heading_main;
     ImageView image;
 
@@ -44,7 +47,10 @@ public class BeachesTypeActivity extends AppCompatActivity {
         itemName = intent.getStringArrayExtra("itemName");
         itemName1 = intent.getStringArrayExtra("itemName1");
         itemImages = intent.getIntArrayExtra("itemImages");
-        if (itemTitle.equals("East")) {
+        latitudes = intent.getDoubleArrayExtra("itemLatitudes"); // Get latitude array
+        longitudes = intent.getDoubleArrayExtra("itemLongitudes"); // Get longitude array
+        Log.d("data", latitudes+" dtata");
+         if (itemTitle.equals("East")) {
             text_main.setText("Discover some of the island's longest and finest beaches, along with clear-water lagoons. The eastern region is ideal for activities like swimming, snorkeling, and diving. Throughout most of the year, the east coast is exposed to cooling breezes, ideal for kitesurfing.");
             heading_main.setVisibility(View.GONE);
             image.setImageResource(R.drawable.ile_aux_cerfs_island_2);
@@ -63,7 +69,7 @@ public class BeachesTypeActivity extends AppCompatActivity {
             image.setImageResource(R.drawable.coin_de_mire_10);
         }
         ListView listView = findViewById(R.id.listView);
-        BeachesAdapter adapter = new BeachesAdapter(this, itemName, itemName1, itemTexts, itemImages);
+        BeachesAdapter adapter = new BeachesAdapter(this, itemName, itemName1, itemTexts, itemImages, latitudes, longitudes); // Pass latitude and longitude arrays to the adapter
         listView.setAdapter(adapter);
     }
 
@@ -89,13 +95,11 @@ public class BeachesTypeActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         ListView listView = findViewById(R.id.listView);
-        BeachesAdapter adapter = new BeachesAdapter(this, itemName, itemName1, itemTexts, itemImages);
+        BeachesAdapter adapter = new BeachesAdapter(this, itemName, itemName1, itemTexts, itemImages, latitudes, longitudes); // Pass latitude and longitude arrays to the adapter
         listView.setAdapter(adapter);
     }
 
     public void BackPress(View view) {
         onBackPressed();
     }
-
-
 }

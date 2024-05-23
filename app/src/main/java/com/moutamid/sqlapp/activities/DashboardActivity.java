@@ -27,8 +27,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class DashboardActivity extends AppCompatActivity {
-    private static final int READ_EXTERNAL_STORAGE_REQUEST_CODE = 1;
-    public static String pathFromUri;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,37 +49,9 @@ public class DashboardActivity extends AppCompatActivity {
 
     }
     public void organier(View view) {
-//        Uri imageUri = Uri.parse("content://media/external/images/media/12345"); // Replace with the actual URI of your image
-//        pathFromUri = getPathFromUri(imageUri);
-//        Log.d("data", pathFromUri);
-        // Check if the permission is not granted
-//        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)
-//                != PackageManager.PERMISSION_GRANTED) {
-//            ActivityCompat.requestPermissions(this,
-//                    new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE},
-//                    READ_EXTERNAL_STORAGE_REQUEST_CODE);
-//        } else {
-//            new NetworkTask().execute();
-//            Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show();
-//            // Permission is already granted, proceed with your operation
-//        }
-
         startActivity(new Intent(DashboardActivity.this, OrganizerActivity.class));
-//
+    }
 
-    }
-    public String getPathFromUri(Uri uri) {
-        String[] projection = {MediaStore.Images.Media.DATA};
-        Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
-        if (cursor != null) {
-            int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            cursor.moveToFirst();
-            String imagePath = cursor.getString(columnIndex);
-            cursor.close();
-            return imagePath;
-        }
-        return null;
-    }
     public static void checkApp(Activity activity) {
         String appName = "My Trips";
 
@@ -140,4 +111,8 @@ public class DashboardActivity extends AppCompatActivity {
         }).start();
     }
 
+    public void tips(View view) {
+        startActivity(new Intent(DashboardActivity.this, TravelTipsActivity.class));
+
+    }
 }
