@@ -143,7 +143,7 @@ public class ItinerariesActivity extends AppCompatActivity implements View.OnCli
                 -20.4267316,
                 -20.4167126,
                 -20.5245931
-        };
+       };
 
         itemLongitudes = new double[]{
                 57.4980775,
