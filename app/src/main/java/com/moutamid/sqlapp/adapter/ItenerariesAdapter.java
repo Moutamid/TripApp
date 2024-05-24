@@ -13,6 +13,7 @@ import com.fxn.stash.Stash;
 import com.moutamid.sqlapp.R;
 import com.moutamid.sqlapp.activities.Iteneraries.ItenerariesDetails;
 import com.moutamid.sqlapp.model.BeacModel;
+import com.moutamid.sqlapp.offlinemap.MapActivity;
 
 public class ItenerariesAdapter extends BaseAdapter {
 
@@ -21,13 +22,18 @@ public class ItenerariesAdapter extends BaseAdapter {
     private String[] itemName;
     private String[] itemDetails;
     private int[] itemImages;
+    private double[] latitudes; // Added latitude array
+    private double[] longitudes; // Added longitude array
 
-    public ItenerariesAdapter(Context context, String[] itemName, String[] itemDetails, String[] itemTexts, int[] itemImages) {
+
+    public ItenerariesAdapter(Context context, String[] itemName, String[] itemDetails, String[] itemTexts, int[] itemImages, double[] latitudes, double[] longitudes) {
         this.context = context;
         this.itemTexts = itemTexts;
         this.itemImages = itemImages;
         this.itemDetails = itemDetails;
         this.itemName = itemName;
+        this.latitudes = latitudes; // Initialize latitude array
+        this.longitudes = longitudes;
     }
     @Override
     public int getCount() {
@@ -58,6 +64,19 @@ public class ItenerariesAdapter extends BaseAdapter {
         textView2.setText(itemDetails[position]);
         int i = position + 1;
         number.setText(""+i);
+        map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Stash.put("map_lat", latitudes[position]);
+                Stash.put("map_lng", longitudes[position]);
+                Stash.put("map_name", itemName[position]);
+                Stash.put("map_img", itemImages[position]);
+                Intent intent= new  Intent(context, MapActivity.class);
+                intent.putExtra("map_lat", latitudes[position]);
+                intent.putExtra("map_lng", longitudes[position]);
+                context.startActivity(intent );
+            }
+        });
         if(position==0)
         {
             textView3.setText("Start here");

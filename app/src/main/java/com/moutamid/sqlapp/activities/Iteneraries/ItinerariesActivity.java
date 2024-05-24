@@ -25,7 +25,8 @@ public class ItinerariesActivity extends AppCompatActivity implements View.OnCli
     private static final int BUTTON_DAY_5 = 5;
     private static int BUTTON_DAY = 1;
 
-
+    double[] itemLatitudes;
+    double[] itemLongitudes;
     TextView buttonDay1, buttonDay2, buttonDay3, buttonDay4, buttonDay5;
     View view1, view2, view3, view4, view5;
     TextView pressButtonDay1, pressButtonDay2, pressButtonDay3, pressButtonDay4, pressButtonDay5;
@@ -128,8 +129,38 @@ public class ItinerariesActivity extends AppCompatActivity implements View.OnCli
         String[] itemName = {"Admission Free", "Admission Entrance Fee", "Admission Free", "Admission Free", "Admission Free", "Admission Free", "Admission Free", "Admission Free", "Admission Free", "Admission Entrance Fee", "Chamarel", "Admission Free", "Admission Free"};
         String[] itemName1 = {"South • 30 minutes - 1 hour", "North • 1 hour", "North • 1 hour", "North • 45 minutes", "North • 1 hour", "Southwest • 1 hour", "Southwest • 3 - 4 hours", "Southwest • 30 minutes", "Southwest • 1 hour 30 minutes", "Southwest • 1 hour 30 minutes", "Southwest • 1 hour 30 minutes", "South • 1 hour 30 minutes", "South • 30 minutes - 1 hour"};
         int[] itemImages = {R.drawable.port_louis_3, R.drawable.aapravasi_ghat_1, R.drawable.port_louis_4, R.drawable.marie_reine_de_la_paix_3, R.drawable.citadelle, R.drawable.le_morne_beach_2, R.drawable.le_morne_1, R.drawable.maconde_1, R.drawable.chamarel_2, R.drawable.chamarel_1, R.drawable.black_river_georges_2, R.drawable.grand_bassin_1, R.drawable.gris_gris_coastal_4};
-        ListView listView = findViewById(R.id.listView);
-        ItenerariesAdapter adapter = new ItenerariesAdapter(ItinerariesActivity.this, itemTexts, itemName, itemName1, itemImages);
+        itemLatitudes = new double[]{
+                -20.1608170,
+                -20.1586888,
+                -20.1606798,
+                -20.1704784,
+                -20.1637132,
+                -20.4499767,
+                -20.4230,
+                -20.4911178,
+                -20.4401637,
+                -20.4432469,
+                -20.4267316,
+                -20.4167126,
+                -20.5245931
+        };
+
+        itemLongitudes = new double[]{
+                57.4980775,
+                57.5029467,
+                57.5029272,
+                57.4962069,
+                57.5103489,
+                57.3165315,
+                57.3152,
+                57.3711084,
+                57.3733048,
+                57.3857878,
+                57.4512266,
+                57.4933252,
+                57.5303065
+        };   ListView listView = findViewById(R.id.listView);
+        ItenerariesAdapter adapter = new ItenerariesAdapter(ItinerariesActivity.this, itemTexts, itemName, itemName1, itemImages, itemLatitudes, itemLongitudes);
         listView.setAdapter(adapter);
     }
 
@@ -308,6 +339,7 @@ public class ItinerariesActivity extends AppCompatActivity implements View.OnCli
                 subview4.setVisibility(View.GONE);
                 subbuttonDay5.setVisibility(View.GONE);
                 subview5.setVisibility(View.GONE);
+
                 subpressbuttonDay1.setVisibility(View.VISIBLE);
                 subpressview1.setVisibility(View.VISIBLE);
                 subpressbuttonDay2.setVisibility(View.INVISIBLE);
@@ -409,6 +441,37 @@ public class ItinerariesActivity extends AppCompatActivity implements View.OnCli
             itemName = new String[]{"Admission Free", "Admission Entrance Fee", "Admission Free", "Admission Free", "Admission Free", "Admission Free", "Admission Free", "Admission Free", "Admission Free", "Admission Entrance Fee", "Chamarel", "Admission Free", "Admission Free"};
             itemName1 = new String[]{"South • 30 minutes - 1 hour", "North • 1 hour", "North • 1 hour", "North • 45 minutes", "North • 1 hour", "Southwest • 1 hour", "Southwest • 3 - 4 hours", "Southwest • 30 minutes", "Southwest • 1 hour 30 minutes", "Southwest • 1 hour 30 minutes", "Southwest • 1 hour 30 minutes", "South • 1 hour 30 minutes", "South • 30 minutes - 1 hour"};
             itemImages = new int[]{R.drawable.port_louis_3, R.drawable.aapravasi_ghat_1, R.drawable.port_louis_4, R.drawable.marie_reine_de_la_paix_3, R.drawable.citadelle, R.drawable.le_morne_beach_2, R.drawable.le_morne_1, R.drawable.maconde_1, R.drawable.chamarel_2, R.drawable.chamarel_1, R.drawable.black_river_georges_2, R.drawable.grand_bassin_1, R.drawable.gris_gris_1};
+            itemLatitudes = new double[]{
+                    -20.1608170, 
+                    -20.1586888,
+                    -20.1606798,
+                    -20.1704784, 
+                    -20.1637132, 
+                    -20.4499767,
+                    -20.4230,     
+                    -20.4911178, 
+                    -20.4401637,
+                    -20.4432469, 
+                    -20.4267316,
+                    -20.4167126,
+                    -20.5245931
+            };
+
+            itemLongitudes = new double[]{
+                    57.4980775, 
+                    57.5029467,
+                    57.5029272,
+                    57.4962069, 
+                    57.5103489, 
+                    57.3165315,
+                    57.3152,      
+                    57.3711084, 
+                    57.3733048,
+                    57.3857878, 
+                    57.4512266,
+                    57.4933252,
+                    57.5303065
+            };
 
         }
         if (main_day == 2 && sub_day == 1) {
@@ -440,6 +503,27 @@ public class ItinerariesActivity extends AppCompatActivity implements View.OnCli
             itemName = new String[]{"Admission Entrance Fee", "Admission Entrance Fee", "Admission Free", "Admission Entrance Fee", "Admission Entrance Fee", "Admission Free", "Admission Entrance Fee"};
             itemName1 = new String[]{"North • 2 hours", "North • 2 hours", "North • 2 hours", "North • 1 hours", "North • 1 hour", "Southwest • 30 minutes", "Southwest • 1 hour 30 minutes"};
             itemImages = new int[]{R.drawable.pamplemousse_garden, R.drawable.sugar_museum_pamplemousses, R.drawable.port_louis_3, R.drawable.aapravasi_ghat_1, R.drawable.blue_penny_museum_2, R.drawable.black_river_georges_2, R.drawable.chamarel_2};
+            itemLatitudes = new double[]{
+
+                    -20.1042691,
+                    -20.0978896,
+                    -20.1608170,
+                    -20.1586888,
+                    -20.1609300,
+                    -20.4267316,
+                    -20.4401637
+            };
+
+            itemLongitudes = new double[]{
+
+                    57.5799724,
+                    57.5743742,
+                    57.4980775,
+                    57.5029467,
+                    57.4974394,
+                    57.4512266,
+                    57.3733048
+            };
 
         }
         if (main_day == 2 && sub_day == 2) {
@@ -470,6 +554,23 @@ public class ItinerariesActivity extends AppCompatActivity implements View.OnCli
             itemName = new String[]{"Admission Fee", "Admission Fee", "Admission Entrance Free", "Admission Entrance Fee", "Admission Fee"};
             itemName1 = new String[]{"Center • 40 minutes", "Center • 1 hour", "South • 3 hours", "South • 4 hours", "South • 1 hour"};
             itemImages = new int[]{R.drawable.trou_aux_cerfs_4, R.drawable.grand_bassin_1, R.drawable.bois_cheri_1, R.drawable.la_vanilla_1, R.drawable.gris_gris_1};
+            itemLatitudes = new double[]{
+
+                    -20.3150066,
+                    -20.4167126,
+                    -20.4263131,
+                    -20.4214025,
+                    -20.5245931
+            };
+
+            itemLongitudes = new double[]{
+
+                    57.5049908,
+                    57.4933252,
+                    57.5256388,
+                    57.7329380,
+                    57.5303065
+            };
 
         }
         if (main_day == 3 && sub_day == 1) {
@@ -500,6 +601,25 @@ public class ItinerariesActivity extends AppCompatActivity implements View.OnCli
             itemName1 = new String[]{"North • 2 hours", "North • 2 hours", "North • 2 hours", "North • 2 hours", "North • 1 hour", "North • 1 hour"};
             itemImages = new int[]{R.drawable.pamplemousse_garden, R.drawable.sugar_museum_pamplemousses, R.drawable.chateau_de_labourdonnais, R.drawable.port_louis_3, R.drawable.aapravasi_ghat_1, R.drawable.blue_penny_museum_2};
             itemName = new String[]{"Admission Entrance Fee", "Admission Entrance Fee", "Admission Entrance Free", "Admission Fee", "Admission Entrance Fee", "Admission Entrance Free"};
+            itemLatitudes = new double[]{
+
+                    -20.1042691,
+                    -20.0978896,
+                    -20.0736144,
+                    -20.1608170,
+                    -20.1586888,
+                    -20.1609300
+            };
+
+            itemLongitudes = new double[]{
+
+                    57.5799724,
+                    57.5743742,
+                    57.6176456,
+                    57.4980775,
+                    57.5029467,
+                    57.4974394
+            };
 
         }
         if (main_day == 3 && sub_day == 2) {
@@ -529,6 +649,19 @@ public class ItinerariesActivity extends AppCompatActivity implements View.OnCli
             itemName = new String[]{"Admission Entrance Fee", "Admission Entrance Fee", "Admission Free"};
             itemName1 = new String[]{"South • 3 hours", "South • 4 hour", "South • 1 hour"};
             itemImages = new int[]{R.drawable.bois_cheri_1, R.drawable.la_vanilla_1, R.drawable.gris_gris_1};
+            itemLatitudes = new double[]{
+
+                    -20.4263131,
+                    -20.4214025,
+                    -20.5245931
+            };
+
+            itemLongitudes = new double[]{
+
+                    57.5256388,
+                    57.7329380,
+                    57.5303065
+            };
         }
         if (main_day == 3 && sub_day == 3) {
             Stash.put("day", "day33");
@@ -557,6 +690,23 @@ public class ItinerariesActivity extends AppCompatActivity implements View.OnCli
             itemName = new String[]{"Admission Fee", "Admission Fee", "Admission Free", "Admission Fee", "Admission Entrance Fee"};
             itemName1 = new String[]{"West • 1 hour", "Center •1 hour 30 minutes", "South • 1 hour 30 minutes", "Southwest • 1 hour", "Southwest • 1 hour"};
             itemImages = new int[]{R.drawable.tamarin_3, R.drawable.trou_aux_cerfs_4, R.drawable.grand_bassin_1, R.drawable.black_river_georges_2, R.drawable.chamarel_2};
+            itemLatitudes = new double[]{
+
+                    -20.3262782,
+                    -20.3150066,
+                    -20.4167126,
+                    -20.4267316,
+                    -20.4401637
+            };
+
+            itemLongitudes = new double[]{
+
+                    57.3778870,
+                    57.5049908,
+                    57.4933252,
+                    57.4512266,
+                    57.3733048
+            };
         }
         if (main_day == 4 && sub_day == 1) {
             Stash.put("day", "day41");
@@ -585,6 +735,25 @@ public class ItinerariesActivity extends AppCompatActivity implements View.OnCli
             itemName = new String[]{"Admission Entrance Fee", "Admission Entrance Fee", "Admission Entrance Free", "Admission Fee", "Admission Entrance Fee", "Admission Entrance Fee"};
             itemName1 = new String[]{"North • 2 hours", "North • 2 hours", "North • 2 hours", "North • 2 hours", "North • 1 hours", "North • 1 hours"};
             itemImages = new int[]{R.drawable.pamplemousse_garden, R.drawable.sugar_museum_pamplemousses, R.drawable.chateau_de_labourdonnais, R.drawable.port_louis_3, R.drawable.aapravasi_ghat_1, R.drawable.blue_penny_museum_2};
+            itemLatitudes = new double[]{
+
+                    -20.1042691,
+                    -20.0978896,
+                    -20.0736144,
+                    -20.1608170,
+                    -20.1586888,
+                    -20.1609300
+            };
+
+            itemLongitudes = new double[]{
+
+                    57.5799724,
+                    57.5743742,
+                    57.6176456,
+                    57.4980775,
+                    57.5029467,
+                    57.4974394
+            };
 
         }
         if (main_day == 4 && sub_day == 2) {
@@ -614,6 +783,12 @@ public class ItinerariesActivity extends AppCompatActivity implements View.OnCli
             itemName = new String[]{"Admission Catamaran Fee"};
             itemName1 = new String[]{"East • Full Day"};
             itemImages = new int[]{R.drawable.ile_aux_cerfs_mauritius_1};
+            // Latitude and Longitude for Ile aux Cerfs Beach
+            itemLatitudes = new double[]{
+                    -20.2668829};
+            itemLongitudes = new double[]{
+                    57.8057047};
+
 
         }
         if (main_day == 4 && sub_day == 3) {
@@ -643,6 +818,25 @@ public class ItinerariesActivity extends AppCompatActivity implements View.OnCli
             itemName = new String[]{"Admission Entrance Fee", "Admission Fee", "Admission Free", "Admission Fee", "Admission Entrance Fee", "Admission Fee"};
             itemName1 = new String[]{"West • 2 hours 30 minutes", "Center • 40 minutes", "Southwest • 30 minutes", "Southwest • 35 minutes", "Southwest • 1 hour 30 minutes", "West • 1 hour"};
             itemImages = new int[]{R.drawable.casela, R.drawable.trou_aux_cerfs_4, R.drawable.black_river_georges_2, R.drawable.chamarel_1, R.drawable.chamarel_2, R.drawable.tamarin_3};
+            itemLatitudes = new double[]{
+
+                    -20.335277,
+                    -20.3150066,
+                    -20.4267316,
+                    -20.4333,
+                    -20.4330,
+                    -20.3262782
+            };
+
+            itemLongitudes = new double[]{
+
+                    57.407022,
+                    57.5049908,
+                    57.4512266,
+                    57.3967,
+                    57.3983,
+                    57.3778870
+            };
         }
         if (main_day == 4 && sub_day == 4) {
             Stash.put("day", "day44");
@@ -670,6 +864,29 @@ public class ItinerariesActivity extends AppCompatActivity implements View.OnCli
             itemName = new String[]{"Admission Fee", "Admission Fee", "Admission Free", "Admission Fee", "Admission Fee", "Admission Fee", "Admission Fee", "Admission Fee"};
             itemName1 = new String[]{"Southeast • 35 minutes", "South • 30 minutes", "South • 30 minutes", "South • 35 minutes", "South • 35 minutes", "South • 45 minutes", "Southwest • 30 minutes", "Southwest • 1 hour 30 minutes"};
             itemImages = new int[]{R.drawable.eau_bleu_1, R.drawable.pont_naturel_2, R.drawable.le_souffleur_1, R.drawable.gris_gris_1, R.drawable.la_roche_qui_pleure, R.drawable.rochester_falls_1, R.drawable.maconde_1, R.drawable.la_prairie_2};
+            itemLatitudes = new double[]{
+
+                    -20.3504265, 
+                    -20.4776988, 
+                    -20.4911744, 
+                    -20.5243435,
+                    -20.5040054, 
+                    -20.4953821, 
+                    -20.4911178, 
+                    -20.5272001  
+            };
+
+            itemLongitudes = new double[]{
+
+                    57.5575362, 
+                    57.7492923, 
+                    57.7399898, 
+                    57.5323138,
+                    57.7561275, 
+                    57.5070605, 
+                    57.3711084, 
+                    57.7364779  
+            };
         }
         if (main_day == 5 && sub_day == 1) {
             Stash.put("day", "day51");
@@ -698,6 +915,22 @@ public class ItinerariesActivity extends AppCompatActivity implements View.OnCli
             itemName = new String[]{"Admission Fee", "Admission Entrance Fee", "Admission Free", "Admission Entrance Fee", "Admission Entrance  Fee"};
             itemName1 = new String[]{"North • 2 hours", "North • 1 hours", "North • 1 hours", "North • 2 hours", "North • 1 hours"};
             itemImages = new int[]{R.drawable.port_louis_3, R.drawable.aapravasi_ghat_1, R.drawable.port_louis_4, R.drawable.pamplemousse_garden, R.drawable.grand_baie_1};
+// Latitude and Longitude for the given locations
+            itemLatitudes =  new double[] {
+                    -20.1608170,
+                    -20.1586888, 
+                    -20.1606798,
+                    -20.1042691, 
+                    -20.0089233  
+            };
+
+           itemLongitudes =  new double[] {
+                    57.4980775,
+                    57.5029467, 
+                    57.5029272,
+                    57.5799724, 
+                    57.5812308  
+            };
 
         }
         if (main_day == 5 && sub_day == 2) {
@@ -727,6 +960,21 @@ public class ItinerariesActivity extends AppCompatActivity implements View.OnCli
             itemName = new String[]{"Admission Entrance Fee", "Admission Fee", "Admission Free", "Admission Entrance Fee", "Admission  Fee"};
             itemName1 = new String[]{"Southwest • 1 hour 30 minutes", "Southwest • 1 hour 30 minutes", "Southwest • 1 hour 30 minutes", "Southwest • 1 hour", "West • 1 hour"};
             itemImages = new int[]{R.drawable.chamarel_2, R.drawable.chamarel_1, R.drawable.black_river_georges_2, R.drawable.rhumerie_de_chamarel_1, R.drawable.tamarin_3};
+            itemLatitudes =  new double[] {
+                    -20.4330, 
+                    -20.4333, 
+                    -20.4267316, 
+                    -20.4279001, 
+                    -20.3262782  
+            };
+
+            itemLongitudes =  new double[]{
+                    57.3983, 
+                    57.3967, 
+                    57.4512266, 
+                    57.3963121, 
+                    57.3778870  
+            };
         }
         if (main_day == 5 && sub_day == 3) {
             Stash.put("day", "day53");
@@ -755,6 +1003,21 @@ public class ItinerariesActivity extends AppCompatActivity implements View.OnCli
             itemName = new String[]{"Admission Entrance Fee", "Admission Fee", "Admission Entrance Free", "Admission Fee", "Admission  Fee"};
             itemName1 = new String[]{"West • 2 hours 30 minutes", "West • 1 hour", "West • 50 minutes", "West • 1 – 3 hours", "West • 1 hour"};
             itemImages = new int[]{R.drawable.casela, R.drawable.la_preneuse_4, R.drawable.martello_tower_4, R.drawable.le_morne_1, R.drawable.flic_en_flac_3};
+            itemLatitudes =  new double[]{
+                    -20.335277,
+                    -20.3547236, 
+                    -20.3546962, 
+                    -20.4499767,
+                    -20.2993385 
+            };
+       
+           itemLongitudes = new double[]{
+                    57.407022,
+                    57.3614249, 
+                    57.3619205, 
+                    57.3165315,
+                    57.3636901
+                    };
         }
         if (main_day == 5 && sub_day == 4) {
             Stash.put("day", "day54");
@@ -783,6 +1046,23 @@ public class ItinerariesActivity extends AppCompatActivity implements View.OnCli
             itemName = new String[]{"Admission Fee", "Admission Fee", "Admission Free", "Admission Fee", "Admission  Fee", "Admission  Fee", "Admission  Fee"};
             itemName1 = new String[]{"Southeast • 1 – 2 hours", "Southeast • 1 – 2 hours", "Southeast • 1 – 1.5 hours", "South • 35 minutes", "South • 35 minutes", "Southwest • 30 minutes", "Southwest • 1 hour 30 minutes"};
             itemImages = new int[]{R.drawable.mahebourg, R.drawable.mahebourg_museum_2, R.drawable.blue_bay, R.drawable.gris_gris_coastal_4, R.drawable.la_roche_qui_pleure, R.drawable.maconde_1, R.drawable.la_prairie_2};
+            itemLatitudes = new double[]{
+
+                    -20.1608170,
+                    -20.1586888, 
+                    -20.1606798,
+                    -20.1042691, 
+                    -20.0089233  
+            };
+
+            itemLongitudes = new double[]{
+
+                    57.4980775,
+                    57.5029467, 
+                    57.5029272,
+                    57.5799724, 
+                    57.5812308  
+            };
         }
         if (main_day == 5 && sub_day == 5) {
             Stash.put("day", "day55");
@@ -811,9 +1091,14 @@ public class ItinerariesActivity extends AppCompatActivity implements View.OnCli
             itemName = new String[]{"Admission Catamaran Fee"};
             itemName1 = new String[]{"East • Full Day"};
             itemImages = new int[]{R.drawable.ile_aux_cerfs_mauritius_1};
+            itemLatitudes = new double[]{
+                    -20.2668829};
+            itemLongitudes = new double[]{
+                    57.8057047};
+
         }
         ListView listView = findViewById(R.id.listView);
-        ItenerariesAdapter adapter = new ItenerariesAdapter(ItinerariesActivity.this, itemTexts, itemName, itemName1, itemImages);
+        ItenerariesAdapter adapter = new ItenerariesAdapter(ItinerariesActivity.this, itemTexts, itemName, itemName1, itemImages, itemLatitudes, itemLongitudes);
         listView.setAdapter(adapter);
     }
     public void menu(View view) {
