@@ -5,6 +5,7 @@ import static com.moutamid.sqlapp.model.DatabaseHelper.TABLE_NAME;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,8 +19,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.fxn.stash.Stash;
 import com.moutamid.sqlapp.R;
 import com.moutamid.sqlapp.activities.Beaches.BeachDetails;
+import com.moutamid.sqlapp.activities.MyTripsActivity;
 import com.moutamid.sqlapp.model.BeacModel;
 import com.moutamid.sqlapp.model.DatabaseHelper;
+import com.moutamid.sqlapp.offlinemap.DistanceCalculator;
+import com.moutamid.sqlapp.offlinemap.DurationCalculator;
+import com.moutamid.sqlapp.offlinemap.MapActivity;
 
 import java.util.List;
 
@@ -27,11 +32,31 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private List<BeacModel> beacModels;
     private Context context;
     private OnStartDragListener dragListener;
-
+    private double totalDistance = 0.0;
+    private double totalDuration = 0.0;
     public MyAdapter(List<BeacModel> beacModels, Context context, OnStartDragListener dragListener) {
         this.beacModels = beacModels;
         this.context = context;
         this.dragListener = dragListener;
+        calculateTotalDistanceAndDuration();
+    }
+    private void calculateTotalDistanceAndDuration() {
+        totalDistance = 0.0;
+        totalDuration = 0.0;
+        for (int i = 1; i < beacModels.size(); i++)
+        {
+            BeacModel previousModel = beacModels.get(i - 1);
+            BeacModel currentModel = beacModels.get(i);
+            double distance = DistanceCalculator.calculateDistance(
+            previousModel.lat, previousModel.lng, currentModel.lat, currentModel.lng);
+            double duration = DurationCalculator.calculateDrivingDuration(distance);
+            totalDistance += distance;
+            totalDuration += duration;
+        }
+        MyTripsActivity.distance.setText(String.format("%.1f km", totalDistance));
+        MyTripsActivity.time.setText(DurationCalculator.formatDuration(totalDuration));
+        Log.d("MyAdapter", "Total Distance: " + String.format("%.1f km", totalDistance));
+        Log.d("MyAdapter", "Total Duration: " + DurationCalculator.formatDuration(totalDuration));
     }
 
     @NonNull
@@ -45,16 +70,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         BeacModel beacModel = beacModels.get(position);
         holder.textView.setText(beacModel.title);
-        if(position==0)
-        {
+        if (position == 0) {
             holder.textView3.setText("Start\nHere");
+        } else {
+            BeacModel previousModel = beacModels.get(position - 1);
+            double distance = DistanceCalculator.calculateDistance(
+            previousModel.lat, previousModel.lng, beacModel.lat, beacModel.lng);
+            double duration = DurationCalculator.calculateDrivingDuration(distance);
+            String formattedDuration = DurationCalculator.formatDuration(duration);
+            holder.textView3.setText(formattedDuration + "\n" + String.format("%.1f km", distance));
         }
-        else
-        {
-            holder.textView3.setText("2h 1m\n167.0km");
-
-        }
-        holder.number.setText(String.valueOf(position + 1)); // Update the number accordingly
+        holder.number.setText(String.valueOf(position + 1));
+        MyTripsActivity.total_stop.setText(beacModels.size()+ " stops");
         holder.imageView.setImageResource(beacModel.main_image);
         com.moutamid.sqlapp.model.DatabaseHelper databaseHelper;
         databaseHelper = new DatabaseHelper(context);
@@ -83,10 +110,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 beacModels.remove(holder.getAdapterPosition());
                 holder.remove.setVisibility(View.GONE);
                 holder.add.setVisibility(View.VISIBLE);
+                calculateTotalDistanceAndDuration();
                 notifyDataSetChanged();
             }
         });
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,11 +129,27 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 if (dragEvent.getAction() == DragEvent.ACTION_DRAG_STARTED) {
                     // Notify the activity to start dragging
                     dragListener.onStartDrag(holder);
+                    calculateTotalDistanceAndDuration();
                     return true;
                 }
                 return false;
             }
         });
+
+        holder.map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Stash.put("map_lat", beacModel.lat);
+                Stash.put("map_lng", beacModel.lng);
+                Stash.put("map_name", beacModel.title);
+                Stash.put("map_img", beacModel.main_image);
+                Intent intent = new Intent(context, MapActivity.class);
+                intent.putExtra("map_lat", beacModel.lat);
+                intent.putExtra("map_lng", beacModel.lng);
+                context.startActivity(intent);
+            }
+        });
+
         if (holder.textView.getText().toString().equals("Belle Mare Beach")) {
             holder.textView1.setText("Belle Mare");
             holder.textView2.setText("District of Flacq");
@@ -330,6 +373,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             holder.textView1.setText("Curious Corners");
             holder.textView2.setText("Baie du Cap, Chamarel");
         }
+
     }
 
     @Override
@@ -339,7 +383,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView textView, textView1, textView2, number, textView3;
-        public ImageView imageView, add, remove;
+        public ImageView imageView, add, remove, map;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -351,6 +395,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             add = itemView.findViewById(R.id.add);
             remove = itemView.findViewById(R.id.remove);
             textView3 = itemView.findViewById(R.id.textView3);
+            map = itemView.findViewById(R.id.map);
         }
     }
 

@@ -18,9 +18,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.fxn.stash.Stash;
 import com.moutamid.sqlapp.R;
+import com.moutamid.sqlapp.activities.Beaches.BeachDetails;
 import com.moutamid.sqlapp.activities.DashboardActivity;
 import com.moutamid.sqlapp.model.BeacModel;
 import com.moutamid.sqlapp.model.DatabaseHelper;
+import com.moutamid.sqlapp.offlinemap.MapActivity;
 
 import java.util.List;
 
@@ -30,6 +32,7 @@ public class ItenerariesDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.iteneraies_details);
+        LinearLayout map_layout = findViewById(R.id.map_layout);
         ImageView mainImg = findViewById(R.id.main_img);
         ImageView menu = findViewById(R.id.menu);
         ImageView mainImage = findViewById(R.id.main_image);
@@ -318,6 +321,19 @@ public class ItenerariesDetails extends AppCompatActivity {
                     add_not.setText("Remove");
 
                 }
+            }
+        });
+        map_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Stash.put("map_lat", model.lat);
+                Stash.put("map_lng", model.lng);
+                Stash.put("map_name", model.title);
+                Stash.put("map_img", model.main_image);
+                Intent intent = new Intent(ItenerariesDetails.this, MapActivity.class);
+                intent.putExtra("map_lat", model.lat);
+                intent.putExtra("map_lng", model.lng);
+                startActivity(intent);
             }
         });
 

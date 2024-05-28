@@ -4,6 +4,4 @@ plugins {
     id("com.google.gms.google-services") version "4.3.3" apply false
     id("com.google.firebase.crashlytics") version "2.9.9" apply false
     id("org.jetbrains.kotlin.android") version "1.9.22" apply false
-
-
 }

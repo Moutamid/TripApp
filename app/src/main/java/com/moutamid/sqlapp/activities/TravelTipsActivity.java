@@ -2,6 +2,7 @@ package com.moutamid.sqlapp.activities;
 
 import android.os.Bundle;
 import android.text.Html;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -133,5 +134,9 @@ public class TravelTipsActivity extends AppCompatActivity {
                 "<h2>Wedding Bells</h2>" +
                 "The ideal location for weddings in the Indian Ocean is without a doubt Mauritius. Not surprisingly, considering the island's natural beauty and the champagne breakfasts, gourmet dinners, couples spa treatments, and seaside horseback rides available, it was chosen as one of the top five places to get married in the world and as the \"Indian Ocean's leading honeymoon destination\" at the 2016 World Travel Awards. The locations vary from private island Île des Deux Cocos in the style of Robinson Crusoe, to hotel beaches and gardens, catamarans, and even underwater in a Blue Safari submarine. To participate in a civil ceremony, couples must arrange for a marriage license ahead of time and be on the island three days in advance. Religious ceremonies require a notice of fifteen days.<br><br>" +
                 "<br><br>"));
+    }
+
+    public void BackPress(View view) {
+        onBackPressed();
     }
 }

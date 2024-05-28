@@ -19,5 +19,7 @@ public class BeacModel {
     public  String text11;
     public  int image5;
     public  String text12;
+    public  double lat;
+    public  double lng;
 }
 

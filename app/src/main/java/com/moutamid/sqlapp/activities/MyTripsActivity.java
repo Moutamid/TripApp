@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +18,7 @@ import com.moutamid.sqlapp.R;
 import com.moutamid.sqlapp.adapter.MyAdapter;
 import com.moutamid.sqlapp.model.BeacModel;
 import com.moutamid.sqlapp.model.DatabaseHelper;
+import com.moutamid.sqlapp.offlinemap.FullMapActivity;
 
 import java.util.Collections;
 import java.util.List;
@@ -25,6 +28,8 @@ public class MyTripsActivity extends AppCompatActivity implements MyAdapter.OnSt
     private List<BeacModel> beacModels;
     private MyAdapter adapter;
     private ItemTouchHelper itemTouchHelper;
+    public static TextView time, distance, total_stop;
+    Button map_it_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +39,10 @@ public class MyTripsActivity extends AppCompatActivity implements MyAdapter.OnSt
         beacModels = databaseHelper.getAllBeacModels();
         updatePositions();
         RecyclerView recyclerView = findViewById(R.id.listView);
+        time = findViewById(R.id.time);
+        distance = findViewById(R.id.distance);
+        total_stop = findViewById(R.id.total_stop);
+        map_it_btn = findViewById(R.id.map_it_btn);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new MyAdapter(beacModels, MyTripsActivity.this, this);
         recyclerView.setAdapter(adapter);
@@ -72,8 +81,29 @@ public class MyTripsActivity extends AppCompatActivity implements MyAdapter.OnSt
 
         itemTouchHelper = new ItemTouchHelper(callback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
-    }
 
+        map_it_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                passLatLngListToNextActivity();
+            }
+        });
+    }
+    private void passLatLngListToNextActivity() {
+        Intent intent = new Intent(MyTripsActivity.this, FullMapActivity.class); // Change NextActivity to your target activity
+
+        double[] latitudes = new double[beacModels.size()];
+        double[] longitudes = new double[beacModels.size()];
+
+        for (int i = 0; i < beacModels.size(); i++) {
+            latitudes[i] = beacModels.get(i).lat;
+            longitudes[i] = beacModels.get(i).lng;
+        }
+
+        intent.putExtra("latitudes", latitudes);
+        intent.putExtra("longitudes", longitudes);
+        startActivity(intent);
+    }
 
     private void updatePositions() {
         for (int i = 0; i < beacModels.size(); i++) {

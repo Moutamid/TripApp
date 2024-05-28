@@ -78,18 +78,17 @@ public class BeachesAdapter extends BaseAdapter {
                 Stash.put("map_lng", longitudes[position]);
                 Stash.put("map_name", itemName[position]);
                 Stash.put("map_img", itemImages[position]);
-                Intent intent= new  Intent(context, MapActivity.class);
+                Intent intent = new Intent(context, MapActivity.class);
                 intent.putExtra("map_lat", latitudes[position]);
                 intent.putExtra("map_lng", longitudes[position]);
-                context.startActivity(intent );
+                context.startActivity(intent);
             }
         });
         com.moutamid.sqlapp.model.DatabaseHelper databaseHelper;
         databaseHelper = new DatabaseHelper(context);
         List<BeacModel> beacModels = databaseHelper.getAllBeacModels();
         boolean isDataAvailable = false;
-        for (BeacModel model : beacModels)
-        {
+        for (BeacModel model : beacModels) {
             if (model.title.equals(textView.getText().toString())) {
                 isDataAvailable = true;
                 break;
@@ -164,7 +163,9 @@ public class BeachesAdapter extends BaseAdapter {
                         model.image5 = R.drawable.map_location;
 
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
                     } else if (position == 1) {
@@ -209,7 +210,9 @@ public class BeachesAdapter extends BaseAdapter {
                         model.image5 = R.drawable.map_location;
 
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
                     } else if (position == 2) {
@@ -254,7 +257,9 @@ public class BeachesAdapter extends BaseAdapter {
                         model.image5 = R.drawable.map_location;
 
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
                     } else if (position == 3) {
@@ -297,13 +302,14 @@ public class BeachesAdapter extends BaseAdapter {
                         model.image5 = R.drawable.map_location;
 
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
                     }
 
-                }
-                else if (Stash.getString("type").equals("East")) {
+                } else if (Stash.getString("type").equals("East")) {
                     if (position == 0) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
@@ -346,7 +352,9 @@ public class BeachesAdapter extends BaseAdapter {
                         model.image5 = R.drawable.map_location;
 
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
                     } else if (position == 1) {
@@ -391,7 +399,9 @@ public class BeachesAdapter extends BaseAdapter {
                                 "<b>Culinary Offerings</b><br>";
                         model.image5 = R.drawable.ile_aux_cerfs_3;
                         model.text12 = "Ile aux Cerfshas several dining establishments, including a charming beachside restaurant. Additionally, two bars are available for visitors seeking refreshing beverages or cocktails at reasonable prices. An alternative is to bring ample food and drinks to suit your preferences.";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
                     } else if (position == 2) {
@@ -439,7 +449,9 @@ public class BeachesAdapter extends BaseAdapter {
                         model.image5 = R.drawable.map_location;
 
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
                     } else if (position == 3) {
@@ -480,12 +492,13 @@ public class BeachesAdapter extends BaseAdapter {
                         model.image5 = R.drawable.map_location;
 
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
                     }
-                }
-                else if (Stash.getString("type").equals("South")) {
+                } else if (Stash.getString("type").equals("South")) {
                     if (position == 0) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
@@ -524,7 +537,9 @@ public class BeachesAdapter extends BaseAdapter {
                         model.image5 = R.drawable.map_location;
 
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
                     } else if (position == 1) {
@@ -572,7 +587,9 @@ public class BeachesAdapter extends BaseAdapter {
                         model.image5 = R.drawable.blue_bay_8;
 
                         model.text12 = "•\t<b>Outdoor Activities Available to All:</b> Glass-bottom boat trips and snorkeling are popular activities, allowing non-swimmers to explore the marine environment through the glass bottom. Snorkeling conditions are ideal, and Coco Island, visible from the beach, serves as a relaxing spot for snorkelers under casuarina trees. Operators provide drop-off and pick-up services.";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
                     } else if (position == 2) {
@@ -622,7 +639,9 @@ public class BeachesAdapter extends BaseAdapter {
                         model.image5 = R.drawable.map_location;
 
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
                     } else if (position == 3) {
@@ -667,7 +686,9 @@ public class BeachesAdapter extends BaseAdapter {
                         model.image5 = R.drawable.map_location;
 
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
                     } else if (position == 4) {
@@ -713,7 +734,9 @@ public class BeachesAdapter extends BaseAdapter {
                         model.image5 = R.drawable.map_location;
 
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
                     } else if (position == 5) {
@@ -760,15 +783,15 @@ public class BeachesAdapter extends BaseAdapter {
                         model.image5 = R.drawable.map_location;
 
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
                     }
-                }
-                else if (Stash.getString("type").equals("North")) {
+                } else if (Stash.getString("type").equals("North")) {
 
-                    if (position == 0)
-                    {
+                    if (position == 0) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
 
@@ -809,11 +832,12 @@ public class BeachesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 1) {
+                    } else if (position == 1) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
 
@@ -866,12 +890,12 @@ public class BeachesAdapter extends BaseAdapter {
                         model.image5 = R.drawable.map_location;
 
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 2)
-                    {
+                    } else if (position == 2) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
 
@@ -920,11 +944,12 @@ public class BeachesAdapter extends BaseAdapter {
                         model.image5 = R.drawable.map_location;
 
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
-                    } else if (position == 3)
-                    {
+                    } else if (position == 3) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
 
@@ -970,17 +995,18 @@ public class BeachesAdapter extends BaseAdapter {
                         model.text12 = "Pereybere Beach is just five minutes away from Grand Baie, offering additional public beaches like La Cuvette Public Beach and Grand Baie Public Beach for those seeking a quieter atmosphere. Grand Baie itself has casinos, shopping options, and a lively nightlife.\n" +
                                 "If you plan to stay near Pereybere Beach, you have various accommodation options, including Hibiscus Beach Resort & Spa, Pereybere Hotel and Spa, and Le Beachclub, each offering unique amenities and experiences.\n" +
                                 "To reach Pereybere Beach from Port Louis, you can take the Express Cap Malheureux Bus from Immigration Square, and it will take around an hour. Alternatively, renting a car provides flexibility and convenience for the journey.\n";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
-                    } else if (position == 4)
-                    {
+                    } else if (position == 4) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
 
                         model.main_image = R.drawable.trou_aux_biches_1; // Set the value for main_image
 
-                        model.text1 = "Trou-aux-Biches, located on the northern coast of Mauritius in the Pamplemousses district, is a quaint town renowned for its public beach. Recognized by the World Travel group as one of the island's most beautiful beaches, it earned the prestigious title of World's Leading Beach Destination at the 2011 World Travel Award. The area boasts numerous tourist resorts and boutique hotels, such as the Trou aux Biches Resort & Spa. Accessible from Port Louis via the M2 highway, Trou-aux-Biches is approximately a mile west from the end of M2, and public buses connect the town with the airport.\n" ;
+                        model.text1 = "Trou-aux-Biches, located on the northern coast of Mauritius in the Pamplemousses district, is a quaint town renowned for its public beach. Recognized by the World Travel group as one of the island's most beautiful beaches, it earned the prestigious title of World's Leading Beach Destination at the 2011 World Travel Award. The area boasts numerous tourist resorts and boutique hotels, such as the Trou aux Biches Resort & Spa. Accessible from Port Louis via the M2 highway, Trou-aux-Biches is approximately a mile west from the end of M2, and public buses connect the town with the airport.\n";
                         model.title1 = "";
 
                         model.image1 = R.drawable.map_location; // Set the value for image1
@@ -1017,10 +1043,12 @@ public class BeachesAdapter extends BaseAdapter {
                         model.image5 = R.drawable.map_location;
 
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
-                    } 
+                    }
                 }
 
             }
@@ -1077,11 +1105,13 @@ public class BeachesAdapter extends BaseAdapter {
                         model.image5 = R.drawable.map_location;
 
                         model.text12 = "";
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
                         com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
-                        databaseHelper.insertBeacModel(model);
-       add.setVisibility(View.GONE);
+                                              databaseHelper.insertBeacModel(model);
+                        add.setVisibility(View.GONE);
                         remove.setVisibility(View.VISIBLE);
-                                    } else if (position == 1) {
+                    } else if (position == 1) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
 
@@ -1123,11 +1153,13 @@ public class BeachesAdapter extends BaseAdapter {
                         model.image5 = R.drawable.map_location;
 
                         model.text12 = "";
-                         com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
-                        databaseHelper.insertBeacModel(model);
-       add.setVisibility(View.GONE);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                        com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+                                              databaseHelper.insertBeacModel(model);
+                        add.setVisibility(View.GONE);
                         remove.setVisibility(View.VISIBLE);
-                                  } else if (position == 2) {
+                    } else if (position == 2) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
 
@@ -1169,11 +1201,13 @@ public class BeachesAdapter extends BaseAdapter {
                         model.image5 = R.drawable.map_location;
 
                         model.text12 = "";
-                         com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
-                        databaseHelper.insertBeacModel(model);
-       add.setVisibility(View.GONE);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                        com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+                                              databaseHelper.insertBeacModel(model);
+                        add.setVisibility(View.GONE);
                         remove.setVisibility(View.VISIBLE);
-                                  } else if (position == 3) {
+                    } else if (position == 3) {
 
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
@@ -1213,14 +1247,15 @@ public class BeachesAdapter extends BaseAdapter {
                         model.image5 = R.drawable.map_location;
 
                         model.text12 = "";
-                         com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
-                        databaseHelper.insertBeacModel(model);
-       add.setVisibility(View.GONE);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                        com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+                                              databaseHelper.insertBeacModel(model);
+                        add.setVisibility(View.GONE);
                         remove.setVisibility(View.VISIBLE);
-                                  }
+                    }
 
-                }
-                else if (Stash.getString("type").equals("East")) {
+                } else if (Stash.getString("type").equals("East")) {
                     if (position == 0) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
@@ -1263,11 +1298,13 @@ public class BeachesAdapter extends BaseAdapter {
                         model.image5 = R.drawable.map_location;
 
                         model.text12 = "";
-                         com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
-                        databaseHelper.insertBeacModel(model);
-       add.setVisibility(View.GONE);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                        com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+                                              databaseHelper.insertBeacModel(model);
+                        add.setVisibility(View.GONE);
                         remove.setVisibility(View.VISIBLE);
-                                  } else if (position == 1) {
+                    } else if (position == 1) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
 
@@ -1311,11 +1348,13 @@ public class BeachesAdapter extends BaseAdapter {
                                 "<b>Culinary Offerings</b><br>";
                         model.image5 = R.drawable.ile_aux_cerfs_3;
                         model.text12 = "Ile aux Cerfshas several dining establishments, including a charming beachside restaurant. Additionally, two bars are available for visitors seeking refreshing beverages or cocktails at reasonable prices. An alternative is to bring ample food and drinks to suit your preferences.";
-                         com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
-                        databaseHelper.insertBeacModel(model);
-       add.setVisibility(View.GONE);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                        com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+                                              databaseHelper.insertBeacModel(model);
+                        add.setVisibility(View.GONE);
                         remove.setVisibility(View.VISIBLE);
-                                  } else if (position == 2) {
+                    } else if (position == 2) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
 
@@ -1360,11 +1399,13 @@ public class BeachesAdapter extends BaseAdapter {
                         model.image5 = R.drawable.map_location;
 
                         model.text12 = "";
-                         com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
-                        databaseHelper.insertBeacModel(model);
-       add.setVisibility(View.GONE);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                        com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+                                              databaseHelper.insertBeacModel(model);
+                        add.setVisibility(View.GONE);
                         remove.setVisibility(View.VISIBLE);
-                                  } else if (position == 3) {
+                    } else if (position == 3) {
 
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
@@ -1402,16 +1443,17 @@ public class BeachesAdapter extends BaseAdapter {
                         model.image5 = R.drawable.map_location;
 
                         model.text12 = "";
-                         com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
-                        databaseHelper.insertBeacModel(model);
-       add.setVisibility(View.GONE);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                        com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+                                              databaseHelper.insertBeacModel(model);
+                        add.setVisibility(View.GONE);
                         remove.setVisibility(View.VISIBLE);
-                                  }
-                }
-                else if (Stash.getString("type").equals("South")) {
+                    }
+                } else if (Stash.getString("type").equals("South")) {
                     if (position == 0) {
-                                               BeacModel model = new BeacModel();
- model.title = textView.getText().toString();
+                        BeacModel model = new BeacModel();
+                        model.title = textView.getText().toString();
                         model.main_image = R.drawable.bel_ombre_17; // Set the value for main_image
                         model.text1 = "Nestled in the southwestern part of Mauritius, the Bel Ombre Beach delicately unveils its shores of golden sand, extending a gracious invitation to aficionados of the sea.";
                         model.title1 = "";
@@ -1446,13 +1488,15 @@ public class BeachesAdapter extends BaseAdapter {
                         model.image5 = R.drawable.map_location;
 
                         model.text12 = "";
-                           com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
-                        databaseHelper.insertBeacModel(model);
-       add.setVisibility(View.GONE);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                        com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+                                              databaseHelper.insertBeacModel(model);
+                        add.setVisibility(View.GONE);
                         remove.setVisibility(View.VISIBLE);
-                                  } else if (position == 1) {
-                                               BeacModel model = new BeacModel();
- model.title = textView.getText().toString();
+                    } else if (position == 1) {
+                        BeacModel model = new BeacModel();
+                        model.title = textView.getText().toString();
                         model.main_image = R.drawable.blue_bay; // Set the value for main_image
 
                         model.text1 = "Located in the southeast of the island, Blue Bay was designated a national park in 1997 and later recognized as a wetland site under the Ramsar Convention on Wetlands of International Importance in 2008. The marine park is renowned for its coral garden, housing a diverse array of corals and abundant fauna. Close to the coastline, it offers ideal conditions for snorkeling, boasting rich biodiversity and calm, shallow seawater.";
@@ -1494,13 +1538,15 @@ public class BeachesAdapter extends BaseAdapter {
                         model.image5 = R.drawable.blue_bay_8;
 
                         model.text12 = "•\t<b>Outdoor Activities Available to All:</b> Glass-bottom boat trips and snorkeling are popular activities, allowing non-swimmers to explore the marine environment through the glass bottom. Snorkeling conditions are ideal, and Coco Island, visible from the beach, serves as a relaxing spot for snorkelers under casuarina trees. Operators provide drop-off and pick-up services.";
-                           com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
-                        databaseHelper.insertBeacModel(model);
-       add.setVisibility(View.GONE);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                        com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+                                              databaseHelper.insertBeacModel(model);
+                        add.setVisibility(View.GONE);
                         remove.setVisibility(View.VISIBLE);
-                                  } else if (position == 2) {
-                                               BeacModel model = new BeacModel();
- model.title = textView.getText().toString();
+                    } else if (position == 2) {
+                        BeacModel model = new BeacModel();
+                        model.title = textView.getText().toString();
                         model.main_image = R.drawable.gris_gris_coastal_4; // Set the value for main_image
 
                         model.text1 = "The primary beach area features an expansive green field with a commanding view of dramatic cliffs and enormous waves. There are benches and a pavilion available for relaxation while taking in the scenery.\n" +
@@ -1544,13 +1590,15 @@ public class BeachesAdapter extends BaseAdapter {
                         model.image5 = R.drawable.map_location;
 
                         model.text12 = "";
-                           com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
-                        databaseHelper.insertBeacModel(model);
-       add.setVisibility(View.GONE);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                        com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+                                              databaseHelper.insertBeacModel(model);
+                        add.setVisibility(View.GONE);
                         remove.setVisibility(View.VISIBLE);
-                                  } else if (position == 3) {
-                                               BeacModel model = new BeacModel();
- model.title = textView.getText().toString();
+                    } else if (position == 3) {
+                        BeacModel model = new BeacModel();
+                        model.title = textView.getText().toString();
                         model.main_image = R.drawable.la_cambuse_2; // Set the value for main_image
 
                         model.text1 = "The La Cambuse Beach graces the southeastern coast of the island, a mere 10-minute drive from the international airport. This pristine expanse of shoreline offers a captivating sense of untouched beauty, characterized by its broad stretch of sand adorned with natural shade-providing trees and complemented by picnic benches, creating an ideal setting for a scenic lunch. Take in the panoramic view of the lagoon, observing the untamed allure of waves crashing along the rugged and breathtaking coastline.";
@@ -1589,13 +1637,15 @@ public class BeachesAdapter extends BaseAdapter {
                         model.image5 = R.drawable.map_location;
 
                         model.text12 = "";
-                           com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
-                        databaseHelper.insertBeacModel(model);
-       add.setVisibility(View.GONE);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                        com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+                                              databaseHelper.insertBeacModel(model);
+                        add.setVisibility(View.GONE);
                         remove.setVisibility(View.VISIBLE);
-                                  } else if (position == 4) {
-                                               BeacModel model = new BeacModel();
- model.title = textView.getText().toString();
+                    } else if (position == 4) {
+                        BeacModel model = new BeacModel();
+                        model.title = textView.getText().toString();
                         model.main_image = R.drawable.riviere_des_galets_1; // Set the value for main_image
 
                         model.text1 = "Located between Souillac and Bel Ombre, the Rivière des Galets Beach unfolds its unique charm, distinguished by the presence of innumerable small pebbles that pave its shores. Easily accessible along the coastal road in the southern region of Mauritius, in proximity to Ilot Sancho, this distinctive locale captivates with its one-of-a-kind character.";
@@ -1635,13 +1685,15 @@ public class BeachesAdapter extends BaseAdapter {
                         model.image5 = R.drawable.map_location;
 
                         model.text12 = "";
-                           com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
-                        databaseHelper.insertBeacModel(model);
-       add.setVisibility(View.GONE);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                        com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+                                              databaseHelper.insertBeacModel(model);
+                        add.setVisibility(View.GONE);
                         remove.setVisibility(View.VISIBLE);
-                                  } else if (position == 5) {
-                                               BeacModel model = new BeacModel();
- model.title = textView.getText().toString();
+                    } else if (position == 5) {
+                        BeacModel model = new BeacModel();
+                        model.title = textView.getText().toString();
                         model.main_image = R.drawable.st_felix_1; // Set the value for main_image
 
                         model.text1 = "The Saint-Félix beach is an exquisite stretch of coastline located at the southernmost tip of the island, nestled between Souillac and Bel Ombre. Revered for its rare beauty, this beach boasts turquoise waters, pristine white sand, and is often regarded as the most picturesque beach in the southern region of Mauritius.\n" +
@@ -1682,18 +1734,18 @@ public class BeachesAdapter extends BaseAdapter {
                         model.image5 = R.drawable.map_location;
 
                         model.text12 = "";
-                           com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
-                        databaseHelper.insertBeacModel(model);
-       add.setVisibility(View.GONE);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                        com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+                                              databaseHelper.insertBeacModel(model);
+                        add.setVisibility(View.GONE);
                         remove.setVisibility(View.VISIBLE);
-                                  }
-                }
-                else if (Stash.getString("type").equals("North")) {
+                    }
+                } else if (Stash.getString("type").equals("North")) {
 
-                    if (position == 0)
-                    {
-                                               BeacModel model = new BeacModel();
- model.title = textView.getText().toString();
+                    if (position == 0) {
+                        BeacModel model = new BeacModel();
+                        model.title = textView.getText().toString();
                         model.main_image = R.drawable.cap_malheureux_6; // Set the value for main_image
 
                         model.text1 = "Located on the northern tip of Mauritius, the Cap Malheureux Beach is located right behind the well-known Notre Dame Auxiliatrice Chapel, also known as the red church, famous for its vibrant color scheme and eye-catching facade. While its inviting waters are suitable for swimming, Cap Malheureux is more renowned as the starting point for boat and catamaran excursions to Flat Island and its lighthouse, along with the wildlife sanctuary of Round Island.";
@@ -1731,14 +1783,15 @@ public class BeachesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                           com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
-                        databaseHelper.insertBeacModel(model);
-       add.setVisibility(View.GONE);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                        com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+                                              databaseHelper.insertBeacModel(model);
+                        add.setVisibility(View.GONE);
                         remove.setVisibility(View.VISIBLE);
-                                  }
-                    else if (position == 1) {
-                                               BeacModel model = new BeacModel();
- model.title = textView.getText().toString();
+                    } else if (position == 1) {
+                        BeacModel model = new BeacModel();
+                        model.title = textView.getText().toString();
                         model.main_image = R.drawable.grand_gaube_1; // Set the value for main_image
 
                         model.text1 = "The Grand Gaube Beach starkly contrast to its neighboring beaches Pereybere, Trou aux Biches, and Mont Choisy, all situated in the northern part of the island. This distinction arises not only from the minimal development in this corner of Mauritius but also due to its more rugged and rocky landscapes, making it unsuitable for swimming and water sports.\n" +
@@ -1788,15 +1841,15 @@ public class BeachesAdapter extends BaseAdapter {
                         model.image5 = R.drawable.map_location;
 
                         model.text12 = "";
-                           com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
-                        databaseHelper.insertBeacModel(model);
-       add.setVisibility(View.GONE);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                        com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+                                              databaseHelper.insertBeacModel(model);
+                        add.setVisibility(View.GONE);
                         remove.setVisibility(View.VISIBLE);
-                                  }
-                    else if (position == 2)
-                    {
-                                               BeacModel model = new BeacModel();
- model.title = textView.getText().toString();
+                    } else if (position == 2) {
+                        BeacModel model = new BeacModel();
+                        model.title = textView.getText().toString();
                         model.main_image = R.drawable.mont_choisy_2; // Set the value for main_image
 
                         model.text1 = "Considered one of the most beautiful in the country, the Mont Choisy Beach is a haven for travelers seeking relaxation away from touristy crowds and commercialized beaches. Nestled in the Pamplemousses district in the north-west of Mauritius, this crescent-shaped, powdery white sand beach is the country's longest and one of the most serene.";
@@ -1842,14 +1895,15 @@ public class BeachesAdapter extends BaseAdapter {
                         model.image5 = R.drawable.map_location;
 
                         model.text12 = "";
-                           com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
-                        databaseHelper.insertBeacModel(model);
-       add.setVisibility(View.GONE);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                        com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+                                              databaseHelper.insertBeacModel(model);
+                        add.setVisibility(View.GONE);
                         remove.setVisibility(View.VISIBLE);
-                                  } else if (position == 3)
-                    {
-                                               BeacModel model = new BeacModel();
- model.title = textView.getText().toString();
+                    } else if (position == 3) {
+                        BeacModel model = new BeacModel();
+                        model.title = textView.getText().toString();
                         model.main_image = R.drawable.pereybere_beach_1; // Set the value for main_image
 
                         model.text1 = "Despite its short 150-meter length, Pereybere Beach is considered the best family beach in the country. This is mainly because it's one of the few beaches where swimming is safe, making it a favorite for families, especially those with young children.\n" +
@@ -1892,17 +1946,18 @@ public class BeachesAdapter extends BaseAdapter {
                         model.text12 = "Pereybere Beach is just five minutes away from Grand Baie, offering additional public beaches like La Cuvette Public Beach and Grand Baie Public Beach for those seeking a quieter atmosphere. Grand Baie itself has casinos, shopping options, and a lively nightlife.\n" +
                                 "If you plan to stay near Pereybere Beach, you have various accommodation options, including Hibiscus Beach Resort & Spa, Pereybere Hotel and Spa, and Le Beachclub, each offering unique amenities and experiences.\n" +
                                 "To reach Pereybere Beach from Port Louis, you can take the Express Cap Malheureux Bus from Immigration Square, and it will take around an hour. Alternatively, renting a car provides flexibility and convenience for the journey.\n";
-                           com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
-                        databaseHelper.insertBeacModel(model);
-       add.setVisibility(View.GONE);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                        com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+                                              databaseHelper.insertBeacModel(model);
+                        add.setVisibility(View.GONE);
                         remove.setVisibility(View.VISIBLE);
-                                  } else if (position == 4)
-                    {
-                                               BeacModel model = new BeacModel();
- model.title = textView.getText().toString();
+                    } else if (position == 4) {
+                        BeacModel model = new BeacModel();
+                        model.title = textView.getText().toString();
                         model.main_image = R.drawable.trou_aux_biches_1; // Set the value for main_image
 
-                        model.text1 = "Trou-aux-Biches, located on the northern coast of Mauritius in the Pamplemousses district, is a quaint town renowned for its public beach. Recognized by the World Travel group as one of the island's most beautiful beaches, it earned the prestigious title of World's Leading Beach Destination at the 2011 World Travel Award. The area boasts numerous tourist resorts and boutique hotels, such as the Trou aux Biches Resort & Spa. Accessible from Port Louis via the M2 highway, Trou-aux-Biches is approximately a mile west from the end of M2, and public buses connect the town with the airport.\n" ;
+                        model.text1 = "Trou-aux-Biches, located on the northern coast of Mauritius in the Pamplemousses district, is a quaint town renowned for its public beach. Recognized by the World Travel group as one of the island's most beautiful beaches, it earned the prestigious title of World's Leading Beach Destination at the 2011 World Travel Award. The area boasts numerous tourist resorts and boutique hotels, such as the Trou aux Biches Resort & Spa. Accessible from Port Louis via the M2 highway, Trou-aux-Biches is approximately a mile west from the end of M2, and public buses connect the town with the airport.\n";
                         model.title1 = "";
 
                         model.image1 = R.drawable.map_location; // Set the value for image1
@@ -1939,12 +1994,14 @@ public class BeachesAdapter extends BaseAdapter {
                         model.image5 = R.drawable.map_location;
 
                         model.text12 = "";
-                           com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
-                        databaseHelper.insertBeacModel(model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                        com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+                                              databaseHelper.insertBeacModel(model);
 
-                                        add.setVisibility(View.GONE);
+                        add.setVisibility(View.GONE);
                         remove.setVisibility(View.VISIBLE);
-                  }
+                    }
                 }
 
             }

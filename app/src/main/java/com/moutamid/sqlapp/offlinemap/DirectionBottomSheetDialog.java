@@ -8,11 +8,18 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.fxn.stash.Stash;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.moutamid.sqlapp.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DirectionBottomSheetDialog extends BottomSheetDialogFragment {
 
@@ -24,7 +31,9 @@ public class DirectionBottomSheetDialog extends BottomSheetDialogFragment {
     private ImageView activeImage4, inactiveImage4;
     public static TextView time, distance, destination_name;
     TextView go;
-
+    private RecyclerView recyclerView;
+    private MyAdapter myAdapter;
+    private List<String> data;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable
     ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -70,6 +79,41 @@ public class DirectionBottomSheetDialog extends BottomSheetDialogFragment {
                 dismiss();
             }
         });
+        data = new ArrayList<>();
+        data.add("My Location");
+        data.add(Stash.getString("map_name"));
+
+        recyclerView = v.findViewById(R.id.recyclerView);
+        myAdapter = new MyAdapter(data);
+        recyclerView.setAdapter(myAdapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        ItemTouchHelper.Callback callback = new ItemTouchHelper.Callback() {
+            @Override
+            public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+                return makeMovementFlags(ItemTouchHelper.UP | ItemTouchHelper.DOWN, 0);
+            }
+
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                myAdapter.onItemMove(viewHolder.getAdapterPosition(), target.getAdapterPosition());
+                return true;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                // Not used
+            }
+
+            @Override
+            public boolean isLongPressDragEnabled() {
+                return true;
+            }
+        };
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
+
         return v;
     }
 

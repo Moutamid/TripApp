@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -97,8 +96,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                 notifyDataSetChanged();
             }
         });
-        holder.add.setOnClickListener(new View.OnClickListener()
-        {
+        holder.add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = null;
@@ -134,7 +132,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -168,7 +169,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "<b>Visit Hours</b><br>" + " <br>" + "Monday to Friday:<br><br>" + "09.00 - 14.00<br><br>" + "Saturday:<br><br>" + "09.00 - 11.00<br><br>" + "<b>Bois Chéri Tea FactoryOperating Hours</b><br><br>" + "Monday - Friday 09.00 - 14.00 & Saturday 09.00 - 11.00 (closed on Sundays & public holidays)<br> ";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -202,7 +206,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -236,7 +243,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -270,7 +280,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -304,7 +317,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -338,7 +354,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -373,7 +392,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -407,7 +429,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -446,7 +471,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "This mystical site derives its name from the visual impression it creates: as water trickles down its walls, the cliffs appear to shed tears. Even more astonishing, some claim to recognize the eroded features of the Mauritian poet Robert Edward Hart.<br>" + "From a geographical and climatic standpoint, unlike other parts of the island, La Roche qui Pleure lacks coral reefs. Consequently, its shores are more exposed to the assaults of the ocean. This absence of a natural barrier results in more powerful and spectacular waves, a stark contrast to the tranquil lagoons typically associated with the island. The region is influenced by strong winds and seasonal variations, shaping its unique landscape and marine dynamics.<br>";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -481,7 +509,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -514,7 +545,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -548,7 +582,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "<br>" + "Quad biking and buggy rides delve into the tropical forest, interacting with wildlife and reaching the 23-colored land, rich in minerals from volcanic eruptions. The park also houses an animal farm with tortoises, chickens, and deer.<br>";
                             model.image5 = R.drawable.vallee_des_couleurs_1;
                             model.text12 = "Various eateries serve delectable cuisine around the waterfalls, including an Indian restaurant providing Subcontinent and French cuisines. La Vallée des Couleurs ensures a captivating experience for visitors of all ages, combining adventure, wildlife, and natural beauty.";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -582,7 +619,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "•\t<b>Unique Classification in Mauritius:</b> Designated a Marine Park under the Wildlife and National Parks Act 1993, a protected zone in 2000 under the Fisheries and Marine Act 1998 and recognized as a Ramsar Convention site in 2008. Mooring buoys are strategically placed to minimize damage to corals by boat anchors";
                             model.image5 = R.drawable.blue_bay_8;
                             model.text12 = "•\t<b>Outdoor Activities Available to All:</b> Glass-bottom boat trips and snorkeling are popular activities, allowing non-swimmers to explore the marine environment through the glass bottom. Snorkeling conditions are ideal, and Coco Island, visible from the beach, serves as a relaxing spot for snorkelers under casuarina trees. Operators provide drop-off and pick-up services.";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -616,7 +656,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -650,7 +693,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -689,7 +735,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -723,7 +772,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "The rare and endemic ebony tree species, Diospyros egrettarum, derives its name from this island, where it thrives abundantly.";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -761,7 +813,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -795,7 +850,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -829,7 +887,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -863,7 +924,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -897,7 +961,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -931,7 +998,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "The island tends to attract a considerable influx of day trippers during weekends. If your stay in Mauritius extends to at least a week, it is advisable to plan your visit on a weekday. While October and November are considered the prime months to experience Ile aux Cerfs, the period from June to November also offers a delightful visit.<br>" + "<b>Accommodation</b> <br>" + "Noteworthy among the accommodations on Ile aux Cerfs is the opulent 5-star Shangri-La’s Le Touessrok Resort & Spa. While not budget-friendly, it provides an exceptional setting for grand celebrations. <br>" + "<b>Culinary Offerings</b> <br>";
                             model.image5 = R.drawable.ile_aux_cerfs_3;
                             model.text12 = "Ile aux Cerfs has several dining establishments, including a charming beachside restaurant. Additionally, two bars are available for visitors seeking refreshing beverages or cocktails at reasonable prices. An alternative is to bring ample food and drinks to suit your preferences.";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -968,7 +1038,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -1002,7 +1075,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -1036,7 +1112,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "•\t<b>Walk with Lions:</b> Take a stroll alongside lions with expert guides ensuring safety.<br>" + "•\t<b>Interaction with Big Cats:</b> Get up close with lions, cheetahs, and caracals under supervision.<br>" + "•\t<b>Drive Thru:</b> A 45-minute drive to observe lions in their natural habitat.<br>" + "•\t<b>E-Bike Safari:</b> Explore the safari park on eco-friendly electric bikes.<br>" + "•\t<b>Segway Trip:</b> Discover the Yemen Nature Reserve Park on a Segway.<br>" + "•\t<b>Safari Quad Biking:</b> Navigate the park's hills, valleys, and rivers on quad bikes.<br>" + "•\t<b>Camel Riding:</b> Enjoy a camel ride through Casela park.<br>";
                             model.image5 = R.drawable.casela_3;
                             model.text12 = "<b>History</b><br>" + "Casela World of Adventures originated in December 1979 as a bird sanctuary and has evolved into a must-see attraction in Mauritius. Throughout the years, the park has continually expanded its array of adventures, from quad biking and bus safari trips to unforgettable encounters with big cats, traversing a Nepalese bridge, and ziplining above trees and canyons.<br>" + "Today, visitors can engage in activities such as feeding giraffes, interacting with brightly colored lorikeets and pygmy hippos, exploring the hilly landscape on camelback, fishing for tilapias, and embarking on a fun e-bike safari trip around the park.<br>" + "<b>Conservation</b><br>" + "Remaining true to its founding vision, Casela World of Adventures is actively committed to the conservation and protection of endangered species. In February 2015, the park gained notoriety with Her Royal Highness Princess Stephanie of Monaco becoming its patron. Princess Stephanie, renowned for her dedication to elephant protection in Asia, wholeheartedly supported the conservation efforts of Mauritius' leading visitor attraction.<br>";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -1070,7 +1149,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -1104,7 +1186,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -1138,7 +1223,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -1172,7 +1260,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "Trou-Chenille, an integral component of the cultural heritage within the Le Morne Cultural Landscape, retains an open-air museum featuring five traditional huts portraying various aspects of daily life.<br>" + "Archaeological investigations uncovered evidence of a 19th-20th century settlement, Macaque, at the foot of Le Morne Brabant, likely associated with the Labonté and Béguinot families from Madagascar.<br>";
                             model.image5 = R.drawable.brabant_9;
                             model.text12 = "An abandoned cemetery, identified in a remote area beneath the mountain, dates back to the 19th century, with archaeological findings suggesting a connection to individuals of Malagasy and Mozambican origin.";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -1205,7 +1296,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -1239,7 +1333,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -1273,7 +1370,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -1307,7 +1407,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -1340,7 +1443,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -1374,7 +1480,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -1407,7 +1516,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -1444,7 +1556,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -1477,7 +1592,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "Until 1839, the Chateau de Mon Plaisir featured a modest structure characterized by a flat roof and circular verandahs. The current single-story building, constructed by the English in the mid-19th century, has been designated as a National Monument, giving it legal protection. Visitors can enjoy a charming panorama of the Moka Range and the Peak of Pieter Both from the Chateau.";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -1510,7 +1628,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -1543,7 +1664,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -1576,7 +1700,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -1609,7 +1736,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "For those seeking an underwater adventure, glass-bottom boat trips offer a glimpse into the marine world, but for a truly unique experience, embark on a journey with a two-person submarine to cruise beneath the surface alongside tropical fish.";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -1642,7 +1772,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -1675,7 +1808,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -1708,7 +1844,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -1741,7 +1880,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -1774,7 +1916,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -1807,7 +1952,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -1840,7 +1988,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -1873,7 +2024,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -1906,7 +2060,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -1939,7 +2096,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -1972,7 +2132,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -2005,7 +2168,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -2038,7 +2204,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -2071,6 +2240,8 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             Stash.put("model", model);
                             intent = new Intent(context, BeachDetails.class);
                             context.startActivity(intent);
@@ -2104,7 +2275,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -2137,7 +2311,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -2170,7 +2347,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -2203,7 +2383,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -2236,7 +2419,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             model.text11 = "";
                             model.image5 = R.drawable.map_location;
                             model.text12 = "";
+                            model.lat = itemLatitudes[position];
+                            model.lng = itemLongitudes[position];
                             com.moutamid.sqlapp.model.DatabaseHelper databaseHelper = new com.moutamid.sqlapp.model.DatabaseHelper(context);
+
                             databaseHelper.insertBeacModel(model);
                             holder.add.setVisibility(View.GONE);
                             holder.remove.setVisibility(View.VISIBLE);
@@ -2306,6 +2492,8 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -2348,6 +2536,8 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                                 "Monday - Friday 09.00 - 14.00 & Saturday 09.00 - 11.00 (closed on Sundays & public holidays)<br> ";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -2382,6 +2572,8 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -2421,6 +2613,8 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -2457,6 +2651,8 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -2519,6 +2715,8 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -2558,6 +2756,8 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -2595,6 +2795,8 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -2631,6 +2833,8 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -2676,6 +2880,8 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                                 "From a geographical and climatic standpoint, unlike other parts of the island, La Roche qui Pleure lacks coral reefs. Consequently, its shores are more exposed to the assaults of the ocean. This absence of a natural barrier results in more powerful and spectacular waves, a stark contrast to the tranquil lagoons typically associated with the island. The region is influenced by strong winds and seasonal variations, shaping its unique landscape and marine dynamics.<br>";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -2713,6 +2919,8 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -2747,6 +2955,8 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -2783,6 +2993,8 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                                 "Quad biking and buggy rides delve into the tropical forest, interacting with wildlife and reaching the 23-colored land, rich in minerals from volcanic eruptions. The park also houses an animal farm with tortoises, chickens, and deer.<br>";
                         model.image5 = R.drawable.vallee_des_couleurs_1;
                         model.text12 = "Various eateries serve delectable cuisine around the waterfalls, including an Indian restaurant providing Subcontinent and French cuisines. La Vallée des Couleurs ensures a captivating experience for visitors of all ages, combining adventure, wildlife, and natural beauty.";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -2819,6 +3031,8 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                         model.text11 = "•\t<b>Unique Classification in Mauritius:</b> Designated a Marine Park under the Wildlife and National Parks Act 1993, a protected zone in 2000 under the Fisheries and Marine Act 1998 and recognized as a Ramsar Convention site in 2008. Mooring buoys are strategically placed to minimize damage to corals by boat anchors";
                         model.image5 = R.drawable.blue_bay_8;
                         model.text12 = "•\t<b>Outdoor Activities Available to All:</b> Glass-bottom boat trips and snorkeling are popular activities, allowing non-swimmers to explore the marine environment through the glass bottom. Snorkeling conditions are ideal, and Coco Island, visible from the beach, serves as a relaxing spot for snorkelers under casuarina trees. Operators provide drop-off and pick-up services.";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -2852,6 +3066,8 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -2887,6 +3103,8 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -2926,6 +3144,8 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
 
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -2963,6 +3183,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "The rare and endemic ebony tree species, Diospyros egrettarum, derives its name from this island, where it thrives abundantly.";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -3000,6 +3222,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -3051,6 +3275,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -3087,6 +3313,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -3122,6 +3350,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -3157,6 +3387,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -3196,6 +3428,8 @@ else if (getAdapterPosition() == 8) {
                                 "<b>Culinary Offerings</b> <br>";
                         model.image5 = R.drawable.ile_aux_cerfs_3;
                         model.text12 = "Ile aux Cerfs has several dining establishments, including a charming beachside restaurant. Additionally, two bars are available for visitors seeking refreshing beverages or cocktails at reasonable prices. An alternative is to bring ample food and drinks to suit your preferences.";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -3238,6 +3472,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -3279,6 +3515,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -3328,6 +3566,8 @@ else if (getAdapterPosition() == 8) {
                                 "Today, visitors can engage in activities such as feeding giraffes, interacting with brightly colored lorikeets and pygmy hippos, exploring the hilly landscape on camelback, fishing for tilapias, and embarking on a fun e-bike safari trip around the park.<br>" +
                                 "<b>Conservation</b><br>" +
                                 "Remaining true to its founding vision, Casela World of Adventures is actively committed to the conservation and protection of endangered species. In February 2015, the park gained notoriety with Her Royal Highness Princess Stephanie of Monaco becoming its patron. Princess Stephanie, renowned for her dedication to elephant protection in Asia, wholeheartedly supported the conservation efforts of Mauritius' leading visitor attraction.<br>";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -3375,6 +3615,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -3409,6 +3651,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -3453,6 +3697,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -3493,6 +3739,8 @@ else if (getAdapterPosition() == 8) {
                                 "Archaeological investigations uncovered evidence of a 19th-20th century settlement, Macaque, at the foot of Le Morne Brabant, likely associated with the Labonté and Béguinot families from Madagascar.<br>";
                         model.image5 = R.drawable.brabant_9;
                         model.text12 = "An abandoned cemetery, identified in a remote area beneath the mountain, dates back to the 19th century, with archaeological findings suggesting a connection to individuals of Malagasy and Mozambican origin.";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -3528,6 +3776,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -3565,6 +3815,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -3602,6 +3854,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -3635,6 +3889,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -3669,6 +3925,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -3715,6 +3973,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -3733,7 +3993,7 @@ else if (getAdapterPosition() == 8) {
                                 "1.\t<b>Upside-Down Room:</b> Experience the illusion of standing upside down, where the earth appears above your head, and the sky seems below your feet. The room challenges gravity, providing an excellent opportunity for unique photographs.<br>" +
                                 "2.\t<b>Staircase Music Room:</b> Ascend a staircase that produces musical notes with each step, adding an interactive and enjoyable element to the experience.<br>" +
                                 "3.\t<b>Light-Tapping Room:</b> Engage in a room where tapping on lights earns points, creating moments of fun and delight.<br>" +
-                                "4.\t<b>Ames Room:</b> Named after Adelbert Ames, this room features a trapezoidal shape that distorts perspective, making individuals appear larger or smaller depending on their position in the room.<br>";
+                                "4.\t<b>Ames Room:</b> Named after Adelbert Ames, this room features a trapezoidal shape that distorts perspective, making individuals appear larger or smaller depending on their getAdapterPosition() in the room.<br>";
                         model.title2 = "";
                         model.text3 = "";
                         model.image2 = R.drawable.curious_corner_5;
@@ -3761,6 +4021,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -3804,6 +4066,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -3842,6 +4106,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "Until 1839, the Chateau de Mon Plaisir featured a modest structure characterized by a flat roof and circular verandahs. The current single-story building, constructed by the English in the mid-19th century, has been designated as a National Monument, giving it legal protection. Visitors can enjoy a charming panorama of the Moka Range and the Peak of Pieter Both from the Chateau.";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -3875,6 +4141,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -3917,6 +4185,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -3951,6 +4221,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -4002,6 +4274,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "For those seeking an underwater adventure, glass-bottom boat trips offer a glimpse into the marine world, but for a truly unique experience, embark on a journey with a two-person submarine to cruise beneath the surface alongside tropical fish.";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -4045,6 +4319,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -4081,6 +4357,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -4116,6 +4394,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -4151,6 +4431,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -4200,6 +4482,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -4234,6 +4518,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -4276,6 +4562,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -4314,6 +4602,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -4353,6 +4643,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -4389,6 +4681,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -4421,6 +4715,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -4453,6 +4749,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -4486,6 +4784,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -4526,6 +4826,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -4561,6 +4863,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -4593,6 +4897,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -4625,6 +4931,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -4657,6 +4965,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);
@@ -4689,6 +4999,8 @@ else if (getAdapterPosition() == 8) {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
+                        model.lat = itemLatitudes[getAdapterPosition()];
+                        model.lng = itemLongitudes[getAdapterPosition()];
                         Stash.put("model", model);
                         intent = new Intent(context, BeachDetails.class);
                         context.startActivity(intent);

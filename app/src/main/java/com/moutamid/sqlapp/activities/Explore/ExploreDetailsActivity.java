@@ -55,8 +55,6 @@ public class ExploreDetailsActivity extends AppCompatActivity {
     public void menu(View view) {
         PopupMenu popupMenu = new PopupMenu(this, view);
         popupMenu.getMenuInflater().inflate(R.menu.menu, popupMenu.getMenu());
-
-        // Optional: Set a listener to respond to menu item clicks
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {

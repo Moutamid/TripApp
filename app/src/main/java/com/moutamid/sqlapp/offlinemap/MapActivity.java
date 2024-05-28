@@ -76,13 +76,22 @@ public class MapActivity extends AppCompatActivity {
         Log.d(TAG, "Walking Duration: " + DurationCalculator.formatDuration(walkingDuration));
         Log.d(TAG, "Biking Duration: " + DurationCalculator.formatDuration(bikingDuration));
         Log.d(TAG, "Driving Duration: " + DurationCalculator.formatDuration(drivingDuration));
-        b.mapType.setOnClickListener(new View.OnClickListener() {
+//        b.mapType.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                BottomSheetDialog bottomSheet =
+//                        new BottomSheetDialog();
+//                bottomSheet.show(getSupportFragmentManager(),
+//                        "ModalBottomSheet");
+//            }
+//        });
+        b.locationIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BottomSheetDialog bottomSheet =
-                        new BottomSheetDialog();
-                bottomSheet.show(getSupportFragmentManager(),
-                        "ModalBottomSheet");
+                byte currentZoomLevel = b.mapView.getModel().mapViewPosition.getZoomLevel();
+                byte newZoomLevel = (byte) Math.min(currentZoomLevel + 1, b.mapView.getModel().mapViewPosition.getZoomLevelMax());
+                b.mapView.setZoomLevel(newZoomLevel);
+
             }
         });
         b.directions.setOnClickListener(new View.OnClickListener() {
@@ -127,7 +136,7 @@ public class MapActivity extends AppCompatActivity {
 
 //            addOverlayLayers(b.mapView.getLayerManager().getLayers());
             LatLong markerLocation = new LatLong(mapLat, mapLng); // Example coordinates
-            addMarker(b.mapView.getLayerManager().getLayers(), markerLocation, R.drawable.dot); // Replace with your marker drawable resource ID
+            addMarker(b.mapView.getLayerManager().getLayers(), markerLocation, R.drawable.pin_circle); // Replace with your marker drawable resource ID
         } catch (Exception e) {
             e.printStackTrace();
         }

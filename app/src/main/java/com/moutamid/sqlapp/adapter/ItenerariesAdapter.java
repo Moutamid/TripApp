@@ -115,7 +115,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -148,7 +151,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -181,7 +187,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -214,7 +223,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -247,7 +259,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -280,7 +295,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -313,7 +331,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "Trou-Chenille, an integral component of the cultural heritage within the Le Morne Cultural Landscape, retains an open-air museum featuring five traditional huts portraying various aspects of daily life.<br>" + "Archaeological investigations uncovered evidence of a 19th-20th century settlement, Macaque, at the foot of Le Morne Brabant, likely associated with the Labonté and Béguinot families from Madagascar.<br>";
                         model.image5 = R.drawable.brabant_9;
                         model.text12 = "An abandoned cemetery, identified in a remote area beneath the mountain, dates back to the 19th century, with archaeological findings suggesting a connection to individuals of Malagasy and Mozambican origin.";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -346,7 +367,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -379,7 +403,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -412,7 +439,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -445,7 +475,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -478,7 +511,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -517,7 +553,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -552,7 +591,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "Until 1839, the Chateau de Mon Plaisir featured a modest structure characterized by a flat roof and circular verandahs. The current single-story building, constructed by the English in the mid-19th century, has been designated as a National Monument, giving it legal protection. Visitors can enjoy a charming panorama of the Moka Range and the Peak of Pieter Both from the Chateau.";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     } else if (position == 1) {
@@ -584,7 +626,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     } else if (position == 2) {
@@ -616,7 +661,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     } else if (position == 3) {
@@ -648,7 +696,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     } else if (position == 4) {
@@ -680,7 +731,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     } else if (position == 5) {
@@ -713,7 +767,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     } else if (position == 6) {
@@ -749,7 +806,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -785,7 +845,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -824,7 +887,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -857,7 +923,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "<b>Visit Hours</b><br>" + " <br>" + "Monday to Friday:<br><br>" + "09.00 - 14.00<br><br>" + "Saturday:<br><br>" + "09.00 - 11.00<br><br>" + "<b>Bois Chéri Tea FactoryOperating Hours</b><br><br>" + "Monday - Friday 09.00 - 14.00 & Saturday 09.00 - 11.00 (closed on Sundays & public holidays)<br> ";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -895,7 +964,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "A wonderful way to end your wildlife excursion is with a meal of good food and relaxation in a cozy setting at the Crocodile Park Restaurant. Located in the forest, the restaurant provides a range of choices for both adults and children.To make up for the craziest supper of your life, Le Crocodile Affamé serves a distinctive cuisine made with crocodile meat. Those who try it can't help but compliment the dish.";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "<b>Opening hours:</b><br> Every day from 8:30 to 17:00";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
 
@@ -932,7 +1004,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     } else if (position == 5) {
@@ -965,7 +1040,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     } else if (position == 6) {
@@ -1001,7 +1079,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -1037,7 +1118,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "Until 1839, the Chateau de Mon Plaisir featured a modest structure characterized by a flat roof and circular verandahs. The current single-story building, constructed by the English in the mid-19th century, has been designated as a National Monument, giving it legal protection. Visitors can enjoy a charming panorama of the Moka Range and the Peak of Pieter Both from the Chateau.";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -1071,7 +1155,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -1107,7 +1194,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -1145,7 +1235,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "Despite being the first shopping mall on the island, Caudan has adeptly adapted to current trends, maintaining its appeal as a modern waterfront mall. Visitors can witness the bustling port activities as large container and cruise ships navigate in and out.";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
 //                        Toast.makeText(context, "data is not added", Toast.LENGTH_SHORT).show();
@@ -1179,7 +1272,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -1212,7 +1308,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -1248,7 +1347,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "<b>Visit Hours</b><br>" + " <br>" + "Monday to Friday:<br><br>" + "09.00 - 14.00<br><br>" + "Saturday:<br><br>" + "09.00 - 11.00<br><br>" + "<b>Bois Chéri Tea FactoryOperating Hours</b><br><br>" + "Monday - Friday 09.00 - 14.00 & Saturday 09.00 - 11.00 (closed on Sundays & public holidays)<br> ";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -1285,7 +1387,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "A wonderful way to end your wildlife excursion is with a meal of good food and relaxation in a cozy setting at the Crocodile Park Restaurant. Located in the forest, the restaurant provides a range of choices for both adults and children.To make up for the craziest supper of your life, Le Crocodile Affamé serves a distinctive cuisine made with crocodile meat. Those who try it can't help but compliment the dish.";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "<b>Opening hours:</b><br> Every day from 8:30 to 17:00";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                         //                        Toast.makeText(context, "images are no available", Toast.LENGTH_SHORT).show();
@@ -1325,7 +1430,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -1374,7 +1482,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     } else if (position == 1) {
@@ -1406,7 +1517,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     } else if (position == 2) {
@@ -1439,7 +1553,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -1474,7 +1591,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     } else if (position == 4) {
@@ -1510,7 +1630,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -1545,7 +1668,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "Until 1839, the Chateau de Mon Plaisir featured a modest structure characterized by a flat roof and circular verandahs. The current single-story building, constructed by the English in the mid-19th century, has been designated as a National Monument, giving it legal protection. Visitors can enjoy a charming panorama of the Moka Range and the Peak of Pieter Both from the Chateau.";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -1579,7 +1705,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -1613,7 +1742,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -1651,7 +1783,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "Despite being the first shopping mall on the island, Caudan has adeptly adapted to current trends, maintaining its appeal as a modern waterfront mall. Visitors can witness the bustling port activities as large container and cruise ships navigate in and out.";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -1684,7 +1819,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -1717,7 +1855,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -1760,7 +1901,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.image5 = R.drawable.ile_aux_cerfs_3;
                         model.text12 = "Ile aux Cerfs has several dining establishments, including a charming beachside restaurant. Additionally, two bars are available for visitors seeking refreshing beverages or cocktails at reasonable prices. An alternative is to bring ample food and drinks to suit your preferences.";
 
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -1796,7 +1940,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "•\t<b>Walk with Lions:</b> Take a stroll alongside lions with expert guides ensuring safety.<br>" + "•\t<b>Interaction with Big Cats:</b> Get up close with lions, cheetahs, and caracals under supervision.<br>" + "•\t<b>Drive Thru:</b> A 45-minute drive to observe lions in their natural habitat.<br>" + "•\t<b>E-Bike Safari:</b> Explore the safari park on eco-friendly electric bikes.<br>" + "•\t<b>Segway Trip:</b> Discover the Yemen Nature Reserve Park on a Segway.<br>" + "•\t<b>Safari Quad Biking:</b> Navigate the park's hills, valleys, and rivers on quad bikes.<br>" + "•\t<b>Camel Riding:</b> Enjoy a camel ride through Casela park.<br>";
                         model.image5 = R.drawable.casela_3;
                         model.text12 = "<b>History</b><br>" + "Casela World of Adventures originated in December 1979 as a bird sanctuary and has evolved into a must-see attraction in Mauritius. Throughout the years, the park has continually expanded its array of adventures, from quad biking and bus safari trips to unforgettable encounters with big cats, traversing a Nepalese bridge, and ziplining above trees and canyons.<br>" + "Today, visitors can engage in activities such as feeding giraffes, interacting with brightly colored lorikeets and pygmy hippos, exploring the hilly landscape on camelback, fishing for tilapias, and embarking on a fun e-bike safari trip around the park.<br>" + "<b>Conservation</b><br>" + "Remaining true to its founding vision, Casela World of Adventures is actively committed to the conservation and protection of endangered species. In February 2015, the park gained notoriety with Her Royal Highness Princess Stephanie of Monaco becoming its patron. Princess Stephanie, renowned for her dedication to elephant protection in Asia, wholeheartedly supported the conservation efforts of Mauritius' leading visitor attraction.<br>";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     } else if (position == 1) {
@@ -1831,7 +1978,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -1864,7 +2014,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -1902,7 +2055,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -1940,7 +2096,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                     model.text11 = "";
                     model.image5 = R.drawable.map_location;
                     model.text12 = "";
-                    Stash.put("model", model);
+                    model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }      else if (position == 5)
@@ -1973,7 +2132,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                     model.text11 = "";
                     model.image5 = R.drawable.map_location;
                     model.text12 = "";
-                    Stash.put("model", model);
+                    model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -2014,7 +2176,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -2047,7 +2212,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -2119,7 +2287,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -2153,7 +2324,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                          model.text11 = "" + "From a geographical and climatic standpoint, unlike other parts of the island, La Roche qui Pleure lacks coral reefs. Consequently, its shores are more exposed to the assaults of the ocean. This absence of a natural barrier results in more powerful and spectacular waves, a stark contrast to the tranquil lagoons typically associated with the island. The region is influenced by strong winds and seasonal variations, shaping its unique landscape and marine dynamics.<br>";
                          model.image5 = R.drawable.map_location;
                          model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -2190,7 +2364,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                          model.text11 = "" + "From a geographical and climatic standpoint, unlike other parts of the island, La Roche qui Pleure lacks coral reefs. Consequently, its shores are more exposed to the assaults of the ocean. This absence of a natural barrier results in more powerful and spectacular waves, a stark contrast to the tranquil lagoons typically associated with the island. The region is influenced by strong winds and seasonal variations, shaping its unique landscape and marine dynamics.<br>";
                          model.image5 = R.drawable.map_location;
                          model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -2223,7 +2400,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                          model.text11 = "";
                          model.image5 = R.drawable.map_location;
                          model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -2257,7 +2437,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -2297,7 +2480,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "Despite being the first shopping mall on the island, Caudan has adeptly adapted to current trends, maintaining its appeal as a modern waterfront mall. Visitors can witness the bustling port activities as large container and cruise ships navigate in and out.";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -2330,7 +2516,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -2364,7 +2553,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "Until 1839, the Chateau de Mon Plaisir featured a modest structure characterized by a flat roof and circular verandahs. The current single-story building, constructed by the English in the mid-19th century, has been designated as a National Monument, giving it legal protection. Visitors can enjoy a charming panorama of the Moka Range and the Peak of Pieter Both from the Chateau.";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -2397,7 +2589,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -2430,7 +2625,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "For those seeking an underwater adventure, glass-bottom boat trips offer a glimpse into the marine world, but for a truly unique experience, embark on a journey with a two-person submarine to cruise beneath the surface alongside tropical fish.";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -2465,7 +2663,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -2498,7 +2699,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -2532,7 +2736,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -2578,7 +2785,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -2625,7 +2835,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -2660,7 +2873,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "•\t<b>Walk with Lions:</b> Take a stroll alongside lions with expert guides ensuring safety.<br>" + "•\t<b>Interaction with Big Cats:</b> Get up close with lions, cheetahs, and caracals under supervision.<br>" + "•\t<b>Drive Thru:</b> A 45-minute drive to observe lions in their natural habitat.<br>" + "•\t<b>E-Bike Safari:</b> Explore the safari park on eco-friendly electric bikes.<br>" + "•\t<b>Segway Trip:</b> Discover the Yemen Nature Reserve Park on a Segway.<br>" + "•\t<b>Safari Quad Biking:</b> Navigate the park's hills, valleys, and rivers on quad bikes.<br>" + "•\t<b>Camel Riding:</b> Enjoy a camel ride through Casela park.<br>";
                         model.image5 = R.drawable.casela_3;
                         model.text12 = "<b>History</b><br>" + "Casela World of Adventures originated in December 1979 as a bird sanctuary and has evolved into a must-see attraction in Mauritius. Throughout the years, the park has continually expanded its array of adventures, from quad biking and bus safari trips to unforgettable encounters with big cats, traversing a Nepalese bridge, and ziplining above trees and canyons.<br>" + "Today, visitors can engage in activities such as feeding giraffes, interacting with brightly colored lorikeets and pygmy hippos, exploring the hilly landscape on camelback, fishing for tilapias, and embarking on a fun e-bike safari trip around the park.<br>" + "<b>Conservation</b><br>" + "Remaining true to its founding vision, Casela World of Adventures is actively committed to the conservation and protection of endangered species. In February 2015, the park gained notoriety with Her Royal Highness Princess Stephanie of Monaco becoming its patron. Princess Stephanie, renowned for her dedication to elephant protection in Asia, wholeheartedly supported the conservation efforts of Mauritius' leading visitor attraction.<br>";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -2693,7 +2909,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -2739,7 +2958,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -2778,7 +3000,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                                 "Archaeological investigations uncovered evidence of a 19th-20th century settlement, Macaque, at the foot of Le Morne Brabant, likely associated with the Labonté and Béguinot families from Madagascar.<br>";
                         model.image5 = R.drawable.brabant_9;
                         model.text12 = "An abandoned cemetery, identified in a remote area beneath the mountain, dates back to the 19th century, with archaeological findings suggesting a connection to individuals of Malagasy and Mozambican origin.";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -2819,7 +3044,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -2853,7 +3081,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -2886,7 +3117,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -2920,7 +3154,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "•\t<b>Unique Classification in Mauritius:</b> Designated a Marine Park under the Wildlife and National Parks Act 1993, a protected zone in 2000 under the Fisheries and Marine Act 1998 and recognized as a Ramsar Convention site in 2008. Mooring buoys are strategically placed to minimize damage to corals by boat anchors";
                         model.image5 = R.drawable.blue_bay_8;
                         model.text12 = "•\t<b>Outdoor Activities Available to All:</b> Glass-bottom boat trips and snorkeling are popular activities, allowing non-swimmers to explore the marine environment through the glass bottom. Snorkeling conditions are ideal, and Coco Island, visible from the beach, serves as a relaxing spot for snorkelers under casuarina trees. Operators provide drop-off and pick-up services.";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -2959,7 +3196,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                     model.text11 = "";
                     model.image5 = R.drawable.map_location;
                     model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -2994,7 +3234,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
 
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -3029,7 +3272,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }      else if (position == 6) {
@@ -3062,7 +3308,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
@@ -3104,7 +3353,10 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.image5 = R.drawable.ile_aux_cerfs_3;
                         model.text12 = "Ile aux Cerfs has several dining establishments, including a charming beachside restaurant. Additionally, two bars are available for visitors seeking refreshing beverages or cocktails at reasonable prices. An alternative is to bring ample food and drinks to suit your preferences.";
 
-                        Stash.put("model", model);
+                        model.lat=latitudes[position];
+                        model.lng=longitudes[position];
+                       Stash.put("model", model);
+
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
