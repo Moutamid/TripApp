@@ -209,6 +209,7 @@ public void politics(View view) {
         Intent intent = new Intent(AboutActivity.this, BeachDetails.class);
         startActivity(intent);
     }
+
 public void wild_life(View view) {
         BeacModel model = new BeacModel();
         model.title ="History";
