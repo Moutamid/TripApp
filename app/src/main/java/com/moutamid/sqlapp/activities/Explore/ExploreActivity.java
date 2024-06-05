@@ -7,6 +7,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.moutamid.sqlapp.R;
+import com.moutamid.sqlapp.activities.AboutMauritius.AboutActivity;
 import com.moutamid.sqlapp.activities.Beaches.BeachesActivity;
 import com.moutamid.sqlapp.activities.TourshipActivity;
 
@@ -160,5 +161,11 @@ public class ExploreActivity extends AppCompatActivity {
     public void tourship_map(View view) {
         Intent intent = new Intent(ExploreActivity.this, TourshipActivity.class);
         startActivity(intent);
+    }
+
+    public void about(View view) {
+        Intent intent = new Intent(ExploreActivity.this, AboutActivity.class);
+        startActivity(intent);
+
     }
 }

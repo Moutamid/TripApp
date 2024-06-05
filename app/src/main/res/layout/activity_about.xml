@@ -57,16 +57,16 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="12dp"
                     android:layout_weight="1"
-                    android:onClick="east"
+                    android:onClick="introduction"
                     android:background="@drawable/img_bg"
                     android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
-    android:scaleType="fitXY"
-                        android:padding="1dp"
-                                           android:src="@drawable/ile_aux_cerf_5" />
+                        android:scaleType="fitXY"
+                        android:padding="15dp"
+                        android:src="@drawable/mauritius_flag" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -75,7 +75,7 @@
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
-                        android:text="East"
+                        android:text="Introduction"
                         android:textColor="#000"
                         android:textSize="14dp" />
                 </LinearLayout>
@@ -85,16 +85,16 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="12dp"
                     android:layout_weight="1"
-                    android:onClick="west"
+                    android:onClick="etymology"
                     android:background="@drawable/img_bg"
                     android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
-    android:scaleType="fitXY"
-                        android:padding="1dp"
-                                           android:src="@drawable/port_louis_7" />
+                        android:scaleType="fitXY"
+                        android:padding="15dp"
+                        android:src="@drawable/etymology" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -103,7 +103,7 @@
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
-                        android:text="West"
+                        android:text="Etymology"
                         android:textColor="#000"
                         android:textSize="14dp" />
                 </LinearLayout>
@@ -119,16 +119,16 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="12dp"
                     android:layout_weight="1"
-                    android:onClick="north"
+                    android:onClick="history"
                     android:background="@drawable/img_bg"
                     android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
-    android:scaleType="fitXY"
+                        android:scaleType="fitXY"
                         android:padding="1dp"
-                                           android:src="@drawable/red_roof_church_2" />
+                        android:src="@drawable/mauritius_history" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -137,7 +137,7 @@
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
-                        android:text="North"
+                        android:text="History"
                         android:textColor="#000"
                         android:textSize="14dp" />
                 </LinearLayout>
@@ -154,9 +154,9 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
-    android:scaleType="fitXY"
+                        android:scaleType="fitXY"
                         android:padding="1dp"
-                                           android:src="@drawable/bel_ombre_11" />
+                        android:src="@drawable/mauritius_geography" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -165,7 +165,7 @@
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
-                        android:text="South"
+                        android:text="Geography"
                         android:textColor="#000"
                         android:textSize="14dp" />
                 </LinearLayout>
@@ -193,7 +193,7 @@
                         android:scaleType="fitXY"
 
                         android:padding="1dp"
-                        android:src="@drawable/trou_aux_cerfs_1" />
+                        android:src="@drawable/mauritius_wildlife" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -202,7 +202,7 @@
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
-                        android:text="Central"
+                        android:text="Wildlife"
                         android:textColor="#000"
                         android:textSize="14dp" />
                 </LinearLayout>
@@ -219,9 +219,9 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
-    android:scaleType="fitXY"
+                        android:scaleType="fitXY"
                         android:padding="1dp"
-                                           android:src="@drawable/belle_mare_1" />
+                        android:src="@drawable/mauritius_environment" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -230,7 +230,7 @@
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
-                        android:text="Beaches"
+                        android:text="Environment &amp; Climate"
                         android:textColor="#000"
                         android:textSize="14dp" />
                 </LinearLayout>
@@ -246,16 +246,15 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="12dp"
                     android:layout_weight="1"
-                    android:onClick="about"
                     android:background="@drawable/img_bg"
                     android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
-    android:scaleType="fitXY"
+                        android:scaleType="fitXY"
                         android:padding="1dp"
-                                           android:src="@drawable/flag_of_mauritius" />
+                        android:src="@drawable/mauritius_culture" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -264,7 +263,7 @@
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
-                        android:text="About Mauritius"
+                        android:text="Government &amp; Politics"
                         android:textColor="#000"
                         android:textSize="14dp" />
                 </LinearLayout>
@@ -281,9 +280,9 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
-    android:scaleType="fitXY"
+                        android:scaleType="fitXY"
                         android:padding="1dp"
-                                           android:src="@drawable/mauritius_map_1" />
+                        android:src="@drawable/mauritius_demography" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -292,7 +291,66 @@
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
-                        android:text="Tourist Map"
+                        android:text="Demographics"
+                        android:textColor="#000"
+                        android:textSize="14dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+      <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/img_bg"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:scaleType="fitXY"
+                        android:padding="1dp"
+                        android:src="@drawable/mauritius_economy" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:text="Economy"                       android:textColor="#000"
+                        android:textSize="14dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12dp"
+                    android:layout_weight="1"
+                    android:onClick="tourship_map"
+                    android:background="@drawable/img_bg"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:scaleType="fitXY"
+                        android:padding="1dp"
+                        android:src="@drawable/mauritius_culture" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:text="Culture"
                         android:textColor="#000"
                         android:textSize="14dp" />
                 </LinearLayout>
