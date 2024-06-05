@@ -38,6 +38,7 @@ public class SendActivity extends AppCompatActivity {
     EditText name, email, message;
     DatabaseHelper databaseHelper;
     int position;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,15 +57,13 @@ public class SendActivity extends AppCompatActivity {
 
         List<ImageData> imageData = databaseHelper.getImagesForEditedText(editedTexts.get(position).getId());
         for (int i = 0; i < imageData.size(); i++) {
-           try {
+            try {
 
 
 //
-            String pathFromUri = getPathFromUri(imageData.get(i).getImageUri());
-            File file = new File(pathFromUri);
-            String realPath = file.getAbsolutePath();
-
-
+                String pathFromUri = getPathFromUri(imageData.get(i).getImageUri());
+                File file = new File(pathFromUri);
+                String realPath = file.getAbsolutePath();
 
 
 //               String realPath;
@@ -79,14 +78,13 @@ public class SendActivity extends AppCompatActivity {
 //                   // SDK > 19 (Android 4.4)
 //               else
 //                   realPath = RealPathUtil.getRealPathFromURI_API19(this, imageData.get(i).getImageUri());
-            imagePaths.add(realPath);
-               Log.e("SendEmailTask", "sending image " + realPath+ "  ");
+                imagePaths.add(realPath);
+                Log.e("SendEmailTask", "sending image " + realPath + "  ");
 
-           }
-        catch (Exception e)
-        {        Log.e("SendEmailTask", "sending image error" + e.getMessage()+ "  ");
+            } catch (Exception e) {
+                Log.e("SendEmailTask", "sending image error" + e.getMessage() + "  ");
 
-        }
+            }
         }
 
         Log.e("SendEmailTask", "sending image" + imagePaths.size() + "  ");
@@ -224,8 +222,8 @@ public class SendActivity extends AppCompatActivity {
             } else {
                 NetworkTask networkTask = new NetworkTask(SendActivity.this);
                 networkTask.execute(imagePaths);
-            }        }
-
+            }
+        }
 
 
     }
@@ -247,6 +245,7 @@ public class SendActivity extends AppCompatActivity {
         });
         popupMenu.show();
     }
+
     public static String[] storage_permissions = {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE
@@ -267,4 +266,5 @@ public class SendActivity extends AppCompatActivity {
             p = storage_permissions;
         }
         return p;
-    }}
+    }
+}

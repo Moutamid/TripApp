@@ -71,7 +71,7 @@
                 android:layout_marginStart="6dp"
 
                 android:fontFamily="@font/poppins_bold"
-                android:text="3 stops"
+                android:text="0 stop"
                 android:textColor="@color/white"
                 android:textSize="11dp" />
 

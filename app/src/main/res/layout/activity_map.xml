@@ -92,6 +92,7 @@
         android:background="@drawable/button_bg"
         android:backgroundTint="@color/app_color"
         android:text="Directions"
+        android:visibility="gone"
         android:textSize="15dp"
         android:textAllCaps="false"
         android:textColor="@color/white" />

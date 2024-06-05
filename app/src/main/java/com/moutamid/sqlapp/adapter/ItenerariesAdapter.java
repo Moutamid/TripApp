@@ -2,6 +2,7 @@ package com.moutamid.sqlapp.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,10 @@ import android.widget.TextView;
 import com.fxn.stash.Stash;
 import com.moutamid.sqlapp.R;
 import com.moutamid.sqlapp.activities.Iteneraries.ItenerariesDetails;
+import com.moutamid.sqlapp.activities.MyTripsActivity;
 import com.moutamid.sqlapp.model.BeacModel;
+import com.moutamid.sqlapp.offlinemap.DistanceCalculator;
+import com.moutamid.sqlapp.offlinemap.DurationCalculator;
 import com.moutamid.sqlapp.offlinemap.MapActivity;
 
 public class ItenerariesAdapter extends BaseAdapter {
@@ -22,19 +26,22 @@ public class ItenerariesAdapter extends BaseAdapter {
     private String[] itemName;
     private String[] itemDetails;
     private int[] itemImages;
-    private double[] latitudes; // Added latitude array
-    private double[] longitudes; // Added longitude array
+    private double[] latitudes;
+    private double[] longitudes;
 
-
+    private double totalDistance = 0.0;
+    private double totalDuration = 0.0;
     public ItenerariesAdapter(Context context, String[] itemName, String[] itemDetails, String[] itemTexts, int[] itemImages, double[] latitudes, double[] longitudes) {
         this.context = context;
         this.itemTexts = itemTexts;
         this.itemImages = itemImages;
         this.itemDetails = itemDetails;
         this.itemName = itemName;
-        this.latitudes = latitudes; // Initialize latitude array
+        this.latitudes = latitudes;
         this.longitudes = longitudes;
     }
+
+
     @Override
     public int getCount() {
         return itemTexts.length;
@@ -64,9 +71,19 @@ public class ItenerariesAdapter extends BaseAdapter {
         textView2.setText(itemDetails[position]);
         int i = position + 1;
         number.setText(""+i);
+        if (position == 0) {
+            textView3.setText("Start\nHere");
+        } else {
+            double distance = DistanceCalculator.calculateDistance(
+                    latitudes[position-1], longitudes[position-1], latitudes[position], longitudes[position]);
+            double duration = DurationCalculator.calculateDrivingDuration(distance);
+            String formattedDuration = DurationCalculator.formatDuration(duration);
+            textView3.setText(formattedDuration + "\n" + String.format("%.1f km", distance));
+        }
         map.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
                 Stash.put("map_lat", latitudes[position]);
                 Stash.put("map_lng", longitudes[position]);
                 Stash.put("map_name", itemName[position]);

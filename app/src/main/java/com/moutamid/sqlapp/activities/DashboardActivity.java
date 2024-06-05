@@ -13,6 +13,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.moutamid.sqlapp.R;
+import com.moutamid.sqlapp.activities.ContactUs.ContactUsActivity;
 import com.moutamid.sqlapp.activities.Iteneraries.ItinerariesActivity;
 import com.moutamid.sqlapp.activities.Explore.ExploreActivity;
 import com.moutamid.sqlapp.activities.Organizer.OrganizerActivity;
@@ -50,6 +51,9 @@ public class DashboardActivity extends AppCompatActivity {
     }
     public void organier(View view) {
         startActivity(new Intent(DashboardActivity.this, OrganizerActivity.class));
+    }
+    public void contact_us(View view) {
+        startActivity(new Intent(DashboardActivity.this, ContactUsActivity.class));
     }
 
     public static void checkApp(Activity activity) {
