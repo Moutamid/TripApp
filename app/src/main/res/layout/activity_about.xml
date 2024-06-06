@@ -147,7 +147,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="12dp"
                     android:layout_weight="1"
-                    android:onClick="south"
+                    android:onClick="geoprhay"
                     android:background="@drawable/img_bg"
                     android:orientation="vertical">
 
@@ -180,7 +180,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="12dp"
-                    android:onClick="central"
+                    android:onClick="wild_life"
 
                     android:layout_weight="1"
                     android:background="@drawable/img_bg"
@@ -189,7 +189,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
-                        android:onClick="central"
+
                         android:scaleType="fitXY"
 
                         android:padding="1dp"
@@ -212,7 +212,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="12dp"
                     android:layout_weight="1"
-                    android:onClick="beaches"
+                    android:onClick="environment_Climate"
                     android:background="@drawable/img_bg"
                     android:orientation="vertical">
 
@@ -232,7 +232,7 @@
                         android:gravity="center"
                         android:text="Environment &amp; Climate"
                         android:textColor="#000"
-                        android:textSize="14dp" />
+                        android:textSize="12dp" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -246,6 +246,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="12dp"
                     android:layout_weight="1"
+                    android:onClick="government_Politics"
                     android:background="@drawable/img_bg"
                     android:orientation="vertical">
 
@@ -254,7 +255,7 @@
                         android:layout_height="120dp"
                         android:scaleType="fitXY"
                         android:padding="1dp"
-                        android:src="@drawable/mauritius_culture" />
+                        android:src="@drawable/coat_of_arms_of_mauritius" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -265,7 +266,7 @@
                         android:gravity="center"
                         android:text="Government &amp; Politics"
                         android:textColor="#000"
-                        android:textSize="14dp" />
+                        android:textSize="12dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -273,7 +274,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="12dp"
                     android:layout_weight="1"
-                    android:onClick="tourship_map"
+                    android:onClick="demographics"
                     android:background="@drawable/img_bg"
                     android:orientation="vertical">
 
@@ -306,6 +307,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="12dp"
                     android:layout_weight="1"
+                    android:onClick="economy"
                     android:background="@drawable/img_bg"
                     android:orientation="vertical">
 
@@ -332,7 +334,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="12dp"
                     android:layout_weight="1"
-                    android:onClick="tourship_map"
+                    android:onClick="culture"
                     android:background="@drawable/img_bg"
                     android:orientation="vertical">
 

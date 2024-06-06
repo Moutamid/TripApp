@@ -52,8 +52,9 @@ public class DashboardActivity extends AppCompatActivity {
     public void organier(View view) {
         startActivity(new Intent(DashboardActivity.this, OrganizerActivity.class));
     }
+
     public void contact_us(View view) {
-        startActivity(new Intent(DashboardActivity.this, ContactUsActivity.class));
+//        startActivity(new Intent(DashboardActivity.this, ContactUsActivity.class));
     }
 
     public static void checkApp(Activity activity) {
