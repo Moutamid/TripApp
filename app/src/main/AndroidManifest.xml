@@ -30,13 +30,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SQLApp">
         <activity
+            android:name=".activities.AppInfo.AppInfoActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.AboutMauritius.AboutActivity"
             android:exported="false" />
         <activity
             android:name=".activities.AboutMauritius.HistoryAboutDetailsActivity"
-            android:exported="false" /> <activity
+            android:exported="false" />
+        <activity
             android:name=".activities.AboutMauritius.WildAboutDetailsActivity"
-            android:exported="false" /><activity
+            android:exported="false" />
+        <activity
             android:name=".activities.AboutMauritius.AboutDetailsActivity"
             android:exported="false" />
         <activity
