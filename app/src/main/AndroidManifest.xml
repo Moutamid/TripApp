@@ -30,6 +30,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SQLApp">
         <activity
+            android:name=".activities.RemeberPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.CreateAccountActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.AppInfo.AppInfoActivity"
             android:exported="false" />
         <activity
@@ -157,6 +166,8 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+<!--        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>-->
+<!--        <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>-->
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
