@@ -78,6 +78,6 @@ public class CreateAccountActivity extends AppCompatActivity {
     }
 
     public void menu(View view) {
-        finish();
+        onBackPressed();
     }
 }

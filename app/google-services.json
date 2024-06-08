@@ -38,6 +38,13 @@
             {
               "client_id": "97166215280-4ja4kllhtq8fcvtt01bg4bfko7lqv1c3.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "97166215280-24p4s195ens6hek41htmv5id5snhn6ub.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.app.TheraMatch"
+              }
             }
           ]
         }
@@ -67,6 +74,13 @@
             {
               "client_id": "97166215280-4ja4kllhtq8fcvtt01bg4bfko7lqv1c3.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "97166215280-24p4s195ens6hek41htmv5id5snhn6ub.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.app.TheraMatch"
+              }
             }
           ]
         }
@@ -104,6 +118,49 @@
             {
               "client_id": "97166215280-4ja4kllhtq8fcvtt01bg4bfko7lqv1c3.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "97166215280-24p4s195ens6hek41htmv5id5snhn6ub.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.app.TheraMatch"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:97166215280:android:35e879ac971a1e61338cb5",
+        "android_client_info": {
+          "package_name": "com.moutamid.booksapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "97166215280-4ja4kllhtq8fcvtt01bg4bfko7lqv1c3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbCdo6i0vMSHjCU9YJpdfP78ugMRzYA5o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "97166215280-4ja4kllhtq8fcvtt01bg4bfko7lqv1c3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "97166215280-24p4s195ens6hek41htmv5id5snhn6ub.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.app.TheraMatch"
+              }
             }
           ]
         }
@@ -133,6 +190,13 @@
             {
               "client_id": "97166215280-4ja4kllhtq8fcvtt01bg4bfko7lqv1c3.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "97166215280-24p4s195ens6hek41htmv5id5snhn6ub.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.app.TheraMatch"
+              }
             }
           ]
         }
@@ -140,9 +204,53 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:97166215280:android:10f9d9b43ead06f4338cb5",
+        "mobilesdk_app_id": "1:97166215280:android:2da7d5c6e48be248338cb5",
         "android_client_info": {
-          "package_name": "com.moutamid.sqlapp"
+          "package_name": "com.moutamid.exercises"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "97166215280-ulmb9uchuhrmq7kf30mrl583pbtdu73p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.moutamid.exercises",
+            "certificate_hash": "67bc1cb2cc172c5bba943e34a740c33f1b1c113a"
+          }
+        },
+        {
+          "client_id": "97166215280-4ja4kllhtq8fcvtt01bg4bfko7lqv1c3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbCdo6i0vMSHjCU9YJpdfP78ugMRzYA5o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "97166215280-4ja4kllhtq8fcvtt01bg4bfko7lqv1c3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "97166215280-24p4s195ens6hek41htmv5id5snhn6ub.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.app.TheraMatch"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:97166215280:android:2e1bd37a5c8b18e5338cb5",
+        "android_client_info": {
+          "package_name": "com.moutamid.locationmonitorapp"
         }
       },
       "oauth_client": [
@@ -162,6 +270,65 @@
             {
               "client_id": "97166215280-4ja4kllhtq8fcvtt01bg4bfko7lqv1c3.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "97166215280-24p4s195ens6hek41htmv5id5snhn6ub.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.app.TheraMatch"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:97166215280:android:10f9d9b43ead06f4338cb5",
+        "android_client_info": {
+          "package_name": "com.moutamid.sqlapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "97166215280-6pt8jn24jdte7ls04f3h2hmep7bbg6b4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.moutamid.sqlapp",
+            "certificate_hash": "97df4ff102391f8c94b1e6bb9e00892a4fb62387"
+          }
+        },
+        {
+          "client_id": "97166215280-i1telld7bjl76ua6obc6saq80vun3v6c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.moutamid.sqlapp",
+            "certificate_hash": "796c59b7736c25680ef9c6da3906d9f5c736baf8"
+          }
+        },
+        {
+          "client_id": "97166215280-4ja4kllhtq8fcvtt01bg4bfko7lqv1c3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbCdo6i0vMSHjCU9YJpdfP78ugMRzYA5o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "97166215280-4ja4kllhtq8fcvtt01bg4bfko7lqv1c3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "97166215280-24p4s195ens6hek41htmv5id5snhn6ub.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.app.TheraMatch"
+              }
             }
           ]
         }
@@ -199,6 +366,13 @@
             {
               "client_id": "97166215280-4ja4kllhtq8fcvtt01bg4bfko7lqv1c3.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "97166215280-24p4s195ens6hek41htmv5id5snhn6ub.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.app.TheraMatch"
+              }
             }
           ]
         }
@@ -236,6 +410,13 @@
             {
               "client_id": "97166215280-4ja4kllhtq8fcvtt01bg4bfko7lqv1c3.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "97166215280-24p4s195ens6hek41htmv5id5snhn6ub.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.app.TheraMatch"
+              }
             }
           ]
         }
@@ -273,6 +454,13 @@
             {
               "client_id": "97166215280-4ja4kllhtq8fcvtt01bg4bfko7lqv1c3.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "97166215280-24p4s195ens6hek41htmv5id5snhn6ub.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.app.TheraMatch"
+              }
             }
           ]
         }
@@ -310,6 +498,13 @@
             {
               "client_id": "97166215280-4ja4kllhtq8fcvtt01bg4bfko7lqv1c3.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "97166215280-24p4s195ens6hek41htmv5id5snhn6ub.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.app.TheraMatch"
+              }
             }
           ]
         }
@@ -347,6 +542,13 @@
             {
               "client_id": "97166215280-4ja4kllhtq8fcvtt01bg4bfko7lqv1c3.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "97166215280-24p4s195ens6hek41htmv5id5snhn6ub.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.app.TheraMatch"
+              }
             }
           ]
         }
@@ -376,6 +578,13 @@
             {
               "client_id": "97166215280-4ja4kllhtq8fcvtt01bg4bfko7lqv1c3.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "97166215280-24p4s195ens6hek41htmv5id5snhn6ub.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.app.TheraMatch"
+              }
             }
           ]
         }
@@ -413,6 +622,13 @@
             {
               "client_id": "97166215280-4ja4kllhtq8fcvtt01bg4bfko7lqv1c3.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "97166215280-24p4s195ens6hek41htmv5id5snhn6ub.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.app.TheraMatch"
+              }
             }
           ]
         }

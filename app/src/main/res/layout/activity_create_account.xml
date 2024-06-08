@@ -128,6 +128,7 @@
         android:layout_marginEnd="20dp"
         android:background="@drawable/edit_bg_stroke"
         android:fontFamily="@font/poppins_light"
+        android:inputType="textPassword"
         android:hint="Enter your password"
         android:paddingStart="18dp"
         android:textSize="14dp" />
@@ -154,6 +155,7 @@
         android:fontFamily="@font/poppins_light"
         android:hint="Re-enter your password"
         android:paddingStart="18dp"
+        android:inputType="textPassword"
         android:textSize="14dp" />
 
 

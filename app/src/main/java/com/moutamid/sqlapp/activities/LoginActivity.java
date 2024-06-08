@@ -16,6 +16,7 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.fxn.stash.Stash;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -56,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestIdToken("97166215280-4ja4kllhtq8fcvtt01bg4bfko7lqv1c3.apps.googleusercontent.com")
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
@@ -108,6 +109,8 @@ public class LoginActivity extends AppCompatActivity {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
+                Toast.makeText(this, "Successfully Login", Toast.LENGTH_SHORT).show();
+
                 Log.w(TAG, "Google sign in failed", e);
             }
         }
@@ -194,9 +197,16 @@ public class LoginActivity extends AppCompatActivity {
 
     public void menu(View view) {
         // Handle menu click
+        onBackPressed();
     }
 
-    public void showPopupMenu(View view) {
-        // Handle showing popup menu
+
+    public void recover(View view) {
+startActivity(new Intent(this, RemeberPasswordActivity.class));
+    }
+
+    public void signup(View view) {
+        startActivity(new Intent(this, CreateAccountActivity.class));
+
     }
 }

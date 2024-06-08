@@ -56,10 +56,6 @@ public class RemeberPasswordActivity extends AppCompatActivity {
     }
 
     public void menu(View view) {
-        // Handle menu click
-    }
+onBackPressed();    }
 
-    public void showPopupMenu(View view) {
-        // Handle showing popup menu
-    }
 }

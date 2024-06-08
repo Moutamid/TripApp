@@ -12,7 +12,10 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.fxn.stash.Stash;
+import com.google.firebase.auth.FirebaseAuth;
 import com.moutamid.sqlapp.R;
+import com.moutamid.sqlapp.activities.AppInfo.AppInfoActivity;
 import com.moutamid.sqlapp.activities.ContactUs.ContactUsActivity;
 import com.moutamid.sqlapp.activities.Iteneraries.ItinerariesActivity;
 import com.moutamid.sqlapp.activities.Explore.ExploreActivity;
@@ -49,12 +52,13 @@ public class DashboardActivity extends AppCompatActivity {
         startActivity(new Intent(DashboardActivity.this, ItinerariesActivity.class));
 
     }
+
     public void organier(View view) {
         startActivity(new Intent(DashboardActivity.this, OrganizerActivity.class));
     }
 
     public void contact_us(View view) {
-//        startActivity(new Intent(DashboardActivity.this, ContactUsActivity.class));
+        startActivity(new Intent(DashboardActivity.this, ContactUsActivity.class));
     }
 
     public static void checkApp(Activity activity) {
@@ -118,6 +122,36 @@ public class DashboardActivity extends AppCompatActivity {
 
     public void tips(View view) {
         startActivity(new Intent(DashboardActivity.this, TravelTipsActivity.class));
+
+    }
+   public void about(View view) {
+        startActivity(new Intent(DashboardActivity.this, AppInfoActivity.class));
+
+    }
+
+    public void login(View view) {
+//        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+//
+//        } else {
+//            if (Stash.getString("premium", "false").equals("false")) {
+//
+//                findViewById(R.id.login_layout).setVisibility(View.VISIBLE);
+//            } else {
+
+        findViewById(R.id.login_layout).setVisibility(View.VISIBLE);
+//                startActivity(new Intent(DashboardActivity.this, LoginActivity.class));
+//            }
+//        }
+    }
+
+    public void menu(View view) {
+        findViewById(R.id.login_layout).setVisibility(View.GONE);
+    }
+
+    public void premium(View view) {
+        findViewById(R.id.login_layout).setVisibility(View.GONE);
+
+        startActivity(new Intent(DashboardActivity.this, LoginActivity.class));
 
     }
 }
