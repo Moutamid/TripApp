@@ -95,6 +95,7 @@ dependencies {
 
     implementation("com.google.firebase:firebase-auth:21.0.1")
     implementation("com.google.firebase:firebase-database:19.3.0")
+    implementation("com.anjlab.android.iab.v3:library:2.0.3")
 
     implementation("com.google.android.gms:play-services-auth:20.1.0")
     implementation("com.facebook.android:facebook-android-sdk:15.2.0")
