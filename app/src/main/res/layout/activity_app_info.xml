@@ -110,7 +110,24 @@
                 android:textColor="#5C5C5C"
                 android:textSize="14dp" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_toRightOf="@+id/icon"
+                    android:layout_weight="8"
+                    android:fontFamily="@font/poppins_regular"
+                    android:justificationMode="inter_word"
+                    android:paddingTop="4dp"
+                    android:text="1"
+                    android:textColor="#5C5C5C"
+                    android:textSize="14dp" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -119,49 +136,89 @@
                     android:layout_marginEnd="15dp"
                     android:layout_toRightOf="@+id/icon"
                     android:layout_weight="1"
-                    android:layout_marginStart="15dp"
                     android:fontFamily="@font/poppins_regular"
                     android:justificationMode="inter_word"
                     android:paddingTop="4dp"
-                    android:text="1.	The app is provided “as is”, without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In no event shall the authors or copyright holders be liable for any claim, damages, or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the app or the use or other dealings in the app."
-                    android:textColor="#5C5C5C"
-                    android:textSize="14dp" />
-
-           <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_toRightOf="@+id/icon"
-                    android:layout_weight="1"
-               android:layout_marginStart="15dp"
-
-               android:fontFamily="@font/poppins_regular"
-                    android:justificationMode="inter_word"
-                    android:paddingTop="4dp"
-                    android:text="2.	The images appearing on this app are all licensed from 123rf.com and are copyrighted. Duplication, processing, distribution, manipulated or any form of commercialization of such material shall require the prior written consent of 123rf. Use of this app constitutes acceptance with the above copyright notice and all terms and conditions presented here."
+                    android:text="The app is provided “as is”, without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In no event shall the authors or copyright holders be liable for any claim, damages, or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the app or the use or other dealings in the app."
                     android:textColor="#5C5C5C"
                     android:textSize="14dp" />
 
 
+            </LinearLayout>
+       <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_toRightOf="@+id/icon"
-                    android:layout_weight="1"
                     android:layout_marginStart="15dp"
-
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_toRightOf="@+id/icon"
+                    android:layout_weight="8"
                     android:fontFamily="@font/poppins_regular"
                     android:justificationMode="inter_word"
                     android:paddingTop="4dp"
-                    android:text="1.	The app is provided “as is”, without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In no event shall the authors or copyright holders be liable for any claim, damages, or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the app or the use or other dealings in the app."
+                    android:text="2"
                     android:textColor="#5C5C5C"
                     android:textSize="14dp" />
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_toRightOf="@+id/icon"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/poppins_regular"
+                    android:justificationMode="inter_word"
+                    android:paddingTop="4dp"
+                    android:text="The images appearing on this app are all licensed from 123rf.com and are copyrighted. Duplication, processing, distribution, manipulated or any form of commercialization of such material shall require the prior written consent of 123rf. Use of this app constitutes acceptance with the above copyright notice and all terms and conditions presented here."
+                    android:textColor="#5C5C5C"
+                    android:textSize="14dp" />
+
+
             </LinearLayout>
+     <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_toRightOf="@+id/icon"
+                    android:layout_weight="8"
+                    android:fontFamily="@font/poppins_regular"
+                    android:justificationMode="inter_word"
+                    android:paddingTop="4dp"
+                    android:text="3"
+                    android:textColor="#5C5C5C"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_toRightOf="@+id/icon"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/poppins_regular"
+                    android:justificationMode="inter_word"
+                    android:paddingTop="4dp"
+                    android:text="The app is provided “as is”, without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In no event shall the authors or copyright holders be liable for any claim, damages, or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the app or the use or other dealings in the app."
+                    android:textColor="#5C5C5C"
+                    android:textSize="14dp" />
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
 
     </ScrollView>
 
