@@ -2,8 +2,11 @@ package com.moutamid.sqlapp.activities;
 
 
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +33,43 @@ public class CreateAccountActivity extends AppCompatActivity {
         reEnterPasswordEditText = findViewById(R.id.re_enter_password);
         TextView saveButton = findViewById(R.id.save_btn);
         saveButton.setOnClickListener(this::registerUser);
-    }
+      ImageView togglePasswordVisibility = findViewById(R.id.toggle_password_visibility);
+
+        togglePasswordVisibility.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (passwordEditText.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())) {
+                    // Show Password
+                    passwordEditText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    togglePasswordVisibility.setImageResource(R.drawable.ic_eye_open);
+                } else {
+                    // Hide Password
+                    passwordEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    togglePasswordVisibility.setImageResource(R.drawable.ic_eye_closed);
+                }
+                // Move the cursor to the end of the text
+                passwordEditText.setSelection(passwordEditText.getText().length());
+            }
+        });
+
+        ImageView reenter_toggle_password_visibility = findViewById(R.id.reenter_toggle_password_visibility);
+
+        reenter_toggle_password_visibility.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (reEnterPasswordEditText.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())) {
+                    // Show Password
+                    reEnterPasswordEditText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    reenter_toggle_password_visibility.setImageResource(R.drawable.ic_eye_open);
+                } else {
+                    // Hide Password
+                    reEnterPasswordEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    reenter_toggle_password_visibility.setImageResource(R.drawable.ic_eye_closed);
+                }
+                // Move the cursor to the end of the text
+                reEnterPasswordEditText.setSelection(reEnterPasswordEditText.getText().length());
+            }
+        });}
 
     public void registerUser(View view) {
         String name = nameEditText.getText().toString().trim();

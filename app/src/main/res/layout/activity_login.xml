@@ -81,6 +81,8 @@
         android:background="@drawable/edit_bg_stroke"
         android:fontFamily="@font/poppins_light"
         android:hint="Enter your email"
+
+        android:textColor="@color/black"
         android:paddingStart="18dp"
         android:textSize="14dp" />
 
@@ -94,20 +96,39 @@
         android:fontFamily="@font/lexend_semi_bold"
         android:text="Password"
         android:textSize="17dp" />
-
-    <EditText
-        android:id="@+id/password"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
-
         android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
-        android:background="@drawable/edit_bg_stroke"
-        android:fontFamily="@font/poppins_light"
-        android:hint="Enter your password"
-        android:paddingStart="18dp"
-        android:textSize="14dp" />
+        android:background="@drawable/edit_bg_stroke">
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toStartOf="@+id/toggle_password_visibility"
+            android:fontFamily="@font/poppins_light"
+            android:hint="Enter your password"
+            android:paddingStart="18dp"
+            android:textColor="@color/black"
+            android:background="@color/transparent"
+            android:textSize="14dp"
+            android:inputType="textPassword" />
+
+        <ImageView
+            android:id="@+id/toggle_password_visibility"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_eye_closed" />
+    </RelativeLayout>
+
 
     <TextView
         android:onClick="recover"

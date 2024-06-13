@@ -92,11 +92,8 @@ dependencies {
 //    implementation("com.google.android.gms:play-services-maps:20.2.0")
     implementation("com.google.android.gms:play-services-maps:18.0.0")
     implementation("com.google.maps.android:android-maps-utils:2.3.0")
-
     implementation("com.google.firebase:firebase-auth:21.0.1")
     implementation("com.google.firebase:firebase-database:19.3.0")
-    implementation("com.anjlab.android.iab.v3:library:2.0.3")
-
     implementation("com.google.android.gms:play-services-auth:20.1.0")
     implementation("com.facebook.android:facebook-android-sdk:15.2.0")
     }

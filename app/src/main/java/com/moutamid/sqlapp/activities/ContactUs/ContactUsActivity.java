@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -63,6 +64,24 @@ public class ContactUsActivity extends AppCompatActivity {
         applyStylesToTextInputLayoutHint(last_name, last_name_txt, "Last Name*");
         applyStylesToTextInputLayoutHint(email, email_txt, "E-mail*");
         applyStylesToTextInputLayoutHint1(message, "Message");
+        TextView saveBtn = findViewById(R.id.save_btn);
+        saveBtn.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        // Finger is touching the button, set transparency to 50%
+                        saveBtn.setAlpha(0.5f);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL:
+                        // Finger is lifted or moved away, set transparency back to 0%
+                        saveBtn.setAlpha(1.0f);
+                        break;
+                }
+                return false; // Return false to allow the click event to be handled by the onClick attribute
+            }
+        });
 
     }
 
@@ -131,27 +150,45 @@ public class ContactUsActivity extends AppCompatActivity {
             }
         });
     }
- private void applyStylesToTextInputLayoutHint1(EditText editText, String hint) {
+
+    private void applyStylesToTextInputLayoutHint1(EditText editText, String hint) {
         TextInputLayout textInputLayout = (TextInputLayout) editText.getParent().getParent();
         SpannableString spannableString = new SpannableString(hint);
         spannableString.setSpan(new StyleSpan(android.graphics.Typeface.ITALIC), 0, hint.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         textInputLayout.setHint(spannableString);
 
 
-
     }
 
     public void send(View view) {
-        if (first_name.getText().toString().length() == 0 && last_name.getText().toString().length() == 0 && email.getText().toString().length() == 0 && message.getText().toString().length() == 0) {
+        if (first_name.getText().toString().length() == 0 || last_name.getText().toString().length() == 0 || email.getText().toString().length() == 0) {
             ErrorDialog cdd = new ErrorDialog(ContactUsActivity.this);
             cdd.show();
         } else {
             Stash.put("email_first_name", first_name.getText().toString());
             Stash.put("email_last_name", last_name.getText().toString());
             Stash.put("email_address", email.getText().toString());
-            Stash.put("email_message", message.getText().toString());
-            SendNetworkTask networkTask = new SendNetworkTask(ContactUsActivity.this);
-            networkTask.execute();
+            if (message.getText().toString().length() == 0) {
+
+                Stash.put("email_message", "no message yet");
+
+            } else {
+                Stash.put("email_message", message.getText().toString());
+            }
+
+            Intent emailIntent = new Intent(Intent.ACTION_SEND);
+            emailIntent.setType("message/rfc822");
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"daveberri@gmail.com"});
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Feedback from MyTrips");
+            emailIntent.putExtra(Intent.EXTRA_TEXT, "Name: "+first_name.getText().toString() + " " + last_name.getText().toString()+"\n\n"+
+                    "Email: "+email.getText().toString()+"\n\n"+
+                    "Message: "+message.getText().toString());
+
+            try {
+                startActivity(Intent.createChooser(emailIntent, "Send email..."));
+            } catch (android.content.ActivityNotFoundException ex) {
+                Toast.makeText(this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

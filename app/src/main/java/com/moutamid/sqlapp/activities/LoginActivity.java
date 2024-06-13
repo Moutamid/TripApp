@@ -2,9 +2,12 @@ package com.moutamid.sqlapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -42,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
     private CallbackManager mCallbackManager;
     private EditText emailEditText, passwordEditText;
+    private ImageView togglePasswordVisibility;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +87,25 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
         });
+        togglePasswordVisibility = findViewById(R.id.toggle_password_visibility);
+
+        togglePasswordVisibility.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (passwordEditText.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())) {
+                    // Show Password
+                    passwordEditText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    togglePasswordVisibility.setImageResource(R.drawable.ic_eye_open);
+                } else {
+                    // Hide Password
+                    passwordEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    togglePasswordVisibility.setImageResource(R.drawable.ic_eye_closed);
+                }
+                // Move the cursor to the end of the text
+                passwordEditText.setSelection(passwordEditText.getText().length());
+            }
+        });
+
 
         findViewById(R.id.google_login).setOnClickListener(v -> signInWithGoogle());
 

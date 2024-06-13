@@ -24,12 +24,8 @@ public class ErrorDialog extends Dialog {
     public Activity c;
     public Dialog d;
     private TextView title_ok;
-
-
-
     public ErrorDialog(Activity a) {
         super(a);
-        // TODO Auto-generated constructor stub
         this.c = a;
     }
 
