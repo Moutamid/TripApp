@@ -18,6 +18,7 @@ public class AboutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_about);
     }
 
+
     public void introduction(View view) {
         BeacModel model = new BeacModel();
         model.title = "Introduction";

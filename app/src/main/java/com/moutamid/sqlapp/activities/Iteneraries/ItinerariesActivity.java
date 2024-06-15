@@ -1,23 +1,57 @@
 package com.moutamid.sqlapp.activities.Iteneraries;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.fxn.stash.Stash;
 import com.moutamid.sqlapp.R;
+import com.moutamid.sqlapp.activities.CreateAccountActivity;
 import com.moutamid.sqlapp.activities.DashboardActivity;
+import com.moutamid.sqlapp.activities.InAppPurchase.SliderAdapterExample;
 import com.moutamid.sqlapp.adapter.ItenerariesAdapter;
+import com.moutamid.sqlapp.helper.Constants;
+import com.smarteist.autoimageslider.SliderAnimations;
+import com.smarteist.autoimageslider.SliderView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+import com.android.billingclient.api.AcknowledgePurchaseParams;
+import com.android.billingclient.api.BillingClient;
+import com.android.billingclient.api.BillingClientStateListener;
+import com.android.billingclient.api.BillingFlowParams;
+import com.android.billingclient.api.BillingResult;
+import com.android.billingclient.api.ProductDetails;
+import com.android.billingclient.api.ProductDetailsResponseListener;
+import com.android.billingclient.api.Purchase;
+import com.android.billingclient.api.QueryProductDetailsParams;
+import com.android.billingclient.api.QueryPurchasesParams;
 
 public class ItinerariesActivity extends AppCompatActivity implements View.OnClickListener {
-
+    public static LinearLayout premium_layout, faq_layout;
+    RelativeLayout lifetime_premium;
+    TextView restore_purchase;
+    SliderView sliderView;
+    SliderAdapterExample adapter;
+    ImageView close, close_faq;
+    public static TextView faq_txt, text1, text2;
+    private static String PRODUCT_PREMIUM = "lifetime";
+    private BillingClient billingClient;
     private static final int BUTTON_DAY_1 = 1;
     private static final int BUTTON_DAY_2 = 2;
     private static final int BUTTON_DAY_3 = 3;
@@ -37,12 +71,17 @@ public class ItinerariesActivity extends AppCompatActivity implements View.OnCli
     private TextView subpressbuttonDay1, subpressbuttonDay2, subpressbuttonDay3, subpressbuttonDay4, subpressbuttonDay5;
     private View subpressview1, subpressview2, subpressview3, subpressview4, subpressview5;
     RelativeLayout tab_layout2;
+   public static TextView total_stop, time, distance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_itineraries);
 
+        premium();
+        total_stop = findViewById(R.id.total_stop);
+        time = findViewById(R.id.time);
+        distance = findViewById(R.id.distance);
         buttonDay1 = findViewById(R.id.buttonDay1);
         buttonDay2 = findViewById(R.id.buttonDay2);
         buttonDay3 = findViewById(R.id.buttonDay3);
@@ -143,7 +182,7 @@ public class ItinerariesActivity extends AppCompatActivity implements View.OnCli
                 -20.4267316,
                 -20.4167126,
                 -20.5245931
-       };
+        };
 
         itemLongitudes = new double[]{
                 57.4980775,
@@ -159,7 +198,8 @@ public class ItinerariesActivity extends AppCompatActivity implements View.OnCli
                 57.4512266,
                 57.4933252,
                 57.5303065
-        };   ListView listView = findViewById(R.id.listView);
+        };
+        ListView listView = findViewById(R.id.listView);
         ItenerariesAdapter adapter = new ItenerariesAdapter(ItinerariesActivity.this, itemTexts, itemName, itemName1, itemImages, itemLatitudes, itemLongitudes);
         listView.setAdapter(adapter);
     }
@@ -208,7 +248,6 @@ public class ItinerariesActivity extends AppCompatActivity implements View.OnCli
             showSubButtons(2);
             tab_layout2.setVisibility(View.VISIBLE);
             handle_sub_visibility(2, 1);
-
 
 
         } else if (buttonId == R.id.buttonDay3) {
@@ -442,32 +481,32 @@ public class ItinerariesActivity extends AppCompatActivity implements View.OnCli
             itemName1 = new String[]{"South • 30 minutes - 1 hour", "North • 1 hour", "North • 1 hour", "North • 45 minutes", "North • 1 hour", "Southwest • 1 hour", "Southwest • 3 - 4 hours", "Southwest • 30 minutes", "Southwest • 1 hour 30 minutes", "Southwest • 1 hour 30 minutes", "Southwest • 1 hour 30 minutes", "South • 1 hour 30 minutes", "South • 30 minutes - 1 hour"};
             itemImages = new int[]{R.drawable.port_louis_3, R.drawable.aapravasi_ghat_1, R.drawable.port_louis_4, R.drawable.marie_reine_de_la_paix_3, R.drawable.citadelle, R.drawable.le_morne_beach_2, R.drawable.le_morne_1, R.drawable.maconde_1, R.drawable.chamarel_2, R.drawable.chamarel_1, R.drawable.black_river_georges_2, R.drawable.grand_bassin_1, R.drawable.gris_gris_1};
             itemLatitudes = new double[]{
-                    -20.1608170, 
+                    -20.1608170,
                     -20.1586888,
                     -20.1606798,
-                    -20.1704784, 
-                    -20.1637132, 
+                    -20.1704784,
+                    -20.1637132,
                     -20.4499767,
-                    -20.4230,     
-                    -20.4911178, 
+                    -20.4230,
+                    -20.4911178,
                     -20.4401637,
-                    -20.4432469, 
+                    -20.4432469,
                     -20.4267316,
                     -20.4167126,
                     -20.5245931
             };
 
             itemLongitudes = new double[]{
-                    57.4980775, 
+                    57.4980775,
                     57.5029467,
                     57.5029272,
-                    57.4962069, 
-                    57.5103489, 
+                    57.4962069,
+                    57.5103489,
                     57.3165315,
-                    57.3152,      
-                    57.3711084, 
+                    57.3152,
+                    57.3711084,
                     57.3733048,
-                    57.3857878, 
+                    57.3857878,
                     57.4512266,
                     57.4933252,
                     57.5303065
@@ -866,26 +905,26 @@ public class ItinerariesActivity extends AppCompatActivity implements View.OnCli
             itemImages = new int[]{R.drawable.eau_bleu_1, R.drawable.pont_naturel_2, R.drawable.le_souffleur_1, R.drawable.gris_gris_1, R.drawable.la_roche_qui_pleure, R.drawable.rochester_falls_1, R.drawable.maconde_1, R.drawable.la_prairie_2};
             itemLatitudes = new double[]{
 
-                    -20.3504265, 
-                    -20.4776988, 
-                    -20.4911744, 
+                    -20.3504265,
+                    -20.4776988,
+                    -20.4911744,
                     -20.5243435,
-                    -20.5040054, 
-                    -20.4953821, 
-                    -20.4911178, 
-                    -20.5272001  
+                    -20.5040054,
+                    -20.4953821,
+                    -20.4911178,
+                    -20.5272001
             };
 
             itemLongitudes = new double[]{
 
-                    57.5575362, 
-                    57.7492923, 
-                    57.7399898, 
+                    57.5575362,
+                    57.7492923,
+                    57.7399898,
                     57.5323138,
-                    57.7561275, 
-                    57.5070605, 
-                    57.3711084, 
-                    57.7364779  
+                    57.7561275,
+                    57.5070605,
+                    57.3711084,
+                    57.7364779
             };
         }
         if (main_day == 5 && sub_day == 1) {
@@ -916,20 +955,20 @@ public class ItinerariesActivity extends AppCompatActivity implements View.OnCli
             itemName1 = new String[]{"North • 2 hours", "North • 1 hours", "North • 1 hours", "North • 2 hours", "North • 1 hours"};
             itemImages = new int[]{R.drawable.port_louis_3, R.drawable.aapravasi_ghat_1, R.drawable.port_louis_4, R.drawable.pamplemousse_garden, R.drawable.grand_baie_1};
 // Latitude and Longitude for the given locations
-            itemLatitudes =  new double[] {
+            itemLatitudes = new double[]{
                     -20.1608170,
-                    -20.1586888, 
+                    -20.1586888,
                     -20.1606798,
-                    -20.1042691, 
-                    -20.0089233  
+                    -20.1042691,
+                    -20.0089233
             };
 
-           itemLongitudes =  new double[] {
+            itemLongitudes = new double[]{
                     57.4980775,
-                    57.5029467, 
+                    57.5029467,
                     57.5029272,
-                    57.5799724, 
-                    57.5812308  
+                    57.5799724,
+                    57.5812308
             };
 
         }
@@ -960,20 +999,20 @@ public class ItinerariesActivity extends AppCompatActivity implements View.OnCli
             itemName = new String[]{"Admission Entrance Fee", "Admission Fee", "Admission Free", "Admission Entrance Fee", "Admission  Fee"};
             itemName1 = new String[]{"Southwest • 1 hour 30 minutes", "Southwest • 1 hour 30 minutes", "Southwest • 1 hour 30 minutes", "Southwest • 1 hour", "West • 1 hour"};
             itemImages = new int[]{R.drawable.chamarel_2, R.drawable.chamarel_1, R.drawable.black_river_georges_2, R.drawable.rhumerie_de_chamarel_1, R.drawable.tamarin_3};
-            itemLatitudes =  new double[] {
-                    -20.4330, 
-                    -20.4333, 
-                    -20.4267316, 
-                    -20.4279001, 
-                    -20.3262782  
+            itemLatitudes = new double[]{
+                    -20.4330,
+                    -20.4333,
+                    -20.4267316,
+                    -20.4279001,
+                    -20.3262782
             };
 
-            itemLongitudes =  new double[]{
-                    57.3983, 
-                    57.3967, 
-                    57.4512266, 
-                    57.3963121, 
-                    57.3778870  
+            itemLongitudes = new double[]{
+                    57.3983,
+                    57.3967,
+                    57.4512266,
+                    57.3963121,
+                    57.3778870
             };
         }
         if (main_day == 5 && sub_day == 3) {
@@ -1003,21 +1042,21 @@ public class ItinerariesActivity extends AppCompatActivity implements View.OnCli
             itemName = new String[]{"Admission Entrance Fee", "Admission Fee", "Admission Entrance Free", "Admission Fee", "Admission  Fee"};
             itemName1 = new String[]{"West • 2 hours 30 minutes", "West • 1 hour", "West • 50 minutes", "West • 1 – 3 hours", "West • 1 hour"};
             itemImages = new int[]{R.drawable.casela, R.drawable.la_preneuse_4, R.drawable.martello_tower_4, R.drawable.le_morne_1, R.drawable.flic_en_flac_3};
-            itemLatitudes =  new double[]{
+            itemLatitudes = new double[]{
                     -20.335277,
-                    -20.3547236, 
-                    -20.3546962, 
+                    -20.3547236,
+                    -20.3546962,
                     -20.4499767,
-                    -20.2993385 
+                    -20.2993385
             };
-       
-           itemLongitudes = new double[]{
+
+            itemLongitudes = new double[]{
                     57.407022,
-                    57.3614249, 
-                    57.3619205, 
+                    57.3614249,
+                    57.3619205,
                     57.3165315,
                     57.3636901
-                    };
+            };
         }
         if (main_day == 5 && sub_day == 4) {
             Stash.put("day", "day54");
@@ -1049,19 +1088,19 @@ public class ItinerariesActivity extends AppCompatActivity implements View.OnCli
             itemLatitudes = new double[]{
 
                     -20.1608170,
-                    -20.1586888, 
+                    -20.1586888,
                     -20.1606798,
-                    -20.1042691, 
-                    -20.0089233  
+                    -20.1042691,
+                    -20.0089233
             };
 
             itemLongitudes = new double[]{
 
                     57.4980775,
-                    57.5029467, 
+                    57.5029467,
                     57.5029272,
-                    57.5799724, 
-                    57.5812308  
+                    57.5799724,
+                    57.5812308
             };
         }
         if (main_day == 5 && sub_day == 5) {
@@ -1101,6 +1140,7 @@ public class ItinerariesActivity extends AppCompatActivity implements View.OnCli
         ItenerariesAdapter adapter = new ItenerariesAdapter(ItinerariesActivity.this, itemTexts, itemName, itemName1, itemImages, itemLatitudes, itemLongitudes);
         listView.setAdapter(adapter);
     }
+
     public void menu(View view) {
         PopupMenu popupMenu = new PopupMenu(this, view);
         popupMenu.getMenuInflater().inflate(R.menu.menu, popupMenu.getMenu());
@@ -1108,8 +1148,7 @@ public class ItinerariesActivity extends AppCompatActivity implements View.OnCli
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                if ((item.getItemId() == R.id.menu_item_1))
-                {
+                if ((item.getItemId() == R.id.menu_item_1)) {
                     startActivity(new Intent(ItinerariesActivity.this, DashboardActivity.class));
                     finishAffinity();
                 }
@@ -1119,4 +1158,243 @@ public class ItinerariesActivity extends AppCompatActivity implements View.OnCli
         popupMenu.show();
     }
 
+    public void premium() {
+
+        restore_purchase = findViewById(R.id.restore_purchase);
+        lifetime_premium = findViewById(R.id.lifetime_premium);
+        premium_layout = findViewById(R.id.premium_layout);
+        faq_layout = findViewById(R.id.faq_layout);
+        close = findViewById(R.id.close);
+        sliderView = findViewById(R.id.slider);
+        close_faq = findViewById(R.id.close_faq);
+        faq_txt = findViewById(R.id.faq_txt);
+        text1 = findViewById(R.id.text1);
+        text2 = findViewById(R.id.text2);
+        faq_txt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                faq_layout.setVisibility(View.VISIBLE);
+            }
+        });
+        billingClient = BillingClient.newBuilder(this)
+                .enablePendingPurchases()
+                .setListener(
+                        (billingResult, list) -> {
+
+                            if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK && list != null) {
+                                for (Purchase purchase : list) {
+                                    verifySubPurchase(purchase);
+                                }
+                            }
+                        }
+                ).build();
+
+        //start the connection after initializing the billing client
+        establishConnection();
+        List<Integer> sliderData = new ArrayList<>();
+        sliderData.add(R.drawable.img_1);
+        sliderData.add(R.drawable.img_2);
+        sliderData.add(R.drawable.img5);
+        sliderData.add(R.drawable.img_4);
+        sliderData.add(R.drawable.img_6);
+
+        adapter = new SliderAdapterExample(this, sliderData);
+        sliderView.setSliderAdapter(adapter);
+        sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
+        sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
+
+//    sliderView.setScrollTimeInSec(4); //set scroll delay in seconds :
+//    sliderView.startAutoCycle();
+        sliderView.setCurrentPageListener(new SliderView.OnSliderPageListener() {
+            @Override
+            public void onSliderPageChanged(int position) {
+                if (position == 0) {
+                    text1.setText("Customize Itinerary");
+                    text2.setText("Create and manage your travel itinerary");
+                } else if (position == 1) {
+                    text1.setText("Save your Itinerary");
+                    text2.setText("Save your itinerary so you may access it from any other devices");
+                } else if (position == 2) {
+                    text1.setText("Offline Maps");
+                    text2.setText("Get locations without connecting to the internet");
+                } else if (position == 3) {
+                    text1.setText("Travel Itinerary Organizer");
+                    text2.setText("Gather all your hotel bookings and planes, trains, and rental carsdocuments all in one place");
+                } else if (position == 4) {
+                    text1.setText("Calender-based Trip Manager");
+                    text2.setText("Organize your trip with the calendar-based interface to see what you have booked and when");
+                }
+            }
+        });
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                premium_layout.setVisibility(View.GONE);
+            }
+        });
+        close_faq.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                faq_layout.setVisibility(View.GONE);
+            }
+        });
+        lifetime_premium.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+//                TODO remove this dummy code
+                premium_layout.setVisibility(View.GONE);
+                faq_layout.setVisibility(View.GONE);
+                Stash.put(Constants.IS_PREMIUM, true);
+                Toast.makeText(ItinerariesActivity.this, "Successfully purchased a lifetime subscription", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(ItinerariesActivity.this, CreateAccountActivity.class));
+                GetSubPurchases();
+            }
+        });
+
+        restore_purchase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                restorePurchases();
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        billingClient.queryPurchasesAsync(
+                QueryPurchasesParams.newBuilder().setProductType(BillingClient.ProductType.SUBS).build(),
+                (billingResult, list) -> {
+                    if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                        for (Purchase purchase : list) {
+                            if (purchase.getPurchaseState() == Purchase.PurchaseState.PURCHASED && !purchase.isAcknowledged()) {
+                                verifySubPurchase(purchase);
+                            }
+                        }
+                    }
+                }
+        );
+    }
+
+    void establishConnection() {
+        billingClient.startConnection(new BillingClientStateListener() {
+            @Override
+            public void onBillingSetupFinished(@NonNull BillingResult billingResult) {
+                if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                    // The BillingClient is ready. You can query purchases here.
+                    //Use any of function below to get details upon successful connection
+                    Log.d("TAG", "Connection Established");
+                }
+            }
+
+            @Override
+            public void onBillingServiceDisconnected() {
+                // Try to restart the connection on the next request to
+                // Google Play by calling the startConnection() method.
+                Log.d("TAG", "Connection NOT Established");
+                establishConnection();
+            }
+        });
+    }
+
+    void GetSubPurchases() {
+        ArrayList<QueryProductDetailsParams.Product> productList = new ArrayList<>();
+
+        productList.add(
+                QueryProductDetailsParams.Product.newBuilder()
+                        .setProductId(PRODUCT_PREMIUM)
+                        .setProductType(BillingClient.ProductType.SUBS)
+                        .build()
+        );
+
+        QueryProductDetailsParams params = QueryProductDetailsParams.newBuilder()
+                .setProductList(productList)
+                .build();
+
+
+        billingClient.queryProductDetailsAsync(params, new ProductDetailsResponseListener() {
+            @Override
+            public void onProductDetailsResponse(@NonNull BillingResult billingResult, @NonNull List<ProductDetails> list) {
+                LaunchSubPurchase(list.get(0));
+                Log.d("TAG", "Product Price" + list.get(0).getSubscriptionOfferDetails().get(0).getPricingPhases().getPricingPhaseList().get(0).getFormattedPrice());
+
+            }
+        });
+    }
+
+    void LaunchSubPurchase(ProductDetails productDetails) {
+        assert productDetails.getSubscriptionOfferDetails() != null;
+        ArrayList<BillingFlowParams.ProductDetailsParams> productList = new ArrayList<>();
+
+        productList.add(
+                BillingFlowParams.ProductDetailsParams.newBuilder()
+                        .setProductDetails(productDetails)
+                        .setOfferToken(productDetails.getSubscriptionOfferDetails().get(0).getOfferToken())
+                        .build()
+        );
+
+        BillingFlowParams billingFlowParams = BillingFlowParams.newBuilder()
+                .setProductDetailsParamsList(productList)
+                .build();
+
+        billingClient.launchBillingFlow(this, billingFlowParams);
+    }
+
+    void verifySubPurchase(Purchase purchases) {
+        if (!purchases.isAcknowledged()) {
+            billingClient.acknowledgePurchase(AcknowledgePurchaseParams
+                    .newBuilder()
+                    .setPurchaseToken(purchases.getPurchaseToken())
+                    .build(), billingResult -> {
+
+                if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                    for (String pur : purchases.getProducts()) {
+                        if (pur.equalsIgnoreCase(PRODUCT_PREMIUM)) {
+                            Log.d("TAG", "Purchase is successful" + pur);
+                            Toast.makeText(this, "Purchase is Successful", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                } else {
+                    Toast.makeText(this, "kjdhhjd", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+    void restorePurchases() {
+
+        billingClient = BillingClient.newBuilder(this).enablePendingPurchases().setListener((billingResult, list) -> {
+        }).build();
+        final BillingClient finalBillingClient = billingClient;
+        billingClient.startConnection(new BillingClientStateListener() {
+            @Override
+            public void onBillingServiceDisconnected() {
+            }
+
+            @Override
+            public void onBillingSetupFinished(@NonNull BillingResult billingResult) {
+
+                if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                    finalBillingClient.queryPurchasesAsync(
+                            QueryPurchasesParams.newBuilder().setProductType(BillingClient.ProductType.SUBS).build(), (billingResult1, list) -> {
+                                if (billingResult1.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                                    if (list.size() > 0) {
+                                        for (int i = 0; i < list.size(); i++) {
+                                            if (list.get(i).getProducts().contains(PRODUCT_PREMIUM)) {
+                                                Toast.makeText(ItinerariesActivity.this, "Premium Restored", Toast.LENGTH_SHORT).show();
+
+                                                Log.d("TAG", "Product id " + PRODUCT_PREMIUM + " will restore here");
+                                            }
+                                        }
+                                    } else {
+                                        Toast.makeText(ItinerariesActivity.this, "Nothing found at restore", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                }
+            }
+        });
+    }
 }
+

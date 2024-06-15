@@ -92,7 +92,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(dropTableQuery);
         onCreate(db);
     }
-
     public long insertBeacModel(BeacModel model) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -130,7 +129,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return id;
     }
-
     public List<BeacModel> getAllBeacModels() {
         List<BeacModel> beacModels = new ArrayList<>();
         String selectQuery = "SELECT * FROM " + TABLE_NAME + " ORDER BY " + COLUMN_ID_COPY + " ASC";
@@ -178,7 +176,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return beacModels;
     }
-
     public int updateBeacModel(BeacModel model) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -217,6 +214,9 @@ Log.d("value", values+"  data");        // updating row
         return db.update(TABLE_NAME, values, COLUMN_TITLE + " = ?",
                 new String[]{String.valueOf(model.title)});
     }
-
-
+    public void deleteAllBeacModels() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME, null, null);
+        db.close();
+    }
 }

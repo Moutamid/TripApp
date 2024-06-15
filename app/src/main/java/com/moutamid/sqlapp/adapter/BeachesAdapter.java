@@ -15,6 +15,10 @@ import android.widget.TextView;
 import com.fxn.stash.Stash;
 import com.moutamid.sqlapp.R;
 import com.moutamid.sqlapp.activities.Beaches.BeachDetails;
+import com.moutamid.sqlapp.activities.Beaches.BeachesTypeActivity;
+import com.moutamid.sqlapp.activities.Organizer.MyDocsActivity;
+import com.moutamid.sqlapp.activities.Organizer.OrganizerActivity;
+import com.moutamid.sqlapp.helper.Constants;
 import com.moutamid.sqlapp.model.BeacModel;
 import com.moutamid.sqlapp.model.DatabaseHelper;
 import com.moutamid.sqlapp.offlinemap.MapActivity;
@@ -74,7 +78,9 @@ public class BeachesAdapter extends BaseAdapter {
         map.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Stash.put("map_lat", latitudes[position]);
+                if (Stash.getBoolean(Constants.IS_PREMIUM, false)) {
+
+                    Stash.put("map_lat", latitudes[position]);
                 Stash.put("map_lng", longitudes[position]);
                 Stash.put("map_name", itemName[position]);
                 Stash.put("map_img", itemImages[position]);
@@ -82,6 +88,10 @@ public class BeachesAdapter extends BaseAdapter {
                 intent.putExtra("map_lat", latitudes[position]);
                 intent.putExtra("map_lng", longitudes[position]);
                 context.startActivity(intent);
+                }
+                else {
+                    BeachesTypeActivity.premium_layout.setVisibility(View.VISIBLE);
+                }
             }
         });
         com.moutamid.sqlapp.model.DatabaseHelper databaseHelper;
@@ -104,6 +114,8 @@ public class BeachesAdapter extends BaseAdapter {
         remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (Stash.getBoolean(Constants.IS_PREMIUM, false)) {
+
                 String deleteName = textView.getText().toString();
                 SQLiteDatabase db = databaseHelper.getWritableDatabase();
                 db.delete(TABLE_NAME, DatabaseHelper.COLUMN_TITLE + "=?", new String[]{deleteName});
@@ -111,6 +123,10 @@ public class BeachesAdapter extends BaseAdapter {
                 remove.setVisibility(View.GONE);
                 add.setVisibility(View.VISIBLE);
                 notifyDataSetChanged();
+                }
+                else {
+                   BeachesTypeActivity.premium_layout.setVisibility(View.VISIBLE);
+                }
             }
         });
 
@@ -1056,7 +1072,10 @@ public class BeachesAdapter extends BaseAdapter {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = null;
+                if (Stash.getBoolean(Constants.IS_PREMIUM, false)) {
+
+
+                    Intent intent = null;
                 if (Stash.getString("type").equals("West")) {
                     if (position == 0) {
                         BeacModel model = new BeacModel();
@@ -2003,7 +2022,10 @@ public class BeachesAdapter extends BaseAdapter {
                         remove.setVisibility(View.VISIBLE);
                     }
                 }
-
+            }
+                else {
+                BeachesTypeActivity.premium_layout.setVisibility(View.VISIBLE);
+            }
             }
         });
 

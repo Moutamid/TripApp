@@ -204,7 +204,6 @@
                 android:textColorHint="#888683"
                 android:textSize="12dp"
                 android:scrollHorizontally="false" />
-
     </com.google.android.material.textfield.TextInputLayout>
 
     </RelativeLayout>

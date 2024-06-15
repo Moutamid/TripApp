@@ -13,7 +13,9 @@ import android.widget.TextView;
 import com.fxn.stash.Stash;
 import com.moutamid.sqlapp.R;
 import com.moutamid.sqlapp.activities.Iteneraries.ItenerariesDetails;
+import com.moutamid.sqlapp.activities.Iteneraries.ItinerariesActivity;
 import com.moutamid.sqlapp.activities.MyTripsActivity;
+import com.moutamid.sqlapp.helper.Constants;
 import com.moutamid.sqlapp.model.BeacModel;
 import com.moutamid.sqlapp.offlinemap.DistanceCalculator;
 import com.moutamid.sqlapp.offlinemap.DurationCalculator;
@@ -31,6 +33,7 @@ public class ItenerariesAdapter extends BaseAdapter {
 
     private double totalDistance = 0.0;
     private double totalDuration = 0.0;
+
     public ItenerariesAdapter(Context context, String[] itemName, String[] itemDetails, String[] itemTexts, int[] itemImages, double[] latitudes, double[] longitudes) {
         this.context = context;
         this.itemTexts = itemTexts;
@@ -39,21 +42,43 @@ public class ItenerariesAdapter extends BaseAdapter {
         this.itemName = itemName;
         this.latitudes = latitudes;
         this.longitudes = longitudes;
+        calculateTotalDistanceAndDuration();
     }
 
+    private void calculateTotalDistanceAndDuration() {
+        totalDistance = 0.0;
+        totalDuration = 0.0;
+        for (int i = 1; i < itemTexts.length; i++)
+        {
+            double distance = DistanceCalculator.calculateDistance(
+                    latitudes[i-1], longitudes[i-1], latitudes[i], longitudes[i]);
+            double duration = DurationCalculator.calculateDrivingDuration(distance);
+            totalDistance += distance;
+            totalDuration += duration;
+        }
+        ItinerariesActivity.distance.setText(String.format("%.1f km", totalDistance));
+        ItinerariesActivity.time.setText(DurationCalculator.formatDuration(totalDuration));
+        ItinerariesActivity.total_stop.setText(itemTexts.length+ " stops");
+
+        Log.d("MyAdapter", "Total Distance: " + String.format("%.1f km", totalDistance));
+        Log.d("MyAdapter", "Total Duration: " + DurationCalculator.formatDuration(totalDuration));
+    }
 
     @Override
     public int getCount() {
         return itemTexts.length;
     }
+
     @Override
     public Object getItem(int position) {
         return null;
     }
+
     @Override
     public long getItemId(int position) {
         return 0;
     }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -70,32 +95,35 @@ public class ItenerariesAdapter extends BaseAdapter {
         textView1.setText(itemTexts[position]);
         textView2.setText(itemDetails[position]);
         int i = position + 1;
-        number.setText(""+i);
+        number.setText("" + i);
+
         if (position == 0) {
             textView3.setText("Start\nHere");
         } else {
             double distance = DistanceCalculator.calculateDistance(
-                    latitudes[position-1], longitudes[position-1], latitudes[position], longitudes[position]);
+                    latitudes[position - 1], longitudes[position - 1], latitudes[position], longitudes[position]);
             double duration = DurationCalculator.calculateDrivingDuration(distance);
             String formattedDuration = DurationCalculator.formatDuration(duration);
             textView3.setText(formattedDuration + "\n" + String.format("%.1f km", distance));
         }
         map.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
-                Stash.put("map_lat", latitudes[position]);
-                Stash.put("map_lng", longitudes[position]);
-                Stash.put("map_name", itemName[position]);
-                Stash.put("map_img", itemImages[position]);
-                Intent intent= new  Intent(context, MapActivity.class);
-                intent.putExtra("map_lat", latitudes[position]);
-                intent.putExtra("map_lng", longitudes[position]);
-                context.startActivity(intent );
+            public void onClick(View view) {
+                if (Stash.getBoolean(Constants.IS_PREMIUM, false) == true) {
+                    Stash.put("map_lat", latitudes[position]);
+                    Stash.put("map_lng", longitudes[position]);
+                    Stash.put("map_name", itemName[position]);
+                    Stash.put("map_img", itemImages[position]);
+                    Intent intent = new Intent(context, MapActivity.class);
+                    intent.putExtra("map_lat", latitudes[position]);
+                    intent.putExtra("map_lng", longitudes[position]);
+                    context.startActivity(intent);
+                } else {
+                    ItinerariesActivity.premium_layout.setVisibility(View.VISIBLE);
+                }
             }
         });
-        if(position==0)
-        {
+        if (position == 0) {
             textView3.setText("Start here");
         }
         itemView.setOnClickListener(new View.OnClickListener() {
@@ -132,14 +160,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 1) {
+                    } else if (position == 1) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.aapravasi_ghat_1;
@@ -168,14 +195,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 2) {
+                    } else if (position == 2) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.port_louis_4;
@@ -204,14 +230,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 3) {
+                    } else if (position == 3) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.marie_reine_de_la_paix_3;
@@ -240,14 +265,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 4) {
+                    } else if (position == 4) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.citadelle;
@@ -276,14 +300,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 5) {
+                    } else if (position == 5) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.le_morne_beach_2;
@@ -312,14 +335,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 6) {
+                    } else if (position == 6) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.le_morne_1;
@@ -348,14 +370,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "Trou-Chenille, an integral component of the cultural heritage within the Le Morne Cultural Landscape, retains an open-air museum featuring five traditional huts portraying various aspects of daily life.<br>" + "Archaeological investigations uncovered evidence of a 19th-20th century settlement, Macaque, at the foot of Le Morne Brabant, likely associated with the Labonté and Béguinot families from Madagascar.<br>";
                         model.image5 = R.drawable.brabant_9;
                         model.text12 = "An abandoned cemetery, identified in a remote area beneath the mountain, dates back to the 19th century, with archaeological findings suggesting a connection to individuals of Malagasy and Mozambican origin.";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 7) {
+                    } else if (position == 7) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.maconde_1;
@@ -384,14 +405,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 8) {
+                    } else if (position == 8) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.chamarel_2;
@@ -420,14 +440,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 9) {
+                    } else if (position == 9) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.chamarel_1;
@@ -456,14 +475,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 10) {
+                    } else if (position == 10) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.black_river_georges_2;
@@ -492,14 +510,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 11) {
+                    } else if (position == 11) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.grand_bassin_1;
@@ -528,14 +545,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 12) {
+                    } else if (position == 12) {
 
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
@@ -570,15 +586,14 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
-                }
-                else if (Stash.getString("day").equals("day21")) {
+                } else if (Stash.getString("day").equals("day21")) {
                     if (position == 0) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
@@ -608,9 +623,9 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "Until 1839, the Chateau de Mon Plaisir featured a modest structure characterized by a flat roof and circular verandahs. The current single-story building, constructed by the English in the mid-19th century, has been designated as a National Monument, giving it legal protection. Visitors can enjoy a charming panorama of the Moka Range and the Peak of Pieter Both from the Chateau.";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
@@ -643,9 +658,9 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
@@ -678,9 +693,9 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
@@ -713,9 +728,9 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
@@ -748,9 +763,9 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
@@ -784,9 +799,9 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
@@ -823,16 +838,15 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
 
-                }
-                else if (Stash.getString("day").equals("day22")) {
+                } else if (Stash.getString("day").equals("day22")) {
                     if (position == 0) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
@@ -862,14 +876,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 1) {
+                    } else if (position == 1) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.grand_bassin_1;
@@ -904,14 +917,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 2) {
+                    } else if (position == 2) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.bois_cheri_1;
@@ -940,9 +952,9 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "<b>Visit Hours</b><br>" + " <br>" + "Monday to Friday:<br><br>" + "09.00 - 14.00<br><br>" + "Saturday:<br><br>" + "09.00 - 11.00<br><br>" + "<b>Bois Chéri Tea FactoryOperating Hours</b><br><br>" + "Monday - Friday 09.00 - 14.00 & Saturday 09.00 - 11.00 (closed on Sundays & public holidays)<br> ";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
@@ -981,9 +993,9 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "A wonderful way to end your wildlife excursion is with a meal of good food and relaxation in a cozy setting at the Crocodile Park Restaurant. Located in the forest, the restaurant provides a range of choices for both adults and children.To make up for the craziest supper of your life, Le Crocodile Affamé serves a distinctive cuisine made with crocodile meat. Those who try it can't help but compliment the dish.";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "<b>Opening hours:</b><br> Every day from 8:30 to 17:00";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
@@ -1000,7 +1012,8 @@ public class ItenerariesAdapter extends BaseAdapter {
                                 "Caution is advised against going all the way down, as water levels can fluctuate unpredictably, and the current is often too strong.<br>" +
                                 "For those eager to explore the secret caves at Gris Gris, head towards the cliff's edge directly across from the parking lot. Upon reaching the spot, descend only about halfway to catch a glimpse of the caves on your right.<br>" +
                                 "It'simportant to bear in mind that entering the caves could pose risks if the water level rises!<br>" +
-                                "Gris Gris beach is intricately connected to the village of Souillac, which relies heavily on tourism for its revenue. Established 200 years ago as a port for ships sailing from Europe to India, Souillac has a rich history worth exploring. Plan your day strategically to make the most of your visit to the southern part of Mauritius, and consider including a visit to Rochester Falls, just outside the village, renowned for its distinctive rectangular-sided rocks.<br>";                 model.title2 = "";
+                                "Gris Gris beach is intricately connected to the village of Souillac, which relies heavily on tourism for its revenue. Established 200 years ago as a port for ships sailing from Europe to India, Souillac has a rich history worth exploring. Plan your day strategically to make the most of your visit to the southern part of Mauritius, and consider including a visit to Rochester Falls, just outside the village, renowned for its distinctive rectangular-sided rocks.<br>";
+                        model.title2 = "";
                         model.text3 = "";
                         model.image2 = R.drawable.map_location;
                         model.text4 = "";
@@ -1021,9 +1034,9 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
@@ -1057,9 +1070,9 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
@@ -1096,16 +1109,15 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
 
-                }
-                else if (Stash.getString("day").equals("day31")) {
+                } else if (Stash.getString("day").equals("day31")) {
                     if (position == 0) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
@@ -1135,14 +1147,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "Until 1839, the Chateau de Mon Plaisir featured a modest structure characterized by a flat roof and circular verandahs. The current single-story building, constructed by the English in the mid-19th century, has been designated as a National Monument, giving it legal protection. Visitors can enjoy a charming panorama of the Moka Range and the Peak of Pieter Both from the Chateau.";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 1) {
+                    } else if (position == 1) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.sugar_museum_pamplemousses;
@@ -1150,7 +1161,7 @@ public class ItenerariesAdapter extends BaseAdapter {
                                 "From the moment the Dutch set foot in Mauritius and introduced sugar canes to the island, the sugar industry has played a significant role in the island's history. At L'Aventure du Sucre, you'll delve into the intricacies of the sugar-making process and explore the colonial past that has profoundly shaped Mauritius into what it is today. Traverse a 250-year historical journey within the museum, a former operational sugar factory, and conclude your tour with a delightful sugar tasting experience, along with sampling various products derived from the golden era of colonial centuries.<br>";
                         model.title1 = "";
                         model.image1 = R.drawable.laventure_du_sucre;
-                        model.text2 ="Embark on your museum tour by delving into the history of sugar plantations in Mauritius. Gain insights into the Dutch era, succeeded by the French and eventually the English colonists. Following this historical exploration, proceed to the operational factory, which remained active until the 1970s. Immerse yourself in the intricate stages of the sugar-making process showcased in vivid detail. Complement your visit to L'Aventure du Sucre by exploring the Village Boutik for gift shopping and souvenirs. Alternatively, enjoy a delightful pause at Restaurant Le Fangourin, savoring the nuances of Mauritian cuisine.";
+                        model.text2 = "Embark on your museum tour by delving into the history of sugar plantations in Mauritius. Gain insights into the Dutch era, succeeded by the French and eventually the English colonists. Following this historical exploration, proceed to the operational factory, which remained active until the 1970s. Immerse yourself in the intricate stages of the sugar-making process showcased in vivid detail. Complement your visit to L'Aventure du Sucre by exploring the Village Boutik for gift shopping and souvenirs. Alternatively, enjoy a delightful pause at Restaurant Le Fangourin, savoring the nuances of Mauritian cuisine.";
                         model.title2 = "";
                         model.text3 = "";
                         model.image2 = R.drawable.map_location;
@@ -1172,15 +1183,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-
-                    else if (position == 2) {
+                    } else if (position == 2) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.chateau_de_labourdonnais;
@@ -1211,14 +1220,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 3) {
+                    } else if (position == 3) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.port_louis_3;
@@ -1252,15 +1260,14 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "Despite being the first shopping mall on the island, Caudan has adeptly adapted to current trends, maintaining its appeal as a modern waterfront mall. Visitors can witness the bustling port activities as large container and cruise ships navigate in and out.";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
 //                        Toast.makeText(context, "data is not added", Toast.LENGTH_SHORT).show();
-                    }
-                    else if (position == 4) {
+                    } else if (position == 4) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.aapravasi_ghat_1;
@@ -1289,14 +1296,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 5) {
+                    } else if (position == 5) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.blue_penny_museum_2;
@@ -1325,16 +1331,15 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
 
-                }
-                else if (Stash.getString("day").equals("day32")) {
+                } else if (Stash.getString("day").equals("day32")) {
                     if (position == 0) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
@@ -1364,14 +1369,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "<b>Visit Hours</b><br>" + " <br>" + "Monday to Friday:<br><br>" + "09.00 - 14.00<br><br>" + "Saturday:<br><br>" + "09.00 - 11.00<br><br>" + "<b>Bois Chéri Tea FactoryOperating Hours</b><br><br>" + "Monday - Friday 09.00 - 14.00 & Saturday 09.00 - 11.00 (closed on Sundays & public holidays)<br> ";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 1) {
+                    } else if (position == 1) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.la_vanilla_1;
@@ -1404,15 +1408,14 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "A wonderful way to end your wildlife excursion is with a meal of good food and relaxation in a cozy setting at the Crocodile Park Restaurant. Located in the forest, the restaurant provides a range of choices for both adults and children.To make up for the craziest supper of your life, Le Crocodile Affamé serves a distinctive cuisine made with crocodile meat. Those who try it can't help but compliment the dish.";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "<b>Opening hours:</b><br> Every day from 8:30 to 17:00";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                         //                        Toast.makeText(context, "images are no available", Toast.LENGTH_SHORT).show();
-                    }
-                    else if (position == 2) {
+                    } else if (position == 2) {
 
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
@@ -1447,15 +1450,14 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
-                }
-                else if (Stash.getString("day").equals("day33")) {
+                } else if (Stash.getString("day").equals("day33")) {
                     if (position == 0) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
@@ -1499,9 +1501,9 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
@@ -1534,9 +1536,9 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
@@ -1570,15 +1572,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-
-                    else if (position == 3) {
+                    } else if (position == 3) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.black_river_georges_2;
@@ -1608,9 +1608,9 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
@@ -1647,15 +1647,14 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
-                }
-                else if (Stash.getString("day").equals("day41")) {
+                } else if (Stash.getString("day").equals("day41")) {
                     if (position == 0) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
@@ -1685,14 +1684,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "Until 1839, the Chateau de Mon Plaisir featured a modest structure characterized by a flat roof and circular verandahs. The current single-story building, constructed by the English in the mid-19th century, has been designated as a National Monument, giving it legal protection. Visitors can enjoy a charming panorama of the Moka Range and the Peak of Pieter Both from the Chateau.";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 1) {
+                    } else if (position == 1) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.sugar_museum_pamplemousses;
@@ -1700,7 +1698,7 @@ public class ItenerariesAdapter extends BaseAdapter {
                                 "From the moment the Dutch set foot in Mauritius and introduced sugar canes to the island, the sugar industry has played a significant role in the island's history. At L'Aventure du Sucre, you'll delve into the intricacies of the sugar-making process and explore the colonial past that has profoundly shaped Mauritius into what it is today. Traverse a 250-year historical journey within the museum, a former operational sugar factory, and conclude your tour with a delightful sugar tasting experience, along with sampling various products derived from the golden era of colonial centuries.<br>";
                         model.title1 = "";
                         model.image1 = R.drawable.laventure_du_sucre;
-                        model.text2 ="Embark on your museum tour by delving into the history of sugar plantations in Mauritius. Gain insights into the Dutch era, succeeded by the French and eventually the English colonists. Following this historical exploration, proceed to the operational factory, which remained active until the 1970s. Immerse yourself in the intricate stages of the sugar-making process showcased in vivid detail. Complement your visit to L'Aventure du Sucre by exploring the Village Boutik for gift shopping and souvenirs. Alternatively, enjoy a delightful pause at Restaurant Le Fangourin, savoring the nuances of Mauritian cuisine.";
+                        model.text2 = "Embark on your museum tour by delving into the history of sugar plantations in Mauritius. Gain insights into the Dutch era, succeeded by the French and eventually the English colonists. Following this historical exploration, proceed to the operational factory, which remained active until the 1970s. Immerse yourself in the intricate stages of the sugar-making process showcased in vivid detail. Complement your visit to L'Aventure du Sucre by exploring the Village Boutik for gift shopping and souvenirs. Alternatively, enjoy a delightful pause at Restaurant Le Fangourin, savoring the nuances of Mauritian cuisine.";
                         model.title2 = "";
                         model.text3 = "";
                         model.image2 = R.drawable.map_location;
@@ -1722,15 +1720,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-
-                    else if (position == 2) {
+                    } else if (position == 2) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.chateau_de_labourdonnais;
@@ -1759,14 +1755,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 3) {
+                    } else if (position == 3) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.port_louis_3;
@@ -1800,14 +1795,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "Despite being the first shopping mall on the island, Caudan has adeptly adapted to current trends, maintaining its appeal as a modern waterfront mall. Visitors can witness the bustling port activities as large container and cruise ships navigate in and out.";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 4) {
+                    } else if (position == 4) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.aapravasi_ghat_1;
@@ -1836,14 +1830,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 5) {
+                    } else if (position == 5) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.blue_penny_museum_2;
@@ -1872,16 +1865,15 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
 
-                }
-                else if (Stash.getString("day").equals("day42")) {
+                } else if (Stash.getString("day").equals("day42")) {
                     if (position == 0) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
@@ -1918,16 +1910,15 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.image5 = R.drawable.ile_aux_cerfs_3;
                         model.text12 = "Ile aux Cerfs has several dining establishments, including a charming beachside restaurant. Additionally, two bars are available for visitors seeking refreshing beverages or cocktails at reasonable prices. An alternative is to bring ample food and drinks to suit your preferences.";
 
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
 
-                }
-                else if (Stash.getString("day").equals("day43")) {
+                } else if (Stash.getString("day").equals("day43")) {
                     if (position == 0) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
@@ -1957,9 +1948,9 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "•\t<b>Walk with Lions:</b> Take a stroll alongside lions with expert guides ensuring safety.<br>" + "•\t<b>Interaction with Big Cats:</b> Get up close with lions, cheetahs, and caracals under supervision.<br>" + "•\t<b>Drive Thru:</b> A 45-minute drive to observe lions in their natural habitat.<br>" + "•\t<b>E-Bike Safari:</b> Explore the safari park on eco-friendly electric bikes.<br>" + "•\t<b>Segway Trip:</b> Discover the Yemen Nature Reserve Park on a Segway.<br>" + "•\t<b>Safari Quad Biking:</b> Navigate the park's hills, valleys, and rivers on quad bikes.<br>" + "•\t<b>Camel Riding:</b> Enjoy a camel ride through Casela park.<br>";
                         model.image5 = R.drawable.casela_3;
                         model.text12 = "<b>History</b><br>" + "Casela World of Adventures originated in December 1979 as a bird sanctuary and has evolved into a must-see attraction in Mauritius. Throughout the years, the park has continually expanded its array of adventures, from quad biking and bus safari trips to unforgettable encounters with big cats, traversing a Nepalese bridge, and ziplining above trees and canyons.<br>" + "Today, visitors can engage in activities such as feeding giraffes, interacting with brightly colored lorikeets and pygmy hippos, exploring the hilly landscape on camelback, fishing for tilapias, and embarking on a fun e-bike safari trip around the park.<br>" + "<b>Conservation</b><br>" + "Remaining true to its founding vision, Casela World of Adventures is actively committed to the conservation and protection of endangered species. In February 2015, the park gained notoriety with Her Royal Highness Princess Stephanie of Monaco becoming its patron. Princess Stephanie, renowned for her dedication to elephant protection in Asia, wholeheartedly supported the conservation efforts of Mauritius' leading visitor attraction.<br>";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
@@ -1995,14 +1986,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 2) {
+                    } else if (position == 2) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.black_river_georges_2;
@@ -2031,15 +2021,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                else if (position == 3)
-                {
+                    } else if (position == 3) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.chamarel_1;
@@ -2072,92 +2060,88 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
+
+                        intent = new Intent(context, ItenerariesDetails.class);
+                        context.startActivity(intent);
+                    } else if (position == 4) {
+                        BeacModel model = new BeacModel();
+                        model.title = textView.getText().toString();
+                        model.main_image = R.drawable.chamarel_2;
+                        model.text1 = "The Seven Coloured Earths form a geological wonder and a popular tourist destination situated in the Chamarel plain of the Rivière Noire District in southwestern Mauritius. This unique site encompasses small sand dunes exhibiting seven distinctive colors—red, brown, violet, green, blue, purple, and yellow. The remarkable characteristic of this location lies in the settling of differently colored sands in distinct layers, creating surrealistic and striped patterns on the dunes. Over time, rains have sculpted captivating designs into the hillside, resulting in an effect reminiscent of earthen meringue.<br>" +
+                                "These sands originate from the decomposition of volcanic rock (basalt) gullies into clay, later transformed into ferralitic soil through total hydrolysis. The primary elements responsible for the red/anthracite and blue/purplish colors are iron and aluminum, respectively. The various hues are thought to be a consequence of the molten volcanic rock cooling down at different external temperatures, although the specific causes of their consistent and spontaneous separation are not fully understood.<br>" +
+                                "The term \"Seven Coloured Earths\" serves as a descriptive, rather than an official, name. Various versions, including \"Chamarel Seven Coloured Earths,\" \"Chamarel Coloured Earth(s),\" \"Coloured Earth,\" and Terres des Sept Couleurs in French, have been reported.<br>" +
+                                "This phenomenon can be replicated on a smaller scale by taking sands of different colors, mixing them together, and observing their eventual separation into a layered spectrum.<br>" +
+                                "Since the 1960s, this site has evolved into one of Mauritius' major tourist attractions. Presently, the dunes are safeguarded by a wooden fence, and visitors are prohibited from climbing on them. However, observation outposts along the fence allow visitors to enjoy the scenery. Curio shops in the vicinity offer small test tubes containing the colored sands.<br>";
+                        model.title1 = "";
+                        model.image1 = R.drawable.map_location;
+                        model.text2 = "";
+                        model.title2 = "";
+                        model.text3 = "";
+                        model.image2 = R.drawable.map_location;
+                        model.text4 = "";
+                        model.title3 = "";
+                        model.text5 = "";
+                        model.title4 = "";
+                        model.text6 = "";
+                        model.title5 = "";
+                        model.text7 = "";
+                        model.title6 = "";
+                        model.text8 = "";
+                        model.title7 = "";
+                        model.image3 = R.drawable.map_location;
+                        model.text9 = "";
+                        model.title8 = "";
+                        model.text10 = "";
+                        model.image4 = R.drawable.map_location;
+                        model.text11 = "";
+                        model.image5 = R.drawable.map_location;
+                        model.text12 = "";
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
+
+                        intent = new Intent(context, ItenerariesDetails.class);
+                        context.startActivity(intent);
+                    } else if (position == 5) {
+                        BeacModel model = new BeacModel();
+                        model.title = textView.getText().toString();
+                        model.main_image = R.drawable.tamarin_3;
+                        model.text1 = "Tamarin Bay Beach in Mauritius is a renowned coastal gem located on the west coast of the island, just past the village of Black River. Widely celebrated for its natural beauty and surf-friendly conditions, Tamarin Bay attracts locals and visitors alike. <br>" + "The region was once known as Santosha Bay, evident in the faintly painted word 'Santosha' on some buildings. It was a hidden gem, providing avid surfers with some of the planet's best waves. Interestingly, locals initially refrained from naming the beach to keep its surfable seas a secret from outsiders.<br>" + "The broader recognition of Tamarin Bay came with the release of the iconic surf documentary \"Forgotten Island of Santosha\" by Larry and Roger Yates in 1974, immortalizing the area. Tamarin Bay boasts two globally acclaimed surfing spots: ‘Dal’ on its left (south) and ‘Black Stone’ on the right (north) of the bay.<br>" + "Tamarin Bay is a frequent habitat for dolphins, particularly Spinners and Bottlenose dolphins. These playful creatures are often spotted in the bay during the early morning before returning to the open sea. Numerous boat companies provide morning trips for tourists to observe and swim with dolphins.Tamarin is renowned for its apartments and the excellent service it extends to tourists.<br>";
+                        model.title1 = "Surfing Hub";
+                        model.image1 = R.drawable.tamarin_2;
+                        model.text2 = "Tamarin Bay is famed for being one of the best surfing spots in Mauritius. Since the 1970s, it has been a central hub for surfers, initially introduced by Australians living on the island's west coast. The surf breaks draw enthusiasts, and access to this iconic spot is considered a privileged right.<br>" + "<b>Authentic Charm</b><br>" + "Despite its reputation as a premier surfing destination, Tamarin Bay retains an authentic and genuine atmosphere. Local families frequent the beach for a relaxing break or a leisurely stroll during the week, creating a vibrant yet laid-back ambiance.<br>" + "<b>Swimming Cautions</b><br>" + "While Tamarin Bay is a haven for surfers, swimming is not recommended for children and inexperienced swimmers. The presence of unpredictable currents and substantial waves breaking along the shore makes it less suitable for casual swimming.<br>" + "<b>Beach Atmosphere</b><br>" + "Tamarin Bay is a popular destination for both locals and tourists. The beach may be more crowded on weekends and holidays, offering a lively atmosphere and a chance to witness the vibrant beach culture.<br>" + "<b>Time Recommendations</b><br>" + "For those planning a visit, the best times to enjoy Tamarin Bay are early in the morning from 8:00 to 11:00 or in the afternoon from 13:00 to 16:00. During these periods, the beach offers favorable conditions for various activities.<br>" + "<b>Activities</b><br>" + "<br>";
+                        model.title2 = "";
+                        model.text3 = "";
+                        model.image2 = R.drawable.tamarin_1;
+                        model.text4 = "Apart from surfing, Tamarin Bay provides opportunities for diverse water activities, including stand-up paddleboarding, bodyboarding, catamaran tours, swimming with dolphins, speed boat trips, and kayaking.<br>" + "In summary, Tamarin Bay Beach stands out as a dynamic and authentic coastal destination, offering a perfect blend of surfing excitement, natural beauty, and a lively beach atmosphere.<br>";
+                        model.title3 = "";
+                        model.text5 = "";
+                        model.title4 = "";
+                        model.text6 = "";
+                        model.title5 = "";
+                        model.text7 = "";
+                        model.title6 = "";
+                        model.text8 = "";
+                        model.title7 = "";
+                        model.image3 = R.drawable.map_location;
+                        model.text9 = "";
+                        model.title8 = "";
+                        model.text10 = "";
+                        model.image4 = R.drawable.map_location;
+                        model.text11 = "";
+                        model.image5 = R.drawable.map_location;
+                        model.text12 = "";
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
-                else if (position == 4)
-                {
-                    BeacModel model = new BeacModel();
-                    model.title = textView.getText().toString();
-                    model.main_image = R.drawable.chamarel_2;
-                    model.text1 = "The Seven Coloured Earths form a geological wonder and a popular tourist destination situated in the Chamarel plain of the Rivière Noire District in southwestern Mauritius. This unique site encompasses small sand dunes exhibiting seven distinctive colors—red, brown, violet, green, blue, purple, and yellow. The remarkable characteristic of this location lies in the settling of differently colored sands in distinct layers, creating surrealistic and striped patterns on the dunes. Over time, rains have sculpted captivating designs into the hillside, resulting in an effect reminiscent of earthen meringue.<br>" +
-                            "These sands originate from the decomposition of volcanic rock (basalt) gullies into clay, later transformed into ferralitic soil through total hydrolysis. The primary elements responsible for the red/anthracite and blue/purplish colors are iron and aluminum, respectively. The various hues are thought to be a consequence of the molten volcanic rock cooling down at different external temperatures, although the specific causes of their consistent and spontaneous separation are not fully understood.<br>" +
-                            "The term \"Seven Coloured Earths\" serves as a descriptive, rather than an official, name. Various versions, including \"Chamarel Seven Coloured Earths,\" \"Chamarel Coloured Earth(s),\" \"Coloured Earth,\" and Terres des Sept Couleurs in French, have been reported.<br>" +
-                            "This phenomenon can be replicated on a smaller scale by taking sands of different colors, mixing them together, and observing their eventual separation into a layered spectrum.<br>" +
-                            "Since the 1960s, this site has evolved into one of Mauritius' major tourist attractions. Presently, the dunes are safeguarded by a wooden fence, and visitors are prohibited from climbing on them. However, observation outposts along the fence allow visitors to enjoy the scenery. Curio shops in the vicinity offer small test tubes containing the colored sands.<br>";
-                    model.title1 = "";
-                    model.image1 = R.drawable.map_location;
-                    model.text2 = "";
-                    model.title2 = "";
-                    model.text3 = "";
-                    model.image2 = R.drawable.map_location;
-                    model.text4 = "";
-                    model.title3 = "";
-                    model.text5 = "";
-                    model.title4 = "";
-                    model.text6 = "";
-                    model.title5 = "";
-                    model.text7 = "";
-                    model.title6 = "";
-                    model.text8 = "";
-                    model.title7 = "";
-                    model.image3 = R.drawable.map_location;
-                    model.text9 = "";
-                    model.title8 = "";
-                    model.text10 = "";
-                    model.image4 = R.drawable.map_location;
-                    model.text11 = "";
-                    model.image5 = R.drawable.map_location;
-                    model.text12 = "";
-                    model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
-
-                        intent = new Intent(context, ItenerariesDetails.class);
-                        context.startActivity(intent);
-                    }      else if (position == 5)
-                {
-                    BeacModel model = new BeacModel();
-                    model.title = textView.getText().toString();
-                    model.main_image = R.drawable.tamarin_3;
-                    model.text1 = "Tamarin Bay Beach in Mauritius is a renowned coastal gem located on the west coast of the island, just past the village of Black River. Widely celebrated for its natural beauty and surf-friendly conditions, Tamarin Bay attracts locals and visitors alike. <br>" + "The region was once known as Santosha Bay, evident in the faintly painted word 'Santosha' on some buildings. It was a hidden gem, providing avid surfers with some of the planet's best waves. Interestingly, locals initially refrained from naming the beach to keep its surfable seas a secret from outsiders.<br>" + "The broader recognition of Tamarin Bay came with the release of the iconic surf documentary \"Forgotten Island of Santosha\" by Larry and Roger Yates in 1974, immortalizing the area. Tamarin Bay boasts two globally acclaimed surfing spots: ‘Dal’ on its left (south) and ‘Black Stone’ on the right (north) of the bay.<br>" + "Tamarin Bay is a frequent habitat for dolphins, particularly Spinners and Bottlenose dolphins. These playful creatures are often spotted in the bay during the early morning before returning to the open sea. Numerous boat companies provide morning trips for tourists to observe and swim with dolphins.Tamarin is renowned for its apartments and the excellent service it extends to tourists.<br>";
-                    model.title1 = "Surfing Hub";
-                    model.image1 = R.drawable.tamarin_2;
-                    model.text2 = "Tamarin Bay is famed for being one of the best surfing spots in Mauritius. Since the 1970s, it has been a central hub for surfers, initially introduced by Australians living on the island's west coast. The surf breaks draw enthusiasts, and access to this iconic spot is considered a privileged right.<br>" + "<b>Authentic Charm</b><br>" + "Despite its reputation as a premier surfing destination, Tamarin Bay retains an authentic and genuine atmosphere. Local families frequent the beach for a relaxing break or a leisurely stroll during the week, creating a vibrant yet laid-back ambiance.<br>" + "<b>Swimming Cautions</b><br>" + "While Tamarin Bay is a haven for surfers, swimming is not recommended for children and inexperienced swimmers. The presence of unpredictable currents and substantial waves breaking along the shore makes it less suitable for casual swimming.<br>" + "<b>Beach Atmosphere</b><br>" + "Tamarin Bay is a popular destination for both locals and tourists. The beach may be more crowded on weekends and holidays, offering a lively atmosphere and a chance to witness the vibrant beach culture.<br>" + "<b>Time Recommendations</b><br>" + "For those planning a visit, the best times to enjoy Tamarin Bay are early in the morning from 8:00 to 11:00 or in the afternoon from 13:00 to 16:00. During these periods, the beach offers favorable conditions for various activities.<br>" + "<b>Activities</b><br>" + "<br>";
-                    model.title2 = "";
-                    model.text3 = "";
-                    model.image2 = R.drawable.tamarin_1;
-                    model.text4 = "Apart from surfing, Tamarin Bay provides opportunities for diverse water activities, including stand-up paddleboarding, bodyboarding, catamaran tours, swimming with dolphins, speed boat trips, and kayaking.<br>" + "In summary, Tamarin Bay Beach stands out as a dynamic and authentic coastal destination, offering a perfect blend of surfing excitement, natural beauty, and a lively beach atmosphere.<br>";
-                    model.title3 = "";
-                    model.text5 = "";
-                    model.title4 = "";
-                    model.text6 = "";
-                    model.title5 = "";
-                    model.text7 = "";
-                    model.title6 = "";
-                    model.text8 = "";
-                    model.title7 = "";
-                    model.image3 = R.drawable.map_location;
-                    model.text9 = "";
-                    model.title8 = "";
-                    model.text10 = "";
-                    model.image4 = R.drawable.map_location;
-                    model.text11 = "";
-                    model.image5 = R.drawable.map_location;
-                    model.text12 = "";
-                    model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
-
-                        intent = new Intent(context, ItenerariesDetails.class);
-                        context.startActivity(intent);
-                    }
-                }
-                else if (Stash.getString("day").equals("day44")) {
+                } else if (Stash.getString("day").equals("day44")) {
                     if (position == 0) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
@@ -2193,14 +2177,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 1) {
+                    } else if (position == 1) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.pont_naturel_2;
@@ -2229,14 +2212,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 2) {
+                    } else if (position == 2) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.le_souffleur_1;
@@ -2245,7 +2227,7 @@ public class ItenerariesAdapter extends BaseAdapter {
                                 "Le Souffleur is located near the village of L'Escalier in the southern region of Mauritius. There are no buses that will transport you to the beach, so you'll need to rent a car to get there. Even so, if you rely solely on Google Maps to get you to Le Souffleur you almost certainly will get lost.The best way to reach to your destination is using Google Maps and search for \"Savannah Sugar Industry.\" Follow the driving directions until you arrive at a roundabout with a sign directing you to Le Souffleur.\n";
                         model.title1 = "";
                         model.image1 = R.drawable.le_souffleur_2;
-                        model.text2 ="One of Mauritius' most distinctive natural attractions, Le Souffleur is a place where you may even see the amazing blowhole effect if the sea is rough that day. As waves crash against the cliffs and rock cracks you will be able to watch the huge awe-inspiringwater jets flying in the air. You shouldn't miss it if you're visiting Mauritius - it's an amazing sight!\n" +
+                        model.text2 = "One of Mauritius' most distinctive natural attractions, Le Souffleur is a place where you may even see the amazing blowhole effect if the sea is rough that day. As waves crash against the cliffs and rock cracks you will be able to watch the huge awe-inspiringwater jets flying in the air. You shouldn't miss it if you're visiting Mauritius - it's an amazing sight!\n" +
                                 "The gorgeous golden sand beach of Savinia, which is by far the least populated beach in Mauritius, is the last stop downhill on the right. You will also find two naturally occurring arches which should not be mistaken with the Pont Naturel, another natural attraction.Just a few meters before you reach theSavinia Beach, you will find another small cove. Unfortunately, the strong current makes swimming there impossible.\n";
                         model.title2 = "";
                         model.text3 = "";
@@ -2268,8 +2250,7 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                    }
-                    else if (position == 3) {
+                    } else if (position == 3) {
 
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
@@ -2304,134 +2285,130 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 4) {
+                    } else if (position == 4) {
 
-                         BeacModel model = new BeacModel();
-                         model.title = textView.getText().toString();
-                         model.main_image = R.drawable.la_roche_qui_pleure;
-                         model.text1 = "This mystical site derives its name from the visual impression it creates: as water trickles down its walls, the cliffs appear to shed tears. Even more astonishing, some claim to recognize the eroded features of the Mauritian poet Robert Edward Hart.<br>\" + \"From a geographical and climatic standpoint, unlike other parts of the island, La Roche qui Pleure lacks coral reefs. Consequently, its shores are more exposed to the assaults of the ocean. This absence of a natural barrier results in more powerful and spectacular waves, a stark contrast to the tranquil lagoons typically associated with the island. The region is influenced by strong winds and seasonal variations, shaping its unique landscape and marine dynamics.<br>";
-                         model.title1 = "";
-                         model.image1 = R.drawable.map_location;
-                         model.text2 = "";
-                         model.title2 = "";
-                         model.text3 = "";
-                         model.image2 = R.drawable.map_location;
-                         model.text4 = "";
-                         model.title3 = "";
-                         model.text5 = "";
-                         model.title4 = "";
-                         model.text6 = "";
-                         model.title5 = "";
-                         model.text7 = "";
-                         model.title6 = "";
-                         model.text8 = "";
-                         model.title7 = "";
-                         model.image3 = R.drawable.map_location;
-                         model.text9 = "";
-                         model.title8 = "";
-                         model.text10 = "";
-                         model.image4 = R.drawable.map_location;
-                         model.text11 = "" + "From a geographical and climatic standpoint, unlike other parts of the island, La Roche qui Pleure lacks coral reefs. Consequently, its shores are more exposed to the assaults of the ocean. This absence of a natural barrier results in more powerful and spectacular waves, a stark contrast to the tranquil lagoons typically associated with the island. The region is influenced by strong winds and seasonal variations, shaping its unique landscape and marine dynamics.<br>";
-                         model.image5 = R.drawable.map_location;
-                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
-
-                        intent = new Intent(context, ItenerariesDetails.class);
-                        context.startActivity(intent);
-                    }
-                    else if (position == 5) {
-
-                         BeacModel model = new BeacModel();
-                         model.title = textView.getText().toString();
-                         model.main_image = R.drawable.rochester_falls_1;
-                         model.text1 = "Although Rochester Falls may not rank as the most breathtaking waterfalls in the country, they are undeniably worth exploring if you find yourself nearby. Simply follow the makeshift signs guiding you from the main road through Souillac. The route, while a bit intricate, is reliable, albeit a tad rough along the stony track. Be prepared for local vendors who might expect a tip for assisting you in finding a parking spot. Following a brief five-minute walk from your vehicle, you'll arrive at the cascading waterfall emerging from the cane fields.<br>" +
-                                 "Situated in the southern part of the island, within the Souillac district, Rochester Falls exemplifies the distinctive volcanic formations and the historical background of Mauritius as a volcanic island. What sets this waterfall apart is its unique appearance, with water flowing through rock formations that resemble square blocks, creating a captivating illusion unlike any other waterfall on the island.<br>" +
-                                 "Popular among both locals and visitors, the falls offer a serene pond for swimming, tucked away in a lush, untamed forest, providing a peaceful escape from the hustle and bustle of civilization. This secluded setting makes it an ideal location for a day out with friends, emphasizing the appeal of nature's untouched beauty. <br>";
-                         model.title1 = "A few tips";
-                         model.image1 = R.drawable.map_location;
-                         model.text2 = "\t1.\tNot recommended to visit during or after heavy rainfall.<br>" +
-                                 "\t2.\tExercise caution if engaging in cliff jumping, as surfaces may be slippery.<br>";
-                         model.title2 = "";
-                         model.text3 = "";
-                         model.image2 = R.drawable.map_location;
-                         model.text4 = "";
-                         model.title3 = "";
-                         model.text5 = "";
-                         model.title4 = "";
-                         model.text6 = "";
-                         model.title5 = "";
-                         model.text7 = "";
-                         model.title6 = "";
-                         model.text8 = "";
-                         model.title7 = "";
-                         model.image3 = R.drawable.map_location;
-                         model.text9 = "";
-                         model.title8 = "";
-                         model.text10 = "";
-                         model.image4 = R.drawable.map_location;
-                         model.text11 = "" + "From a geographical and climatic standpoint, unlike other parts of the island, La Roche qui Pleure lacks coral reefs. Consequently, its shores are more exposed to the assaults of the ocean. This absence of a natural barrier results in more powerful and spectacular waves, a stark contrast to the tranquil lagoons typically associated with the island. The region is influenced by strong winds and seasonal variations, shaping its unique landscape and marine dynamics.<br>";
-                         model.image5 = R.drawable.map_location;
-                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
-
-                        intent = new Intent(context, ItenerariesDetails.class);
-                        context.startActivity(intent);
-                    }
-                    else if (position == 6) {
                         BeacModel model = new BeacModel();
-                         model.title = textView.getText().toString();
-                         model.main_image = R.drawable.maconde_1;
-                         model.text1 = "The Maconde viewpoint is locatedon the southern coast of Baie du Cap, a charming and modest village celebrated for its striking natural allure and untamed, rugged coastlines. The viewpoint is nestled on a curved stretch of the coastal road atop a small rocky cliff. The landscape unfolds with picturesque vistas, featuring the vibrant red earth, lush green forests, rows of palm trees, and the glistening expanse of the Indian Ocean, creating a truly mesmerizing experience.<br>" + "Legend has it that the name \"Maconde\" traces its roots to the era of slavery, where runaway slaves from the Makonde tribe in Mozambique sought refuge in this area, while others believe it was named after Governor Jean Baptiste Henri Conde, who constructed an outlook on the cliff.<br>";
-                         model.title1 = "";
-                         model.image1 = R.drawable.maconde_2;
-                         model.text2 = "Access to this region was historically challenging, and it wasn't until the 1920s that the first road was constructed, overcoming the difficulties posed by the low-lying coast and uneven terrain. Recent renovations have significantly enhanced safety. The winding road along basalt cliffs, with the rhythmic sounds of the ocean against the rocks, provides a captivating spectacle, making it a favored spot for those captivated by ocean swells.<br>" + "To reach the viewpoint, ascend a set of narrow stairs, where you'll be greeted by panoramic views of the ocean, the nearby coastal village, and occasional fishermen along the shore.<br>";
-                         model.title2 = "";
-                         model.text3 = "";
-                         model.image2 = R.drawable.map_location;
-                         model.text4 = "";
-                         model.title3 = "";
-                         model.text5 = "";
-                         model.title4 = "";
-                         model.text6 = "";
-                         model.title5 = "";
-                         model.text7 = "";
-                         model.title6 = "";
-                         model.text8 = "";
-                         model.title7 = "";
-                         model.image3 = R.drawable.map_location;
-                         model.text9 = "";
-                         model.title8 = "";
-                         model.text10 = "";
-                         model.image4 = R.drawable.map_location;
-                         model.text11 = "";
-                         model.image5 = R.drawable.map_location;
-                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.title = textView.getText().toString();
+                        model.main_image = R.drawable.la_roche_qui_pleure;
+                        model.text1 = "This mystical site derives its name from the visual impression it creates: as water trickles down its walls, the cliffs appear to shed tears. Even more astonishing, some claim to recognize the eroded features of the Mauritian poet Robert Edward Hart.<br>\" + \"From a geographical and climatic standpoint, unlike other parts of the island, La Roche qui Pleure lacks coral reefs. Consequently, its shores are more exposed to the assaults of the ocean. This absence of a natural barrier results in more powerful and spectacular waves, a stark contrast to the tranquil lagoons typically associated with the island. The region is influenced by strong winds and seasonal variations, shaping its unique landscape and marine dynamics.<br>";
+                        model.title1 = "";
+                        model.image1 = R.drawable.map_location;
+                        model.text2 = "";
+                        model.title2 = "";
+                        model.text3 = "";
+                        model.image2 = R.drawable.map_location;
+                        model.text4 = "";
+                        model.title3 = "";
+                        model.text5 = "";
+                        model.title4 = "";
+                        model.text6 = "";
+                        model.title5 = "";
+                        model.text7 = "";
+                        model.title6 = "";
+                        model.text8 = "";
+                        model.title7 = "";
+                        model.image3 = R.drawable.map_location;
+                        model.text9 = "";
+                        model.title8 = "";
+                        model.text10 = "";
+                        model.image4 = R.drawable.map_location;
+                        model.text11 = "" + "From a geographical and climatic standpoint, unlike other parts of the island, La Roche qui Pleure lacks coral reefs. Consequently, its shores are more exposed to the assaults of the ocean. This absence of a natural barrier results in more powerful and spectacular waves, a stark contrast to the tranquil lagoons typically associated with the island. The region is influenced by strong winds and seasonal variations, shaping its unique landscape and marine dynamics.<br>";
+                        model.image5 = R.drawable.map_location;
+                        model.text12 = "";
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 7) {
+                    } else if (position == 5) {
+
+                        BeacModel model = new BeacModel();
+                        model.title = textView.getText().toString();
+                        model.main_image = R.drawable.rochester_falls_1;
+                        model.text1 = "Although Rochester Falls may not rank as the most breathtaking waterfalls in the country, they are undeniably worth exploring if you find yourself nearby. Simply follow the makeshift signs guiding you from the main road through Souillac. The route, while a bit intricate, is reliable, albeit a tad rough along the stony track. Be prepared for local vendors who might expect a tip for assisting you in finding a parking spot. Following a brief five-minute walk from your vehicle, you'll arrive at the cascading waterfall emerging from the cane fields.<br>" +
+                                "Situated in the southern part of the island, within the Souillac district, Rochester Falls exemplifies the distinctive volcanic formations and the historical background of Mauritius as a volcanic island. What sets this waterfall apart is its unique appearance, with water flowing through rock formations that resemble square blocks, creating a captivating illusion unlike any other waterfall on the island.<br>" +
+                                "Popular among both locals and visitors, the falls offer a serene pond for swimming, tucked away in a lush, untamed forest, providing a peaceful escape from the hustle and bustle of civilization. This secluded setting makes it an ideal location for a day out with friends, emphasizing the appeal of nature's untouched beauty. <br>";
+                        model.title1 = "A few tips";
+                        model.image1 = R.drawable.map_location;
+                        model.text2 = "\t1.\tNot recommended to visit during or after heavy rainfall.<br>" +
+                                "\t2.\tExercise caution if engaging in cliff jumping, as surfaces may be slippery.<br>";
+                        model.title2 = "";
+                        model.text3 = "";
+                        model.image2 = R.drawable.map_location;
+                        model.text4 = "";
+                        model.title3 = "";
+                        model.text5 = "";
+                        model.title4 = "";
+                        model.text6 = "";
+                        model.title5 = "";
+                        model.text7 = "";
+                        model.title6 = "";
+                        model.text8 = "";
+                        model.title7 = "";
+                        model.image3 = R.drawable.map_location;
+                        model.text9 = "";
+                        model.title8 = "";
+                        model.text10 = "";
+                        model.image4 = R.drawable.map_location;
+                        model.text11 = "" + "From a geographical and climatic standpoint, unlike other parts of the island, La Roche qui Pleure lacks coral reefs. Consequently, its shores are more exposed to the assaults of the ocean. This absence of a natural barrier results in more powerful and spectacular waves, a stark contrast to the tranquil lagoons typically associated with the island. The region is influenced by strong winds and seasonal variations, shaping its unique landscape and marine dynamics.<br>";
+                        model.image5 = R.drawable.map_location;
+                        model.text12 = "";
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
+
+                        intent = new Intent(context, ItenerariesDetails.class);
+                        context.startActivity(intent);
+                    } else if (position == 6) {
+                        BeacModel model = new BeacModel();
+                        model.title = textView.getText().toString();
+                        model.main_image = R.drawable.maconde_1;
+                        model.text1 = "The Maconde viewpoint is locatedon the southern coast of Baie du Cap, a charming and modest village celebrated for its striking natural allure and untamed, rugged coastlines. The viewpoint is nestled on a curved stretch of the coastal road atop a small rocky cliff. The landscape unfolds with picturesque vistas, featuring the vibrant red earth, lush green forests, rows of palm trees, and the glistening expanse of the Indian Ocean, creating a truly mesmerizing experience.<br>" + "Legend has it that the name \"Maconde\" traces its roots to the era of slavery, where runaway slaves from the Makonde tribe in Mozambique sought refuge in this area, while others believe it was named after Governor Jean Baptiste Henri Conde, who constructed an outlook on the cliff.<br>";
+                        model.title1 = "";
+                        model.image1 = R.drawable.maconde_2;
+                        model.text2 = "Access to this region was historically challenging, and it wasn't until the 1920s that the first road was constructed, overcoming the difficulties posed by the low-lying coast and uneven terrain. Recent renovations have significantly enhanced safety. The winding road along basalt cliffs, with the rhythmic sounds of the ocean against the rocks, provides a captivating spectacle, making it a favored spot for those captivated by ocean swells.<br>" + "To reach the viewpoint, ascend a set of narrow stairs, where you'll be greeted by panoramic views of the ocean, the nearby coastal village, and occasional fishermen along the shore.<br>";
+                        model.title2 = "";
+                        model.text3 = "";
+                        model.image2 = R.drawable.map_location;
+                        model.text4 = "";
+                        model.title3 = "";
+                        model.text5 = "";
+                        model.title4 = "";
+                        model.text6 = "";
+                        model.title5 = "";
+                        model.text7 = "";
+                        model.title6 = "";
+                        model.text8 = "";
+                        model.title7 = "";
+                        model.image3 = R.drawable.map_location;
+                        model.text9 = "";
+                        model.title8 = "";
+                        model.text10 = "";
+                        model.image4 = R.drawable.map_location;
+                        model.text11 = "";
+                        model.image5 = R.drawable.map_location;
+                        model.text12 = "";
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
+
+                        intent = new Intent(context, ItenerariesDetails.class);
+                        context.startActivity(intent);
+                    } else if (position == 7) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.la_prairie_2;
                         model.text1 = "While driving down Mauritius' lovely southern coastline road, it is difficult not to be captivated by the little beach of La Prairie. The short grass that grows all the way to the water's edge gives the area its name and contributes to its allure. There are plenty of quaint little locations to escape the crowd, and the vast lagoon is just a feast to the eyes. Located in the southwest region of Mauritius, Prairie Beach is close to the community of Baie-du-Cap. It is one of Mauritius' many beaches in the Savanne region.";
                         model.title1 = "";
                         model.image1 = R.drawable.la_prairie_1;
-                        model.text2 ="Nestled between the charming village of Baie-du-Cap and Le Morne, la Prairie is a wonderful spot to see the famous Le Morne Brabant mountain. Usually, the beach is not crowded during weekdays, but it can get pretty busy on weekends and holidays.<br>" +
+                        model.text2 = "Nestled between the charming village of Baie-du-Cap and Le Morne, la Prairie is a wonderful spot to see the famous Le Morne Brabant mountain. Usually, the beach is not crowded during weekdays, but it can get pretty busy on weekends and holidays.<br>" +
                                 "Although swimming is not recommended because of the strong sea currents, the location is still perfect for picnicking or sunbathing.<br>";
                         model.title2 = "";
                         model.text3 = "";
@@ -2454,15 +2431,14 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
-                }
-                else if (Stash.getString("day").equals("day51")) {
+                } else if (Stash.getString("day").equals("day51")) {
                     if (position == 0) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
@@ -2497,14 +2473,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "Despite being the first shopping mall on the island, Caudan has adeptly adapted to current trends, maintaining its appeal as a modern waterfront mall. Visitors can witness the bustling port activities as large container and cruise ships navigate in and out.";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 1) {
+                    } else if (position == 1) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.aapravasi_ghat_1;
@@ -2533,14 +2508,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 3) {
+                    } else if (position == 3) {
 
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
@@ -2570,14 +2544,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "Until 1839, the Chateau de Mon Plaisir featured a modest structure characterized by a flat roof and circular verandahs. The current single-story building, constructed by the English in the mid-19th century, has been designated as a National Monument, giving it legal protection. Visitors can enjoy a charming panorama of the Moka Range and the Peak of Pieter Both from the Chateau.";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 2) {
+                    } else if (position == 2) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.port_louis_4;
@@ -2606,14 +2579,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 4) {
+                    } else if (position == 4) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.grand_baie_1;
@@ -2642,15 +2614,14 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "For those seeking an underwater adventure, glass-bottom boat trips offer a glimpse into the marine world, but for a truly unique experience, embark on a journey with a two-person submarine to cruise beneath the surface alongside tropical fish.";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
-                }
-                else if (Stash.getString("day").equals("day52")) {
+                } else if (Stash.getString("day").equals("day52")) {
                     if (position == 0) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
@@ -2680,14 +2651,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 1) {
+                    } else if (position == 1) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.chamarel_1;
@@ -2716,14 +2686,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 2) {
+                    } else if (position == 2) {
 
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
@@ -2753,14 +2722,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 3) {
+                    } else if (position == 3) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.rhumerie_de_chamarel_1;
@@ -2802,14 +2770,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 4) {
+                    } else if (position == 4) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.tamarin_3;
@@ -2852,15 +2819,14 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
-                }
-                else if (Stash.getString("day").equals("day53")) {
+                } else if (Stash.getString("day").equals("day53")) {
                     if (position == 0) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
@@ -2890,14 +2856,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "•\t<b>Walk with Lions:</b> Take a stroll alongside lions with expert guides ensuring safety.<br>" + "•\t<b>Interaction with Big Cats:</b> Get up close with lions, cheetahs, and caracals under supervision.<br>" + "•\t<b>Drive Thru:</b> A 45-minute drive to observe lions in their natural habitat.<br>" + "•\t<b>E-Bike Safari:</b> Explore the safari park on eco-friendly electric bikes.<br>" + "•\t<b>Segway Trip:</b> Discover the Yemen Nature Reserve Park on a Segway.<br>" + "•\t<b>Safari Quad Biking:</b> Navigate the park's hills, valleys, and rivers on quad bikes.<br>" + "•\t<b>Camel Riding:</b> Enjoy a camel ride through Casela park.<br>";
                         model.image5 = R.drawable.casela_3;
                         model.text12 = "<b>History</b><br>" + "Casela World of Adventures originated in December 1979 as a bird sanctuary and has evolved into a must-see attraction in Mauritius. Throughout the years, the park has continually expanded its array of adventures, from quad biking and bus safari trips to unforgettable encounters with big cats, traversing a Nepalese bridge, and ziplining above trees and canyons.<br>" + "Today, visitors can engage in activities such as feeding giraffes, interacting with brightly colored lorikeets and pygmy hippos, exploring the hilly landscape on camelback, fishing for tilapias, and embarking on a fun e-bike safari trip around the park.<br>" + "<b>Conservation</b><br>" + "Remaining true to its founding vision, Casela World of Adventures is actively committed to the conservation and protection of endangered species. In February 2015, the park gained notoriety with Her Royal Highness Princess Stephanie of Monaco becoming its patron. Princess Stephanie, renowned for her dedication to elephant protection in Asia, wholeheartedly supported the conservation efforts of Mauritius' leading visitor attraction.<br>";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 1) {
+                    } else if (position == 1) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.la_preneuse_4;
@@ -2926,14 +2891,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 2) {
+                    } else if (position == 2) {
 
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
@@ -2975,14 +2939,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 3) {
+                    } else if (position == 3) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.le_morne_1;
@@ -2993,10 +2956,11 @@ public class ItenerariesAdapter extends BaseAdapter {
                                 "The distinctive and fragile ecosystem of Le Morne Brabant Mountain harbors numerous endemic plant species, some of which are among the rarest in the world.<br>";
                         model.title1 = "";
                         model.image1 = R.drawable.brabant_6;
-                        model.text2 = "The flora is exceptionally varied, encompassing 73 out of the 311 species of flowering plants that are exclusive to Mauritius. Among these, the L’Immortelle Du Morne, or Helichrysum Mauritianum, stands out as an endemic species found specifically on the mountain.";      model.title2 = "About the Rum of Rhumerie de Chamarel ";
+                        model.text2 = "The flora is exceptionally varied, encompassing 73 out of the 311 species of flowering plants that are exclusive to Mauritius. Among these, the L’Immortelle Du Morne, or Helichrysum Mauritianum, stands out as an endemic species found specifically on the mountain.";
+                        model.title2 = "About the Rum of Rhumerie de Chamarel ";
                         model.text3 = "";
                         model.image2 = R.drawable.brabant_8;
-                        model.text4 ="The International Slave Route Monument is a tangible representation of the historical impact of slavery in Mauritius and globally. The central monument is encircled by nine smaller stone sculptures, symbolizing the origins and destinations of enslaved individuals.";
+                        model.text4 = "The International Slave Route Monument is a tangible representation of the historical impact of slavery in Mauritius and globally. The central monument is encircled by nine smaller stone sculptures, symbolizing the origins and destinations of enslaved individuals.";
                         model.title3 = "";
                         model.text5 = "";
                         model.title4 = "";
@@ -3017,14 +2981,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                                 "Archaeological investigations uncovered evidence of a 19th-20th century settlement, Macaque, at the foot of Le Morne Brabant, likely associated with the Labonté and Béguinot families from Madagascar.<br>";
                         model.image5 = R.drawable.brabant_9;
                         model.text12 = "An abandoned cemetery, identified in a remote area beneath the mountain, dates back to the 19th century, with archaeological findings suggesting a connection to individuals of Malagasy and Mozambican origin.";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 4) {
+                    } else if (position == 4) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.flic_en_flac_3;
@@ -3061,15 +3024,15 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
-                }
-                else if (Stash.getString("day").equals("day54")) {                     if (position == 0) {
+                } else if (Stash.getString("day").equals("day54")) {
+                    if (position == 0) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.mahebourg;
@@ -3098,14 +3061,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 1) {
+                    } else if (position == 1) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.mahebourg_museum_2;
@@ -3134,14 +3096,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 2) {
+                    } else if (position == 2) {
 
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
@@ -3171,56 +3132,54 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "•\t<b>Unique Classification in Mauritius:</b> Designated a Marine Park under the Wildlife and National Parks Act 1993, a protected zone in 2000 under the Fisheries and Marine Act 1998 and recognized as a Ramsar Convention site in 2008. Mooring buoys are strategically placed to minimize damage to corals by boat anchors";
                         model.image5 = R.drawable.blue_bay_8;
                         model.text12 = "•\t<b>Outdoor Activities Available to All:</b> Glass-bottom boat trips and snorkeling are popular activities, allowing non-swimmers to explore the marine environment through the glass bottom. Snorkeling conditions are ideal, and Coco Island, visible from the beach, serves as a relaxing spot for snorkelers under casuarina trees. Operators provide drop-off and pick-up services.";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 3) {
+                    } else if (position == 3) {
 
-                    BeacModel model = new BeacModel();
-                    model.title = textView.getText().toString();
-                    model.main_image = R.drawable.gris_gris_1;
-                    model.text1 = "The primary beach area features an expansive green field with a commanding view of dramatic cliffs and enormous waves. There are benches and a pavilion available for relaxation while taking in the scenery.\n" +
-                            "To the left, a concrete staircase descends to the beach, but swimming is strongly discouraged due to the high danger level. The powerful waves can swiftly overwhelm swimmers. Instead, enjoy a leisurely stroll along the beach, heading toward a small cave at the far end.\n";
-                    model.title1 = "Secret Caves at Gris Gris";
-                    model.image1 = R.drawable.grisgris_2;
-                    model.text2 = "In addition to the cave on the far left side of the beach, two other hidden caves can be discovered at Gris Gris. These are more challenging to reach, involving a descent down a cliff and walking through the water.\n" +
-                            "Caution is advised against going all the way down, as water levels can fluctuate unpredictably, and the current is often too strong.\n" +
-                            "For those eager to explore the secret caves at Gris Gris, head towards the cliff's edge directly across from the parking lot. Upon reaching the spot, descend only about halfway to catch a glimpse of the caves on your right.\n" +
-                            "It's important to bear in mind that entering the caves could pose risks if the water level rises!\n" +
-                            "Gris Gris beach is intricately connected to the village of Souillac, which relies heavily on tourism for its revenue. Established 200 years ago as a port for ships sailing from Europe to India, Souillac has a rich history worth exploring. Plan your day strategically to make the most of your visit to the southern part of Mauritius, and consider including a visit to Rochester Falls, just outside the village, renowned for its distinctive rectangular-sided rocks.\n" + "The name \"Gris Gris\" adds an intriguing dimension to the experience. Upon entering the beach, a large sign displays the history behind the name. According to local tradition, \"Gris Gris\" is linked to the African amulet known as the “Gris Gris” and its association with the tumultuous coastline. However, the story takes an unexpected turn, suggesting that Gris Gris might have been the name of a puppy belonging to a French cartographer who visited the coast in 1753.<br>";
-                    model.title2 = "";
-                    model.text3 = "";
-                    model.image2 = R.drawable.map_location;
-                    model.text4 = "";
-                    model.title3 = "";
-                    model.text5 = "";
-                    model.title4 = "";
-                    model.text6 = "";
-                    model.title5 = "";
-                    model.text7 = "";
-                    model.title6 = "";
-                    model.text8 = "";
-                    model.title7 = "";
-                    model.image3 = R.drawable.map_location;
-                    model.text9 = "";
-                    model.title8 = "";
-                    model.text10 = "";
-                    model.image4 = R.drawable.map_location;
-                    model.text11 = "";
-                    model.image5 = R.drawable.map_location;
-                    model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        BeacModel model = new BeacModel();
+                        model.title = textView.getText().toString();
+                        model.main_image = R.drawable.gris_gris_1;
+                        model.text1 = "The primary beach area features an expansive green field with a commanding view of dramatic cliffs and enormous waves. There are benches and a pavilion available for relaxation while taking in the scenery.\n" +
+                                "To the left, a concrete staircase descends to the beach, but swimming is strongly discouraged due to the high danger level. The powerful waves can swiftly overwhelm swimmers. Instead, enjoy a leisurely stroll along the beach, heading toward a small cave at the far end.\n";
+                        model.title1 = "Secret Caves at Gris Gris";
+                        model.image1 = R.drawable.grisgris_2;
+                        model.text2 = "In addition to the cave on the far left side of the beach, two other hidden caves can be discovered at Gris Gris. These are more challenging to reach, involving a descent down a cliff and walking through the water.\n" +
+                                "Caution is advised against going all the way down, as water levels can fluctuate unpredictably, and the current is often too strong.\n" +
+                                "For those eager to explore the secret caves at Gris Gris, head towards the cliff's edge directly across from the parking lot. Upon reaching the spot, descend only about halfway to catch a glimpse of the caves on your right.\n" +
+                                "It's important to bear in mind that entering the caves could pose risks if the water level rises!\n" +
+                                "Gris Gris beach is intricately connected to the village of Souillac, which relies heavily on tourism for its revenue. Established 200 years ago as a port for ships sailing from Europe to India, Souillac has a rich history worth exploring. Plan your day strategically to make the most of your visit to the southern part of Mauritius, and consider including a visit to Rochester Falls, just outside the village, renowned for its distinctive rectangular-sided rocks.\n" + "The name \"Gris Gris\" adds an intriguing dimension to the experience. Upon entering the beach, a large sign displays the history behind the name. According to local tradition, \"Gris Gris\" is linked to the African amulet known as the “Gris Gris” and its association with the tumultuous coastline. However, the story takes an unexpected turn, suggesting that Gris Gris might have been the name of a puppy belonging to a French cartographer who visited the coast in 1753.<br>";
+                        model.title2 = "";
+                        model.text3 = "";
+                        model.image2 = R.drawable.map_location;
+                        model.text4 = "";
+                        model.title3 = "";
+                        model.text5 = "";
+                        model.title4 = "";
+                        model.text6 = "";
+                        model.title5 = "";
+                        model.text7 = "";
+                        model.title6 = "";
+                        model.text8 = "";
+                        model.title7 = "";
+                        model.image3 = R.drawable.map_location;
+                        model.text9 = "";
+                        model.title8 = "";
+                        model.text10 = "";
+                        model.image4 = R.drawable.map_location;
+                        model.text11 = "";
+                        model.image5 = R.drawable.map_location;
+                        model.text12 = "";
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 4) {
+                    } else if (position == 4) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.la_roche_qui_pleure;
@@ -3243,7 +3202,7 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text8 = "";
                         model.title7 = "";
                         model.image3 = R.drawable.map_location;
-                        model.text9 ="";
+                        model.text9 = "";
                         model.title8 = "";
                         model.text10 = "";
                         model.image4 = R.drawable.map_location;
@@ -3251,14 +3210,13 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
 
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }
-                    else if (position == 5) {
+                    } else if (position == 5) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.maconde_1;
@@ -3289,20 +3247,20 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
-                    }      else if (position == 6) {
+                    } else if (position == 6) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
                         model.main_image = R.drawable.la_prairie_2;
                         model.text1 = "While driving down Mauritius' lovely southern coastline road, it is difficult not to be captivated by the little beach of La Prairie. The short grass that grows all the way to the water's edge gives the area its name and contributes to its allure. There are plenty of quaint little locations to escape the crowd, and the vast lagoon is just a feast to the eyes. Located in the southwest region of Mauritius, Prairie Beach is close to the community of Baie-du-Cap. It is one of Mauritius' many beaches in the Savanne region.";
                         model.title1 = "";
                         model.image1 = R.drawable.la_prairie_1;
-                        model.text2 ="Nestled between the charming village of Baie-du-Cap and Le Morne, la Prairie is a wonderful spot to see the famous Le Morne Brabant mountain. Usually, the beach is not crowded during weekdays, but it can get pretty busy on weekends and holidays.<br>" +
+                        model.text2 = "Nestled between the charming village of Baie-du-Cap and Le Morne, la Prairie is a wonderful spot to see the famous Le Morne Brabant mountain. Usually, the beach is not crowded during weekdays, but it can get pretty busy on weekends and holidays.<br>" +
                                 "Although swimming is not recommended because of the strong sea currents, the location is still perfect for picnicking or sunbathing.<br>";
                         model.title2 = "";
                         model.text3 = "";
@@ -3325,15 +3283,14 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.text11 = "";
                         model.image5 = R.drawable.map_location;
                         model.text12 = "";
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);
                     }
-                }
-                else if (Stash.getString("day").equals("day55")) {
+                } else if (Stash.getString("day").equals("day55")) {
                     if (position == 0) {
                         BeacModel model = new BeacModel();
                         model.title = textView.getText().toString();
@@ -3370,9 +3327,9 @@ public class ItenerariesAdapter extends BaseAdapter {
                         model.image5 = R.drawable.ile_aux_cerfs_3;
                         model.text12 = "Ile aux Cerfs has several dining establishments, including a charming beachside restaurant. Additionally, two bars are available for visitors seeking refreshing beverages or cocktails at reasonable prices. An alternative is to bring ample food and drinks to suit your preferences.";
 
-                        model.lat=latitudes[position];
-                        model.lng=longitudes[position];
-                       Stash.put("model", model);
+                        model.lat = latitudes[position];
+                        model.lng = longitudes[position];
+                        Stash.put("model", model);
 
                         intent = new Intent(context, ItenerariesDetails.class);
                         context.startActivity(intent);

@@ -19,7 +19,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.fxn.stash.Stash;
 import com.moutamid.sqlapp.R;
 import com.moutamid.sqlapp.activities.Beaches.BeachDetails;
+import com.moutamid.sqlapp.activities.Iteneraries.ItinerariesActivity;
 import com.moutamid.sqlapp.activities.MyTripsActivity;
+import com.moutamid.sqlapp.helper.Constants;
 import com.moutamid.sqlapp.model.BeacModel;
 import com.moutamid.sqlapp.model.DatabaseHelper;
 import com.moutamid.sqlapp.offlinemap.DistanceCalculator;
@@ -136,9 +138,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             }
         });
 
+
         holder.map.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+            if (Stash.getBoolean(Constants.IS_PREMIUM, false) == true) {
                 Stash.put("map_lat", beacModel.lat);
                 Stash.put("map_lng", beacModel.lng);
                 Stash.put("map_name", beacModel.title);
@@ -147,6 +152,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 intent.putExtra("map_lat", beacModel.lat);
                 intent.putExtra("map_lng", beacModel.lng);
                 context.startActivity(intent);
+            } else {
+                ItinerariesActivity.premium_layout.setVisibility(View.VISIBLE);
+            }
             }
         });
 

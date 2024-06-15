@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
@@ -13,10 +15,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.fxn.stash.Stash;
 import com.moutamid.sqlapp.R;
+import com.moutamid.sqlapp.activities.AppInfo.AppInfoActivity;
+import com.moutamid.sqlapp.activities.ContactUs.ContactUsActivity;
 import com.moutamid.sqlapp.activities.DashboardActivity;
+import com.moutamid.sqlapp.activities.Iteneraries.ItinerariesActivity;
+import com.moutamid.sqlapp.activities.MyTripsActivity;
+import com.moutamid.sqlapp.activities.Organizer.OrganizerActivity;
+import com.moutamid.sqlapp.activities.TravelTipsActivity;
 import com.moutamid.sqlapp.adapter.ExploreAdapter;
 
 public class ExploreDetailsActivity extends AppCompatActivity {
+    LinearLayout more_layout;
     private String[] itemName;
     private int[] itemImages;
     private double[] itemLatitudes;
@@ -53,22 +62,64 @@ public class ExploreDetailsActivity extends AppCompatActivity {
     }
 
     public void menu(View view) {
-        PopupMenu popupMenu = new PopupMenu(this, view);
-        popupMenu.getMenuInflater().inflate(R.menu.menu, popupMenu.getMenu());
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+        more_layout = findViewById(R.id.more_layout);
+        ImageView menu = findViewById(R.id.menu);
+        ImageView close = findViewById(R.id.close);
+        menu.setVisibility(View.GONE);
+        more_layout.setVisibility(View.VISIBLE);
+        close.setVisibility(View.VISIBLE);
+        close.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                if ((item.getItemId() == R.id.menu_item_1)) {
-                    startActivity(new Intent(ExploreDetailsActivity.this, DashboardActivity.class));
-                    finishAffinity();
-                }
-                return true;
+            public void onClick(View v) {
+                menu.setVisibility(View.VISIBLE);
+                more_layout.setVisibility(View.GONE);
+                close.setVisibility(View.GONE);
             }
         });
-        popupMenu.show();
     }
 
     public void BackPress(View view) {
         onBackPressed();
+    }
+
+    public void explore(View view) {
+        startActivity(new Intent(ExploreDetailsActivity.this, ExploreActivity.class));
+    }
+
+    public void my_trips(View view) {
+        startActivity(new Intent(ExploreDetailsActivity.this, MyTripsActivity.class));
+    }
+
+    public void iternties(View view) {
+        startActivity(new Intent(ExploreDetailsActivity.this, ItinerariesActivity.class));
+
+    }
+
+    public void organier(View view) {
+        startActivity(new Intent(ExploreDetailsActivity.this, OrganizerActivity.class));
+    }
+
+    public void contact_us(View view) {
+        startActivity(new Intent(ExploreDetailsActivity.this, ContactUsActivity.class));
+    }
+
+
+    public void tips(View view) {
+        startActivity(new Intent(ExploreDetailsActivity.this, TravelTipsActivity.class));
+
+    }
+
+    public void about(View view) {
+        startActivity(new Intent(ExploreDetailsActivity.this, AppInfoActivity.class));
+
+    }
+
+    public void login(View view) {
+        findViewById(R.id.login_layout).setVisibility(View.VISIBLE);
+    }
+
+    public void home(View view) {
+        startActivity(new Intent(ExploreDetailsActivity.this, DashboardActivity.class));
+
     }
 }

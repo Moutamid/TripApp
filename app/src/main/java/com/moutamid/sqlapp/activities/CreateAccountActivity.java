@@ -1,6 +1,7 @@
 package com.moutamid.sqlapp.activities;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -13,9 +14,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.fxn.stash.Stash;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.moutamid.sqlapp.R;
+import com.moutamid.sqlapp.helper.Constants;
 
 public class CreateAccountActivity extends AppCompatActivity {
 
@@ -33,7 +36,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         reEnterPasswordEditText = findViewById(R.id.re_enter_password);
         TextView saveButton = findViewById(R.id.save_btn);
         saveButton.setOnClickListener(this::registerUser);
-      ImageView togglePasswordVisibility = findViewById(R.id.toggle_password_visibility);
+        ImageView togglePasswordVisibility = findViewById(R.id.toggle_password_visibility);
 
         togglePasswordVisibility.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +72,8 @@ public class CreateAccountActivity extends AppCompatActivity {
                 // Move the cursor to the end of the text
                 reEnterPasswordEditText.setSelection(reEnterPasswordEditText.getText().length());
             }
-        });}
+        });
+    }
 
     public void registerUser(View view) {
         String name = nameEditText.getText().toString().trim();
@@ -96,6 +100,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
                         updateUI(user);
+                        Stash.put(Constants.IS_PREMIUM, true);
                     } else {
                         Toast.makeText(CreateAccountActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                         updateUI(null);
@@ -105,8 +110,9 @@ public class CreateAccountActivity extends AppCompatActivity {
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-            Toast.makeText(this, "Registration successful!", Toast.LENGTH_SHORT).show();
             finish();
+            Toast.makeText(this, "Registration successful!", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, DashboardActivity.class));
         } else {
             Toast.makeText(this, "Registration failed.", Toast.LENGTH_SHORT).show();
         }

@@ -96,4 +96,7 @@ dependencies {
     implementation("com.google.firebase:firebase-database:19.3.0")
     implementation("com.google.android.gms:play-services-auth:20.1.0")
     implementation("com.facebook.android:facebook-android-sdk:15.2.0")
+    implementation("com.github.smarteist:autoimageslider:1.4.0")
+
+    implementation("com.android.billingclient:billing:5.1.0")
     }
