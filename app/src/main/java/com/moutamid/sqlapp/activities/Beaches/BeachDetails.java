@@ -421,12 +421,12 @@ public class BeachDetails extends AppCompatActivity {
         faq_txt = findViewById(R.id.faq_txt);
         text1 = findViewById(R.id.text111);
         text2 = findViewById(R.id.text112);
-        faq_txt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                faq_layout.setVisibility(View.VISIBLE);
-            }
-        });
+//        faq_txt.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                faq_layout.setVisibility(View.VISIBLE);
+//            }
+//        });
         billingClient = BillingClient.newBuilder(this)
                 .enablePendingPurchases()
                 .setListener(

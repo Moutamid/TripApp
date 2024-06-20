@@ -66,6 +66,7 @@ public class DashboardActivity extends AppCompatActivity {
     public static TextView faq_txt, text1, text2;
     private static String PRODUCT_PREMIUM = "lifetime";
     private BillingClient billingClient;
+    private BillingClient billingClient1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,13 +156,13 @@ public class DashboardActivity extends AppCompatActivity {
         faq_txt = findViewById(R.id.faq_txt);
         text1 = findViewById(R.id.text1);
         text2 = findViewById(R.id.text2);
-        faq_txt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                faq_layout.setVisibility(View.VISIBLE);
-            }
-        });
-        billingClient = BillingClient.newBuilder(this)
+//        faq_txt.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                faq_layout.setVisibility(View.VISIBLE);
+//            }
+//        });
+        billingClient1 = BillingClient.newBuilder(this)
                 .enablePendingPurchases()
                 .setListener(
                         (billingResult, list) -> {
